@@ -548,6 +548,40 @@ body>.shell{padding-bottom:calc(125px + env(safe-area-inset-bottom,0px))!importa
  opacity:.68!important;filter:none!important;
 }
 </style>
+
+<style id="nvs-v15-3-mobile-layout-approved">
+/* Approved V15.3: presentation only. No routing, auth or business handlers changed. */
+.nvs-quick-role-slot #nvsOpenLibrary .nvs-quick-icon{background:linear-gradient(135deg,#0759b8,#00bbd5)!important;border-radius:12px!important;box-shadow:0 5px 12px rgba(0,102,180,.2)!important;color:white!important;display:grid!important;place-items:center!important}
+.nvs-quick-role-slot #nvsOpenLibrary .nvs-quick-icon i{color:#fff!important;filter:none!important;text-shadow:none!important}
+.nvs-v10-ticker-window{min-width:0!important}
+@media(max-width:720px){
+ .user-card{display:grid!important;grid-template-columns:minmax(0,1fr) 90px!important;align-items:center!important;gap:8px!important;padding:11px!important;min-height:0!important}
+ .user-card .user-info{min-width:0!important;width:100%!important;align-items:center!important;gap:8px!important}
+ .user-card .user-avatar{flex-shrink:0!important}
+ .user-card .user-name{font-size:clamp(15px,4.3vw,21px)!important;line-height:1.2!important}
+ .user-card .user-meta{font-size:clamp(10px,2.5vw,12px)!important;gap:3px 8px!important}
+ .nvs-v14-role-action{grid-column:2!important;grid-row:1!important;flex:none!important;width:90px!important;min-width:0!important;align-self:center!important}
+ .nvs-v14-role-action #nvsOpenRemind{height:98px!important;min-height:98px!important;padding:6px 3px!important;border-radius:15px!important}
+ .nvs-v14-role-action #nvsOpenRemind .nvs-quick-icon i{font-size:25px!important}
+ .nvs-v14-role-action #nvsOpenRemind strong{font-size:11px!important;line-height:1.2!important}
+ .nvs-v10-ticker{height:auto!important;min-height:40px!important;padding:7px 10px!important;overflow:visible!important}
+ .nvs-v10-ticker-window{white-space:normal!important;overflow:visible!important}
+ #nvsV10TickerText{display:block!important;white-space:normal!important;padding-left:0!important;transform:none!important;animation:none!important;font-size:clamp(12px,3.2vw,15px)!important;line-height:1.35!important;will-change:auto!important}
+ .nvs-chooser{padding:13px 9px 16px!important;margin-bottom:0!important}
+ .nvs-chooser .nvs-two-gates{gap:9px!important;margin-top:10px!important}
+ .nvs-chooser .nvs-gate-wrap{padding-top:0!important}
+ .nvs-chooser .nvs-gate{height:clamp(190px,52vw,230px)!important;min-height:0!important;gap:10px!important;padding:12px 6px!important}
+ .nvs-chooser .nvs-gate-icon{width:clamp(62px,17vw,76px)!important;height:clamp(62px,17vw,76px)!important;font-size:clamp(32px,9vw,42px)!important}
+ .nvs-premium-nav{position:relative!important;inset:auto!important;left:auto!important;bottom:auto!important;transform:none!important;margin:15px auto calc(12px + env(safe-area-inset-bottom,0px))!important;width:calc(100% - 24px)!important;max-width:490px!important;z-index:3!important}
+ .nvs-premium-nav button,.nvs-premium-nav a{min-height:68px!important}
+}
+@media(max-width:370px){
+ .user-card{grid-template-columns:minmax(0,1fr) 78px!important}
+ .nvs-v14-role-action{width:78px!important}
+ .nvs-v14-role-action #nvsOpenRemind{height:90px!important;min-height:90px!important}
+ .nvs-chooser .nvs-gate{height:190px!important}
+}
+</style>
 </head>
 <body>
 
@@ -1170,7 +1204,7 @@ if(!slot||!roleSlot||!remind||!library)return;
 // Reuse original nodes and handlers; preserve Kho VB for all roles.
 slot.appendChild(library);roleSlot.appendChild(remind);
 remind.innerHTML='<span class="nvs-quick-icon"><i class="bi bi-clipboard2-check-fill" aria-hidden="true"></i></span><strong>Nhắc nhở<br>công vụ</strong>';
-library.innerHTML='<span class="nvs-quick-icon"><i class="bi bi-folder2-open" aria-hidden="true"></i></span><strong>Kho VB</strong>';
+library.innerHTML='<span class="nvs-quick-icon"><i class="bi bi-folder" aria-hidden="true"></i></span><strong>Kho VB</strong>';
 function fold(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase()}
 function allowed(){let u={};try{u=JSON.parse(localStorage.getItem('user')||sessionStorage.getItem('user')||'{}')||{}}catch(_){ }
 const role=fold([u.vaiTro,u.role,u.vaiTroKiemNhiem].join(' ')),job=fold([u.chucVu,u.viTriViecLam,u['Vị trí việc làm']].join(' '));
