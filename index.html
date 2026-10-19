@@ -532,6 +532,22 @@ body>.shell{padding-bottom:calc(125px + env(safe-area-inset-bottom,0px))!importa
 .dtht-auth-box{background:rgba(246,253,255,.94)!important;backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.95)!important;box-shadow:0 24px 65px rgba(0,28,93,.26)!important}
 @media(max-width:720px){.dtht-auth:not(.hidden){background-position:62% center!important}.dtht-auth-box{max-width:calc(100vw - 32px)!important;box-sizing:border-box!important}}
 </style>
+<!-- V15.2: ONLY replace the two-menu backdrop. No navigation or auth changes. -->
+<style id="nvs-v152-digital-menu-only">
+.nvs-chooser{
+ background:radial-gradient(ellipse at 52% 112%,rgba(67,240,255,.54),transparent 47%),
+ radial-gradient(circle at 9% 78%,rgba(10,220,255,.35),transparent 34%),
+ radial-gradient(circle at 94% 20%,rgba(39,190,255,.30),transparent 37%),
+ linear-gradient(125deg,#063b9e 0%,#096bd4 53%,#03b6dd 100%)!important;
+}
+.nvs-chooser::before{
+ background:repeating-linear-gradient(90deg,transparent 0 79px,rgba(122,235,255,.10) 80px 81px),
+ repeating-linear-gradient(0deg,transparent 0 79px,rgba(122,235,255,.075) 80px 81px),
+ repeating-linear-gradient(126deg,transparent 0 115px,rgba(180,251,255,.085) 116px 117px),
+ radial-gradient(ellipse at 50% 100%,rgba(159,255,255,.28),transparent 57%)!important;
+ opacity:.68!important;filter:none!important;
+}
+</style>
 </head>
 <body>
 
