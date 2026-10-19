@@ -1446,6 +1446,39 @@ ws.addEventListener('change',updatePresets);preset.addEventListener('change',()=
 window.NVS_AI_V4_init=(u,context)=>{currentUser=u||{};greet(currentUser);populateSubjects(currentUser);const role=val(currentUser,['chucVu','viTriViecLam','role']).toLowerCase();ws.value=/cuộc họp|điều hành/i.test(context||'')||/hiệu trưởng|tổ trưởng|tổ phó/.test(role)?'quanly':/giáo viên/.test(role)?'chuyenmon':/nhân viên|văn thư|kế toán|giáo vụ|thư viện|y tế|bảo vệ|tạp vụ/.test(role)?'congviec':'chung';updatePresets()};
 })();</script>
 
+
+<!-- V4.3.1: select arrow đồng bộ NVS, không thay đổi hành vi. -->
+<style id="nvs-ai-select-arrow-v431">
+#nvsAiPanel .nvs-ai-personal select:not([hidden]),
+#nvsAiPanel #nvsAiContext:not([hidden]) {
+  -webkit-appearance:none!important;
+  -moz-appearance:none!important;
+  appearance:none!important;
+  box-sizing:border-box!important;
+  padding:0 53px 0 15px!important;
+  height:43px!important;
+  min-height:43px!important;
+  border:1.5px solid #b7d8f0!important;
+  border-radius:12px!important;
+  color:#154d7b!important;
+  font-weight:700!important;
+  background-color:#fff!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='32' viewBox='0 0 34 32'%3E%3Crect width='34' height='32' rx='9' fill='%23e9f5ff'/%3E%3Cpath d='m11 13 6 6 6-6' fill='none' stroke='%23076bb8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;
+  background-size:34px 32px!important;
+  background-position:right 5px center!important;
+  box-shadow:0 2px 8px rgba(17,91,155,.06)!important;
+  cursor:pointer!important;
+  transition:border-color .18s,box-shadow .18s!important;
+}
+#nvsAiPanel .nvs-ai-personal select:not([hidden]):hover,
+#nvsAiPanel #nvsAiContext:not([hidden]):hover{border-color:#72b6e9!important;box-shadow:0 3px 12px rgba(17,91,155,.12)!important}
+#nvsAiPanel .nvs-ai-personal select:not([hidden]):focus-visible,
+#nvsAiPanel #nvsAiContext:not([hidden]):focus-visible{outline:none!important;border-color:#1686d5!important;box-shadow:0 0 0 3px rgba(22,134,213,.17)!important}
+#nvsAiPanel .nvs-ai-personal select::-ms-expand{display:none}
+@media(max-width:600px){#nvsAiPanel .nvs-ai-personal select:not([hidden]){font-size:12px!important;padding-right:49px!important}}
+</style>
+
 <!-- V4.3 Premium Chat: chỉ cải thiện giao diện và thao tác nhập; giữ nguyên API/Backend. -->
 <style id="nvs-ai-v43-premium-chat">
 #nvsAiOverlay{padding:clamp(8px,2vw,24px);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);background:rgba(4,24,52,.72)}
