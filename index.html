@@ -1340,5 +1340,19 @@ body>.shell{width:min(1180px,calc(100% - 12px))!important;min-width:0!important;
 }
 @media(max-width:360px){.nvs-quick{gap:4px!important}.nvs-quick>.nvs-quick-card,.nvs-quick-role-slot>#nvsOpenLibrary{padding:8px 1px!important}}
 </style>
+<style id="nvs-v16-3-library-rounded-icon">
+/* Vá duy nhất biểu tượng Kho VB: bo góc đồng bộ với 3 nút còn lại. */
+.nvs-quick-role-slot #nvsOpenLibrary .nvs-quick-icon{
+  border-radius:13px!important;overflow:hidden!important;
+  background:linear-gradient(140deg,#0960b9,#04b9d6)!important;
+}
+.nvs-quick-role-slot #nvsOpenLibrary .nvs-quick-icon>i.bi-folder2-open{
+  border-radius:inherit!important;background:transparent!important;
+  box-shadow:none!important;overflow:hidden!important;
+}
+@media(max-width:720px){
+ .nvs-quick-role-slot #nvsOpenLibrary .nvs-quick-icon{border-radius:10px!important}
+}
+</style>
 </body>
 </html>
