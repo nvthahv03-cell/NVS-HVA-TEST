@@ -58,47 +58,56 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
 }
 @media(max-width:720px){#sections{display:block}}
 </style>
+<style id="nvs-v20-1-crisp-tiles">
+/* V_20.1: sharper cards; original header, auth and navigation remain intact. */
+.tile{background:#edf7ff!important;border:1px solid #bddaf1!important;box-shadow:0 3px 8px rgba(8,67,122,.10)!important;backdrop-filter:none!important;transition:transform .18s,border-color .18s,box-shadow .18s}
+.tile:hover{background:#e3f2ff!important;border-color:#2493e1!important;box-shadow:0 7px 16px rgba(8,75,140,.17)!important;transform:translateY(-2px)}
+.tile-title{color:#083b70!important;text-shadow:none!important}
+.tile-icon{box-shadow:0 3px 8px rgba(7,88,163,.19)!important}
+.subgroup-title{font-size:14px;font-weight:850;letter-spacing:.2px;color:#145b96;margin:18px 0 12px;padding:10px 13px;border-left:4px solid #168fdb;background:#f1f8ff;border-radius:0 10px 10px 0}
+#sections>.section:first-child>.grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#sections>.section:first-child>.grid+.subgroup-title{margin-top:24px}
+@media(max-width:720px){#sections>.section:first-child>.grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.subgroup-title{font-size:12px;margin-top:16px}}
+.nvs-version{font-weight:700;color:#37658f;margin-top:5px}
+</style>
 </head>
 <body>
 <header class="hero"><div class="orb" aria-hidden="true"></div><div class="container hero-inner"><div class="topline"><div class="identity"><span class="emblem" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7M9 9h.01M15 9h.01"/></svg></span><div class="brand">TRƯỜNG THPT HÒA VANG<br>CỔNG NGHIỆP VỤ SỐ</div></div><a class="back" href="./index.html" aria-label="Quay về trang chính Cổng Nghiệp vụ số">← Trang chính NVS</a></div><div class="hero-copy"><div class="eyebrow">Không gian quản trị · Điều hành</div><h1>BAN GIÁM HIỆU – ĐIỀU HÀNH</h1><p>Điều hành chuyên môn · Chuyển đổi số · AI hỗ trợ quản lý</p></div></div></header>
-<main class="container main"><div class="panel"><div class="panel-top"><div><h2 class="panel-title">Điều hành NVS</h2><p class="panel-sub">3 phân hệ: 10 nghiệp vụ điều hành, 6 chức năng CSDL ngành và 7 chức năng Quản trị nghiệp vụ. Các chức năng chờ kết nối được ghi rõ.</p></div><span id="count" class="count">3 phân hệ</span></div><div class="toolbar"><label class="search-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input class="search" id="search" type="search" placeholder="Tìm nghiệp vụ, CSDL ngành, tổng hợp..." autocomplete="off" aria-label="Tìm chức năng điều hành"></label></div><div id="sections"></div><div id="empty" class="empty">Không tìm thấy chức năng phù hợp.</div></div></main>
-<footer>© 2026 Trường THPT Hòa Vang. Bảo lưu mọi quyền.</footer>
+<main class="container main"><div class="panel"><div class="panel-top"><div><h2 class="panel-title">Điều hành NVS</h2><p class="panel-sub">3 phân hệ · 21 chức năng: Điều hành (9), CSDL ngành (6), Quản trị nghiệp vụ (6). Chức năng chưa kết nối được ghi rõ.</p></div><span id="count" class="count">3 phân hệ</span></div><div class="toolbar"><label class="search-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input class="search" id="search" type="search" placeholder="Tìm nghiệp vụ, CSDL ngành, tổng hợp..." autocomplete="off" aria-label="Tìm chức năng điều hành"></label></div><div id="sections"></div><div id="empty" class="empty">Không tìm thấy chức năng phù hợp.</div></div></main>
+<footer>© 2026 Trường THPT Hòa Vang. Bảo lưu mọi quyền.<div class="nvs-version">NVS | Phiên bản V_20.1 · 20/10/2026</div></footer>
 <div id="modal" class="overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc" aria-hidden="true"><div class="dialog"><div class="dialog-symbol" aria-hidden="true">✦</div><h2 id="modalTitle"></h2><p id="modalDesc"></p><div class="dialog-actions"><button type="button" id="modalClose">Đóng</button></div></div></div>
 <script>
 'use strict';
-/* Danh mục điều hành V8; module HTML mới là bản giao diện V1, chưa xác nhận luồng phát hành Backend. */
+/* NVS V_20.1 · 20/10/2026 · UI only; backend not yet validated. */
 const iconPaths={megaphone:'<path d="M3 11v2a2 2 0 0 0 2 2h2l2 5h3l-2-5h2l8 4V5l-8 4H5a2 2 0 0 0-2 2Z"/><path d="M20 9a3 3 0 0 1 0 6"/>',task:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6M9 10h6M9 14h6M9 18h4"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 14h3M14 14h3M8 18h3"/>',meeting:'<circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M17 14a5 5 0 0 1 4 5v1"/>',survey:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/>',vote:'<rect x="3" y="10" width="18" height="11" rx="2"/><path d="m9 5 3-3 4 4-3 3M7 15h10"/>',progress:'<path d="M3 20h18M6 17V9M12 17V4M18 17v-6"/>',folder:'<path d="M3 7a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v9H3Z"/><path d="m9 14 2 2 4-4"/>',chart:'<path d="M3 3v18h18M7 17v-5M12 17V7M17 17v-9"/>',history:'<path d="M3 12a9 9 0 1 0 3-7M3 4v5h5M12 7v5l4 2"/>',assistant:'<path d="m12 2 2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2ZM19 18l.8 1.2L21 20l-1.2.8L19 22l-.8-1.2L17 20l1.2-.8Z"/>'};
 const groups=[
-{name:'1. NGHIỆP VỤ ĐIỀU HÀNH',items:[
- ['Cuộc họp','Tạo cuộc họp, thành phần, điểm danh, biên bản và kết luận','meeting','teal'],
+{name:'1. NGHIỆP VỤ ĐIỀU HÀNH',subgroups:[
+ {name:'1.1. CHỈ ĐẠO – ĐIỀU HÀNH',items:[
+ ['Cuộc họp','Tạo cuộc họp, điểm danh, biên bản và kết luận','meeting','teal'],
  ['Thông báo – Phát hành','Soạn và phát hành thông báo theo phân quyền','megaphone','blue'],
  ['Giao nhiệm vụ','Giao việc, thời hạn và theo dõi tiến độ','task','violet'],
- ['Lịch công tác HVA','Lịch công tác nhà trường và lịch cá nhân','calendar','cyan'],
- ['Phân công chuyên môn','Phân công giảng dạy và điều chỉnh theo thẩm quyền','task','blue'],
- ['Phân công dạy thay','Điều phối giáo viên dạy thay và xử lý đề nghị','history','teal'],
- ['Phân công coi KT/Thi','Phân công coi kiểm tra, coi thi và dự phòng','calendar','violet'],
- ['Phân công khác','Phân công nhân sự, kiêm nhiệm và hoạt động đột xuất','meeting','cyan'],
+ ['Lịch công tác HVA','Lịch nhà trường và lịch cá nhân','calendar','cyan'],
  ['Bình chọn','Bình chọn, biểu quyết và tổng hợp ý kiến','vote','cyan'],
- ['Khảo sát','Tạo câu hỏi, phát hành khảo sát và xem kết quả','survey','blue']
-]},
+ ['Khảo sát','Phát hành khảo sát và xem kết quả','survey','blue']]},
+ {name:'1.2. PHÂN CÔNG – ĐIỀU PHỐI',items:[
+ ['Phân công chuyên môn','Phân công giảng dạy','task','blue'],
+ ['Phân công dạy thay','Điều phối giáo viên dạy thay','history','teal'],
+ ['Phân công khác','Coi kiểm tra/thi, dự giờ, trực trường và các phân công khác','meeting','cyan']]}]},
 {name:'2. CSDL NGÀNH',items:[
  ['Dữ liệu chuyển lên','Lưu bản dữ liệu gửi CSDL ngành theo đợt','folder','cyan'],
  ['Dữ liệu tải về','Lưu dữ liệu xuất từ CSDL ngành','folder','teal'],
  ['CSDL giáo viên – nhân viên','Tra cứu hồ sơ GV, NV','meeting','blue'],
  ['CSDL học sinh','Tra cứu dữ liệu học sinh','meeting','cyan'],
- ['Đối chiếu dữ liệu','Đối chiếu bản lưu và dữ liệu tải về','history','violet'],
- ['Lịch sử cập nhật','Theo dõi các đợt cập nhật','history','teal']
-]},
+ ['Đối chiếu dữ liệu','Đối chiếu dữ liệu theo đợt','history','violet'],
+ ['Lịch sử cập nhật','Theo dõi các đợt cập nhật','history','teal']]},
 {name:'3. QUẢN TRỊ NGHIỆP VỤ',items:[
  ['Hồ sơ nghiệp vụ','Tra cứu hồ sơ tác nghiệp','folder','violet'],
- ['Nhân sự – Tổ chuyên môn','Theo dõi theo tổ và cá nhân','meeting','blue'],
  ['Danh mục nghiệp vụ','Danh mục toàn bộ nghiệp vụ NVS','task','cyan'],
  ['Tiến độ – Quá hạn','Theo dõi hạn xử lý','history','teal'],
  ['Lịch sử tác nghiệp','Truy xuất nhật ký nghiệp vụ','history','violet'],
  ['Thống kê – Báo cáo','Tổng hợp và xuất báo cáo','chart','blue'],
- ['Nguồn dữ liệu – Phân quyền','Nguồn sheet và quyền truy cập','folder','cyan']
-]}];;
-const NVS_VISIBLE_ITEMS=new Set(groups.flatMap(g=>g.items.map(i=>i[0])));
+ ['Nguồn dữ liệu – Phân quyền','Nguồn dữ liệu và quyền truy cập','folder','cyan']]}];
+const NVS_VISIBLE_ITEMS=new Set(groups.flatMap(g=>(g.subgroups?g.subgroups.flatMap(s=>s.items):g.items).map(i=>i[0])));
 /* Đường dẫn tương đối: đặt 7 HTML cùng thư mục DieuHanh.html. */
 const MODULE_LINKS={
  'Cuộc họp':'./CuocHop.html',
@@ -119,7 +128,6 @@ const NVS_SUBMENU_ROUTES={
  'Đối chiếu dữ liệu':'./NVS_CSDL_Nganh_V1_XemTruoc.html#compare',
  'Lịch sử cập nhật':'./NVS_CSDL_Nganh_V1_XemTruoc.html#history',
  'Hồ sơ nghiệp vụ':'./NVS_QuanTri_Full_V1.html#records',
- 'Nhân sự – Tổ chuyên môn':'./NVS_QuanTri_Full_V1.html#people',
  'Danh mục nghiệp vụ':'./NVS_QuanTri_Full_V1.html#modules',
  'Tiến độ – Quá hạn':'./NVS_QuanTri_Full_V1.html#deadlines',
  'Lịch sử tác nghiệp':'./NVS_QuanTri_Full_V1.html#audit',
@@ -132,7 +140,21 @@ function guardNVS(){const token=localStorage.getItem('hvaSessionToken')||session
 const sections=document.getElementById('sections'),search=document.getElementById('search'),modal=document.getElementById('modal');let previousFocus=null;
 function svg(name){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+iconPaths[name]+'</svg>'}
 function normalize(t){return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d')}
-function render(){let shown=0;const q=normalize(search.value.trim());sections.replaceChildren();groups.forEach((group,g)=>{const matches=group.items.filter(item=>NVS_VISIBLE_ITEMS.has(item[0])&&normalize(item[0]+' '+item[1]).includes(q));if(!matches.length)return;shown+=matches.length;const section=document.createElement('section');section.className='section';const head=document.createElement('div');head.className='section-head';head.innerHTML='<span class="section-index">'+String(g+1).padStart(2,'0')+'</span><h2></h2><span class="section-line"></span>';head.querySelector('h2').textContent=group.name;const grid=document.createElement('div');grid.className='grid';matches.forEach(item=>{const b=document.createElement('button');b.type='button';b.className='tile';b.dataset.tone=item[3];b.innerHTML='<span class="tile-icon">'+svg(item[2])+'</span><span class="tile-title"></span>';b.querySelector('.tile-title').textContent=item[0];b.addEventListener('click',()=>openModule(item[0]));grid.appendChild(b)});section.append(head,grid);sections.appendChild(section)});document.getElementById('count').textContent=shown+' / '+NVS_VISIBLE_ITEMS.size+' chức năng';document.getElementById('empty').style.display=shown?'none':'block'}
+function render(){
+ let shown=0;const q=normalize(search.value.trim());sections.replaceChildren();
+ function addTiles(parent,items){const grid=document.createElement('div');grid.className='grid';items.forEach(item=>{const b=document.createElement('button');b.type='button';b.className='tile';b.dataset.tone=item[3];b.innerHTML='<span class="tile-icon">'+svg(item[2])+'</span><span class="tile-title"></span>';b.querySelector('.tile-title').textContent=item[0];b.addEventListener('click',()=>openModule(item[0]));grid.appendChild(b)});parent.appendChild(grid)}
+ groups.forEach((group,g)=>{
+  const buckets=group.subgroups||[{name:'',items:group.items}];
+  const matches=buckets.map(bucket=>({...bucket,items:bucket.items.filter(item=>NVS_VISIBLE_ITEMS.has(item[0])&&normalize(item[0]+' '+item[1]+' '+bucket.name).includes(q))})).filter(bucket=>bucket.items.length);
+  if(!matches.length)return;
+  shown+=matches.reduce((sum,b)=>sum+b.items.length,0);
+  const section=document.createElement('section');section.className='section';
+  const head=document.createElement('div');head.className='section-head';head.innerHTML='<span class="section-index">'+String(g+1)+'</span><h2></h2><span class="section-line"></span>';head.querySelector('h2').textContent=group.name;section.appendChild(head);
+  matches.forEach(bucket=>{if(bucket.name){const sub=document.createElement('h3');sub.className='subgroup-title';sub.textContent=bucket.name;section.appendChild(sub)}addTiles(section,bucket.items)});
+  sections.appendChild(section)
+ });
+ document.getElementById('count').textContent=shown+' / '+NVS_VISIBLE_ITEMS.size+' chức năng';document.getElementById('empty').style.display=shown?'none':'block'
+}
 function openModule(name){if(!canManageNVS(getNVSUser())){alert('Chỉ Ban Giám hiệu được truy cập Điều hành.');return;}if(NVS_SUBMENU_ROUTES[name]||MODULE_LINKS[name]){const token=localStorage.getItem('hvaSessionToken')||sessionStorage.getItem('hvaSessionToken');const expiry=Number(localStorage.getItem('hvaSessionExpiresAt')||sessionStorage.getItem('hvaSessionExpiresAt'));if(!token||!Number.isFinite(expiry)||expiry<=Date.now()){alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');location.href='./index.html';return;}location.href=NVS_SUBMENU_ROUTES[name]||MODULE_LINKS[name];return;}previousFocus=document.activeElement;document.getElementById('modalTitle').textContent=name;document.getElementById('modalDesc').textContent=name==='Hệ thống tổng hợp nghiệp vụ'?'Chức năng tổng hợp cần Backend đọc dữ liệu từ các sheet nghiệp vụ, chuẩn hóa trạng thái, phân quyền, lọc và xuất báo cáo. Chưa kết nối dữ liệu thực tế; không hiển thị số liệu giả.':'Chức năng '+name+' đang chờ xác nhận đường dẫn triển khai và quyền truy cập. Chưa hỗ trợ thao tác hoặc ghi dữ liệu.';modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.getElementById('modalClose').focus()}
 function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');if(previousFocus)previousFocus.focus()}
 document.getElementById('modalClose').addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal()});if(guardNVS()){search.addEventListener('input',render);render();}
