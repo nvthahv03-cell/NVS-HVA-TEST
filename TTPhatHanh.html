@@ -2575,6 +2575,30 @@ return;
                 if(!token)throw new Error('Phiên NVS hết hạn. Đăng nhập lại.');
                 if(!Array.isArray(raw.recipients)||!raw.recipients.length)throw new Error('Chưa có danh sách BGH và GV.');
                 result=await PublishEngine.postToBackend({action:'publishPhanCongDe',sessionToken:token,document:TTDHS_State.document,recipients:raw.recipients,signProof:raw.signProof});
+            } else if (String(TTDHS_State.document?.moduleSource || '').toLowerCase() === 'binhchon') {
+                const raw = TTDHS_State.rawSource || {};
+                if (raw.pollPublishedId) throw new Error('Bình chọn này đã phát hành (mã: '+raw.pollPublishedId+'). Không gửi lại.');
+                const draft = raw.data || {};
+                const fields = draft.fields || {};
+                const recipients = Array.isArray(raw.recipients) ? raw.recipients : [];
+                const token = String(localStorage.getItem('hvaSessionToken') || '').trim();
+                if (!token) throw new Error('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.');
+                if (!recipients.length) throw new Error('Chưa có người nhận bình chọn.');
+                if (!Array.isArray(draft.options) || draft.options.length < 2) throw new Error('Chưa đủ phương án bình chọn.');
+                // Không gọi publishDocument: Bình chọn chỉ được ghi một lần qua publishPoll.
+                const published = await fetch(CONFIG.SCRIPT_URL, {
+                    method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
+                    body:JSON.stringify({action:'publishPoll',sessionToken:token,
+                        fields,options:draft.options,recipients})
+                });
+                if (!published.ok) throw new Error('HTTP ' + published.status);
+                const pollResult = await published.json();
+                if (pollResult.ok !== true) throw new Error(pollResult.message || 'Chưa phát hành được bình chọn.');
+                result = {...pollResult, success:true};
+                // Không cho phát hành lại cùng bản dự thảo từ màn hình điều phối.
+                TTDHS_State.rawSource = {...raw, pollPublishedId:pollResult.pollId};
+                StorageEngine.save(CONFIG.STORAGE_KEYS.CURRENT_DOC, TTDHS_State.rawSource);
+                if (btn) btn.disabled = true;
             } else if (isMeeting) {
                 const raw = TTDHS_State.rawSource || {};
                 const data = raw.data || TTDHS_State.document?.data || {};
