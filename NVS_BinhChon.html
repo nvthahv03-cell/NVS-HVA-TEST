@@ -299,6 +299,19 @@
 .hva-pro-header .hva-pro-online{white-space:nowrap}
 @media(max-width:720px){.hva-pro-header .hva-pro-header-inner{grid-template-columns:38px minmax(0,1fr) 95px;gap:5px}.hva-pro-header .hva-pro-online{display:flex;font-size:8px;padding:0 6px;min-width:0}.hva-pro-header .hva-pro-school{font-size:14px}.hva-pro-header .hva-pro-kicker{font-size:7px}.hva-pro-header .hva-pro-slogan{font-size:8px}}
 @media(max-width:420px){.hva-pro-header .hva-pro-header-inner{grid-template-columns:36px minmax(0,1fr) 22px}.hva-pro-header .hva-pro-online{width:12px;height:12px;padding:0;border:0;background:transparent;box-shadow:none;font-size:0;overflow:hidden}.hva-pro-header .hva-pro-online-dot{width:10px;height:10px;flex:0 0 10px}}
+</style><style id="hva-binhchon-identity-layout-v2">
+/* Nhãn NVS sát nút quay lại; tài khoản đăng nhập ở đầu phải. */
+.hva-pro-header .hva-pro-header-inner{grid-template-columns:58px 170px minmax(0,1fr) 205px!important;gap:12px!important}
+.hva-binhchon-left-status{display:flex;justify-content:flex-start;min-width:0}
+.hva-binhchon-left-status .hva-pro-online{display:inline-flex!important;align-items:center;gap:6px;white-space:nowrap;font-size:10px;padding:9px 10px}
+.hva-pro-header .hva-pro-tools{justify-content:flex-end!important;min-width:0}
+.hva-binhchon-user{display:flex;align-items:center;gap:9px;max-width:205px;color:#fff;min-width:0}
+.hva-binhchon-avatar{width:39px;height:39px;flex:0 0 39px;border-radius:50%;background:#fff;color:#0870ac;display:grid;place-items:center;font-size:21px}
+.hva-binhchon-user-details{display:flex;flex-direction:column;min-width:0;text-align:left;line-height:1.25}
+.hva-binhchon-user-details strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:850}
+.hva-binhchon-user-details small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;color:#e5f4ff;margin-top:3px}
+@media(max-width:850px){.hva-pro-header .hva-pro-header-inner{grid-template-columns:42px 110px minmax(0,1fr) 145px!important;gap:6px!important}.hva-binhchon-left-status .hva-pro-online{font-size:8px;padding:7px 6px}.hva-binhchon-user{gap:5px}.hva-binhchon-avatar{width:29px;height:29px;flex-basis:29px;font-size:16px}.hva-binhchon-user-details strong{font-size:10px}.hva-binhchon-user-details small{font-size:9px}}
+@media(max-width:600px){.hva-pro-header .hva-pro-header-inner{grid-template-columns:38px 20px minmax(0,1fr) 115px!important;gap:5px!important}.hva-binhchon-left-status .hva-pro-online{border:0;background:transparent;box-shadow:none;padding:0;font-size:0}.hva-binhchon-left-status .hva-pro-online span:last-child{display:none}.hva-binhchon-user-details small{display:none}.hva-binhchon-avatar{width:25px;height:25px;flex-basis:25px}.hva-binhchon-user-details strong{font-size:9px}}
 </style></head><body data-mod="BinhChon"><header class="hva-pro-header">
   <div class="hva-pro-header-inner">
 
@@ -309,6 +322,7 @@
             title="Quay lại">
       <i class="bi bi-arrow-left"></i>
     </button>
+    <div class="hva-pro-online-wrap hva-binhchon-left-status"><div class="hva-pro-online" title="Hệ thống đang trực tuyến"><span class="hva-pro-online-dot"></span><span>TRỰC TUYẾN HVA</span></div></div>
 
     <div class="hva-pro-brand">
 <span class="hva-pro-divider" aria-hidden="true"></span>
@@ -321,11 +335,10 @@
     </div>
 
     <div class="hva-pro-tools">
-      <span id="identity" class="hva-binhchon-identity" title="Tài khoản đang đăng nhập" aria-label="Người đăng nhập"></span>
-      <div class="hva-pro-online-wrap"><div class="hva-pro-online" title="Hệ thống đang trực tuyến">
-        <span class="hva-pro-online-dot"></span>
-        <span>TRỰC TUYẾN&nbsp; HVA</span>
-      </div></div>
+      <div class="hva-binhchon-user" title="Tài khoản đang đăng nhập">
+        <span class="hva-binhchon-avatar"><i class="bi bi-person-fill"></i></span>
+        <span class="hva-binhchon-user-details"><strong id="identity">Đang xác định…</strong><small id="identityRole"></small></span>
+      </div>
     </div>
 
   </div>
@@ -338,7 +351,7 @@ let groups=[],people=new Map(),chosen=new Map(),proposal=null,rec=null,voiceWant
 function status(s){$('status').textContent=s;}
 function getUser(){try{return window.HVAPersonnel?.currentUser?.()||JSON.parse(localStorage.getItem('user')||sessionStorage.getItem('user')||'{}')}catch(_){return {}}}
 function token(){try{return localStorage.getItem('hvaSessionToken')||sessionStorage.getItem('hvaSessionToken')||''}catch(_){return ''}}
-function userInit(){const u=getUser();const el=$('identity');if(el){const name=String(u.hoTen||u.hoten||u.fullName||u.name||u.username||'').trim();const role=String(u.chucVu||u.viTriViecLam||u.role||'').trim();el.textContent=name||'Chưa xác định tài khoản';el.title=[name,role].filter(Boolean).join(' · ');}}
+function userInit(){const u=getUser();const el=$('identity');if(el){const name=String(u.hoTen||u.hoten||u.fullName||u.name||u.username||'').trim();const role=String(u.chucVu||u.viTriViecLam||u.role||'').trim();el.textContent=name||'Chưa xác định tài khoản';el.title=[name,role].filter(Boolean).join(' · ');const roleEl=$('identityRole');if(roleEl)roleEl.textContent=role;}}
 function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function allMembers(g){return (g.members||[]).map(p=>{const id=String(p.username||p.maGV||p.id||'');return {...p,id,hoTen:p.hoTen||p.hoten||p.name||'',tenTo:p.tenTo||g.name||g.tenTo||''}}).filter(p=>p.id)}
 function count(){const groupNames=new Set([...chosen.values()].map(p=>p.tenTo));$('count').textContent=groupNames.size+' nhóm · '+chosen.size+' người';$('chips').replaceChildren();for(const [id,p] of chosen){const chip=document.createElement('span');chip.className='chip';chip.textContent=p.hoTen+' · '+p.tenTo;const b=document.createElement('button');b.type='button';b.textContent='×';b.setAttribute('aria-label','Bỏ '+p.hoTen);b.onclick=()=>{chosen.delete(id);renderPeople()};chip.append(b);$('chips').append(chip)}}
