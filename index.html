@@ -932,10 +932,59 @@ document.addEventListener('DOMContentLoaded', initPortal);
  const cards=[...document.querySelectorAll('[data-nvs-quick]')];
  const sections={
   work:'',
-  survey:'<h3><i class="bi bi-clipboard-data-fill"></i> KHẢO SÁT – BÌNH CHỌN</h3><p class="nvs-quick-note">Giao diện đã sẵn sàng. Các khảo sát, bình chọn và báo cáo sẽ được hiển thị khi có API được xác nhận.</p>'
+  survey:''
  };
  let notices=[],loaded=false,loading=null,noticeError='';
  let myTasks=[],workLoaded=false,workLoading=null,workError='';
+
+ let polls=[],pollLoaded=false,pollLoading=null,pollError='',activePoll=null,activePollId='';
+ function renderPolls(){
+  let h='<h3><i class="bi bi-clipboard-data-fill"></i> KHẢO SÁT – BÌNH CHỌN</h3>';
+  if(pollError)h+='<p class="nvs-quick-note" role="alert" style="color:#b42332">'+esc(pollError)+'</p>';
+  else if(!pollLoaded)h+='<p class="nvs-quick-note">Đang tải bình chọn được giao...</p>';
+  else if(!polls.length)h+='<p class="nvs-quick-note">Chưa có bình chọn nào được giao cho tài khoản này.</p>';
+  else h+=polls.map(p=>'<article style="padding:13px 2px;border-top:1px solid #dce9f5"><strong style="color:#074b88">'+esc(p.title)+'</strong><div class="nvs-quick-note">Hạn: '+esc(p.deadline?new Date(p.deadline).toLocaleString('vi-VN'):'Chưa xác định')+' · '+(p.voted?'Đã gửi phiếu':p.closed?'Đã hết hạn':'Chưa bình chọn')+'</div><button type="button" data-nvs-poll="'+esc(p.pollId)+'" style="margin-top:8px;padding:9px 14px;border:0;border-radius:10px;background:#076bb7;color:white;font-weight:800;cursor:pointer">'+(p.voted?'Xem phiếu đã gửi':p.closed?'Xem bình chọn':'Tham gia bình chọn')+'</button></article>').join('');
+  detail.innerHTML=h;
+ }
+ async function loadPolls(force){
+  const id=identity();if(!id.token||!id.username){pollError='Vui lòng đăng nhập lại NVS.';pollLoaded=false;renderPolls();return}
+  if(pollLoading)return pollLoading;if(pollLoaded&&!force)return;
+  pollError='';pollLoading=(async()=>{try{
+    const url=new URL(DTHT_STANDALONE_BACKEND);url.searchParams.set('action','listMyPolls');url.searchParams.set('sessionToken',id.token);
+    const res=await fetch(url.toString(),{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);
+    const d=await res.json();if(!d||d.ok!==true||!Array.isArray(d.polls))throw Error(d&&d.message||'API danh sách bình chọn chưa được triển khai.');
+    if(identity().token!==id.token)return;polls=d.polls;pollLoaded=true;pollError='';
+    window.NVS_setQuickCounts({survey:polls.filter(p=>!p.voted&&!p.closed).length});
+  }catch(e){pollLoaded=false;pollError=e.message||'Không thể tải bình chọn.'}
+  finally{pollLoading=null;if(!detail.hidden&&detail.dataset.current==='survey')renderPolls()}})();return pollLoading;
+ }
+ async function openPoll(pollId){
+  const id=identity();activePollId=pollId;activePoll=null;
+  detail.innerHTML='<h3>BÌNH CHỌN</h3><p class="nvs-quick-note">Đang tải nội dung...</p>';
+  try{const url=new URL(DTHT_STANDALONE_BACKEND);url.searchParams.set('action','getPoll');url.searchParams.set('sessionToken',id.token);url.searchParams.set('pollId',pollId);
+    const res=await fetch(url.toString(),{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);
+    const d=await res.json();if(!d||d.ok!==true||!d.poll)throw Error(d&&d.message||'Không đọc được bình chọn.');
+    if(identity().token!==id.token||activePollId!==pollId)return;activePoll=d;
+    const p=d.poll,closed=new Date(p.deadline).getTime()<=Date.now()||p.status!=='ĐÃ PHÁT HÀNH';
+    let h='<button type="button" data-nvs-poll-back style="border:0;background:#e9f5ff;color:#075cad;padding:8px 13px;border-radius:9px;font-weight:800;cursor:pointer">← Danh sách</button><h3 style="margin-top:14px">'+esc(p.title)+'</h3><p class="nvs-quick-note" style="white-space:pre-wrap">'+esc(p.content)+'</p><p class="nvs-quick-note">Hạn: '+esc(new Date(p.deadline).toLocaleString('vi-VN'))+'</p>';
+    h+='<form id="nvsPollVoteForm">'+p.options.map((o,i)=>'<label style="display:flex;align-items:center;gap:10px;margin:9px 0;padding:12px;border:1px solid #c4e0f4;border-radius:11px;background:#f8fcff"><input type="'+(p.selection==='multi'?'checkbox':'radio')+'" name="nvsPollOption" value="'+i+'" '+(d.voted||closed?'disabled':'')+'><span>'+esc(o)+'</span></label>').join('');
+    h+=(d.voted?'<p style="color:#087a54;font-weight:800">Tài khoản đã gửi phiếu; không thể gửi lại.</p>':closed?'<p style="color:#a35a00;font-weight:800">Bình chọn đã hết hạn.</p>':'<button type="submit" style="margin-top:9px;padding:11px 20px;border:0;border-radius:11px;background:#0673c4;color:white;font-weight:800;cursor:pointer">GỬI PHIẾU BÌNH CHỌN</button>')+'</form><p id="nvsPollVoteStatus" role="status" class="nvs-quick-note"></p>';
+    detail.innerHTML=h;
+  }catch(e){detail.innerHTML='<button type="button" data-nvs-poll-back>← Danh sách</button><p role="alert" style="color:#b42332">'+esc(e.message)+'</p>'}
+ }
+ async function sendPollVote(form){
+  if(!activePoll||!activePollId||activePoll.voted)return;
+  const selected=[...form.querySelectorAll('input[name="nvsPollOption"]:checked')].map(x=>Number(x.value));
+  const status=detail.querySelector('#nvsPollVoteStatus');if(!selected.length){status.textContent='Vui lòng chọn phương án.';return}
+  const btn=form.querySelector('button[type="submit"]');btn.disabled=true;status.textContent='Đang gửi phiếu...';
+  try{const res=await fetch(DTHT_STANDALONE_BACKEND,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'submitPollVote',sessionToken:identity().token,pollId:activePollId,selections:selected})});
+    if(!res.ok)throw Error('HTTP '+res.status);const d=await res.json();if(!d||d.ok!==true)throw Error(d&&d.message||'Máy chủ chưa xác nhận phiếu.');
+    status.textContent='Đã ghi nhận phiếu bình chọn.';activePoll.voted=true;form.querySelectorAll('input').forEach(x=>x.disabled=true);btn.remove();pollLoaded=false;await loadPolls(true);
+  }catch(e){status.textContent='Chưa xác nhận gửi phiếu: '+e.message;btn.disabled=false}
+ }
+ detail.addEventListener('click',e=>{const b=e.target.closest('[data-nvs-poll]');if(b&&detail.contains(b))openPoll(b.getAttribute('data-nvs-poll'));if(e.target.closest('[data-nvs-poll-back]')){activePoll=null;activePollId='';renderPolls()}});
+ detail.addEventListener('submit',e=>{if(e.target.id==='nvsPollVoteForm'){e.preventDefault();sendPollVote(e.target)}});
+
  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
  function identity(){
   let u={};try{u=JSON.parse(localStorage.getItem('user')||'{}')}catch(_){}
@@ -1074,6 +1123,7 @@ document.addEventListener('DOMContentLoaded', initPortal);
   detail.dataset.current=key;detail.hidden=false;
   if(key==='notice'){renderNotice();loadNotices(true);}
   else if(key==='work'){renderWork();loadWork(true);}
+  else if(key==='survey'){renderPolls();loadPolls(true);}
   else detail.innerHTML=sections[key]||'';
  }
  window.NVS_setQuickCounts=function(counts){
