@@ -346,7 +346,26 @@ function save(){try{const d=validate(collect());localStorage.setItem(KEY,JSON.st
 function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d)return status('Chưa có bản nháp trên thiết bị.');for(const [k,v] of Object.entries(d.fields||{})){const n=$(k);if(n){if(n.type==='checkbox')n.checked=!!v;else n.value=v}}if(MOD==='BinhChon'){const root=$('pollOptions');root.replaceChildren();(d.options||['','']).forEach(v=>addOption(root,v))}if(MOD==='KhaoSat'){$('questions').replaceChildren();(d.questions||[]).forEach(addQuestion)}chosen.clear();for(const id of d.recipients||[]){const p=people.get(id);if(p)chosen.set(id,p)}renderPeople();status('Đã khôi phục nội dung nháp. Nếu nhân sự chưa tải, hãy nạp nhân sự để khôi phục người nhận.')}catch(e){status('Không mở được nháp: '+e.message)}}
 function preview(){try{const d=validate(collect());$('previewText').textContent='BÌNH CHỌN – BIỂU QUYẾT\n\n'+d.fields.tieuDe+'\n\n'+(d.fields.noiDung||'')+'\n\n'+d.options.map((x,i)=>(i+1)+'. '+x).join('\n')+'\n\nHình thức: '+(d.fields.luaChon==='multi'?'Chọn nhiều':'Chọn một')+'\nHạn: '+(d.fields.han||'Chưa đặt')+'\nSố người nhận: '+d.recipients.length+'\nẨn danh: '+(d.fields.anDanh?'Có':'Không');$('previewModal').classList.add('open')}catch(e){status(e.message)}}
 function reset(){if(!confirm('Hủy toàn bộ nội dung đang nhập?'))return;for(const id of defs[MOD]){const n=$(id);if(n.type==='checkbox')n.checked=false;else n.value=''}chosen.clear();if(MOD==='BinhChon'){$('pollOptions').replaceChildren();addOption($('pollOptions'));addOption($('pollOptions'))}if(MOD==='KhaoSat'){$('questions').replaceChildren();addQuestion()}renderPeople();status('Đã xóa nội dung trên form; bản nháp lưu trước đó không bị xóa.')}
-async function publish(){const b=$('publishBtn');try{const d=validate(collect(),true);if(!d.fields.han)throw Error('Cần nhập hạn kết thúc bình chọn.');if(!token())throw Error('Phiên đăng nhập không có, vui lòng đăng nhập lại.');if(!confirm('Xác nhận phát hành bình chọn cho '+d.recipients.length+' người?'))return;b.disabled=true;status('Đang phát hành, vui lòng chờ...');const res=await fetch(WEB_APP_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'publishPoll',sessionToken:token(),fields:d.fields,options:d.options,recipients:d.recipients})});if(!res.ok)throw Error('HTTP '+res.status);const result=await res.json();if(result.ok!==true)throw Error(result.message||'Backend chưa hỗ trợ publishPoll. Cần triển khai bản Backend cập nhật.');status((result.warning||result.message||'Đã phát hành.')+' Mã: '+result.pollId+' · '+result.recipientCount+' người nhận.');b.disabled=true;}catch(e){status('CHƯA PHÁT HÀNH: '+e.message)}finally{if(!$('status').textContent.includes('Mã:'))b.disabled=false}}
+function publish(){
+  try {
+    const d=validate(collect(),true);
+    if(!d.fields.han)throw Error('Cần nhập hạn kết thúc bình chọn.');
+    if(!token())throw Error('Phiên đăng nhập không hợp lệ, vui lòng đăng nhập lại.');
+    const recipients=d.recipients.map(x=>String(x).trim().toLowerCase()).filter(Boolean);
+    const current={source:'BinhChon',sourceModule:'BinhChon',moduleSource:'BinhChon',
+      docId:'BC-DRAFT-'+Date.now(),type:'POLL',title:d.fields.tieuDe,
+      summary:d.fields.noiDung||'',author:'NVS',recipients,
+      recipientDetails:recipients.map(username=>({username})),
+      data:{title:d.fields.tieuDe,description:d.fields.noiDung||'',fields:d.fields,
+        options:d.options,recipients,pollDraft:true,objectType:'POLL',
+        questions:[{id:'Q1',text:d.fields.tieuDe,kind:d.fields.luaChon==='multi'?'multi':'poll',options:d.options}],
+        multiPoll:d.fields.luaChon==='multi'},
+      destinations:['KhaoSatBinhChon','ThongBao'],createdAt:new Date().toISOString()};
+    localStorage.setItem('TTDHS_CURRENT_DOC',JSON.stringify(current));
+    status('Đã chuyển bản dự thảo sang Trung tâm Điều phối. Chưa phát hành.');
+    location.href='TTPhatHanh.html';
+  } catch(e){status('CHƯA CHUYỂN ĐIỀU PHỐI: '+e.message)}
+}
 function voice(){if(voiceWanted){voiceWanted=false;try{rec?.stop()}catch(_){}$('voiceBtn').textContent='🎙 NHẬP BẰNG GIỌNG NÓI';return}const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return status('Trình duyệt chưa hỗ trợ nhận dạng giọng nói.');rec=new SR();rec.lang='vi-VN';rec.continuous=true;rec.interimResults=false;voiceWanted=true;$('voiceBtn').textContent='■ DỪNG GHI ÂM';rec.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++){if(!e.results[i].isFinal)continue;let t=e.results[i][0].transcript.trim();const stop=/(?:^|[\s,;.!?])hết[\s.!?]*$/iu.test(t);if(stop)t=t.replace(/(?:^|[\s,;.!?])hết[\s.!?]*$/iu,'').trim();if(t)$('aiPrompt').value+=($('aiPrompt').value?' ':'')+t;if(stop)voice()}};rec.onend=()=>{if(voiceWanted){voiceWanted=false;$('voiceBtn').textContent='🎙 NHẬP BẰNG GIỌNG NÓI';status('Micro đã ngắt; bấm để ghi tiếp.')}};rec.onerror=e=>status('Micro: '+e.error);try{rec.start();status('Đang nghe tiếng Việt; nói “Hết” để dừng.')}catch(e){voiceWanted=false;status(e.message)}}
 function cleanJSON(t){const s=String(t||'').replace(/^```(?:json)?/i,'').replace(/```$/,'').trim();const a=s.indexOf('{'),b=s.lastIndexOf('}');if(a<0||b<=a)throw Error('AI không trả về JSON biểu mẫu.');return JSON.parse(s.slice(a,b+1))}
 function extractPromptField(text,label){const m=text.match(new RegExp('(?:^|\\n)\\s*(?:\\*\\*)?'+label+'(?:\\*\\*)?\\s*[:：]\\s*([^\\n]+)','im'));return m?m[1].replace(/\*\*/g,'').trim():''}
