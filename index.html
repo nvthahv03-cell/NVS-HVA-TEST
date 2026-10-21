@@ -548,6 +548,16 @@ body>.shell{padding-bottom:calc(125px + env(safe-area-inset-bottom,0px))!importa
  opacity:.68!important;filter:none!important;
 }
 </style>
+<style id="nvs-poll-modal-v1">
+.nvs-poll-overlay{position:fixed;inset:0;z-index:19000;background:rgba(3,23,53,.66);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:14px}
+.nvs-poll-overlay.is-open{display:flex}
+.nvs-poll-dialog{width:min(760px,100%);max-height:min(86dvh,820px);display:flex;flex-direction:column;background:#fff;border:1px solid #9ddcff;border-radius:19px;box-shadow:0 26px 70px #001b4470;overflow:hidden}
+.nvs-poll-modal-head{background:linear-gradient(110deg,#063d7b,#0874bd 72%,#06a6c4);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px}
+.nvs-poll-modal-head strong{font-size:16px;font-weight:900}.nvs-poll-modal-close{width:38px;height:38px;flex:none;border:1px solid #ffffff80;background:#ffffff24;border-radius:10px;color:#fff;font-size:23px;cursor:pointer}
+.nvs-poll-dialog #nvsQuickDetail{display:block!important;overflow:auto;flex:1;min-height:0;margin:0;border:0;border-radius:0;box-shadow:none;padding:18px 22px 24px}
+.nvs-quick-card[data-nvs-quick="survey"] .nvs-quick-badge[data-nvs-count="survey"]{background:#ef3348!important;color:#fff!important}
+@media(max-width:600px){.nvs-poll-overlay{padding:7px}.nvs-poll-dialog{max-height:94dvh}.nvs-poll-modal-head{padding:12px 14px}.nvs-poll-dialog #nvsQuickDetail{padding:14px}}
+</style>
 </head>
 <body>
 
@@ -648,6 +658,12 @@ body>.shell{padding-bottom:calc(125px + env(safe-area-inset-bottom,0px))!importa
     <div id="nvsQuickRoleSlot" class="nvs-quick-role-slot" aria-label="Tiện ích theo phân quyền"></div>
   </section>
   <section id="nvsQuickDetail" class="nvs-quick-detail" hidden aria-live="polite"></section>
+  <div id="nvsPollOverlay" class="nvs-poll-overlay" aria-hidden="true">
+    <section class="nvs-poll-dialog" role="dialog" aria-modal="true" aria-labelledby="nvsPollModalTitle">
+      <header class="nvs-poll-modal-head"><strong id="nvsPollModalTitle"><i class="bi bi-clipboard-data-fill"></i> KHẢO SÁT – BÌNH CHỌN</strong><button id="nvsPollModalClose" class="nvs-poll-modal-close" type="button" aria-label="Đóng bảng bình chọn">&times;</button></header>
+      <div id="nvsPollModalBody"></div>
+    </section>
+  </div>
 
   <!-- NVS: HAI CỔNG ĐỘC LẬP, KHÔNG CÒN DANH MỤC CŨ -->
   <section class="nvs-chooser" aria-labelledby="nvs-choose-title">
@@ -929,6 +945,20 @@ document.addEventListener('DOMContentLoaded', initPortal);
 /* NVS quick cards: Thông báo thật; các thẻ khác giữ nguyên. */
 (()=>{
  const detail=document.getElementById('nvsQuickDetail');
+ const pollOverlay=document.getElementById('nvsPollOverlay');
+ const pollModalBody=document.getElementById('nvsPollModalBody');
+ const detailHome=detail.parentElement;
+ const detailAfter=detail.nextSibling;
+ function closePollModal(){
+   if(!pollOverlay.classList.contains('is-open'))return;
+   pollOverlay.classList.remove('is-open');pollOverlay.setAttribute('aria-hidden','true');
+   detailHome.insertBefore(detail,detailAfter);detail.hidden=true;detail.dataset.current='';
+   cards.forEach(c=>c.setAttribute('aria-expanded','false'));
+   document.querySelector('[data-nvs-quick="survey"]')?.focus();
+ }
+ document.getElementById('nvsPollModalClose').addEventListener('click',closePollModal);
+ pollOverlay.addEventListener('click',e=>{if(e.target===pollOverlay)closePollModal()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&pollOverlay.classList.contains('is-open'))closePollModal()});
  const cards=[...document.querySelectorAll('[data-nvs-quick]')];
  const sections={
   work:'',
@@ -1117,13 +1147,20 @@ document.addEventListener('DOMContentLoaded', initPortal);
   if(btn&&detail.contains(btn))markRead(btn.getAttribute('data-nvs-read'),btn);
  });
  function open(key){
+  if(key==='survey'){
+    if(pollOverlay.classList.contains('is-open')){closePollModal();return}
+    detail.hidden=false;detail.dataset.current='survey';pollModalBody.appendChild(detail);
+    pollOverlay.classList.add('is-open');pollOverlay.setAttribute('aria-hidden','false');
+    cards.forEach(c=>c.setAttribute('aria-expanded',String(c.dataset.nvsQuick==='survey')));
+    renderPolls();loadPolls(true);document.getElementById('nvsPollModalClose').focus();return;
+  }
+  if(pollOverlay.classList.contains('is-open'))closePollModal();
   const same=!detail.hidden&&detail.dataset.current===key;
   cards.forEach(c=>c.setAttribute('aria-expanded',String(!same&&c.dataset.nvsQuick===key)));
   if(same){detail.hidden=true;detail.dataset.current='';return}
   detail.dataset.current=key;detail.hidden=false;
   if(key==='notice'){renderNotice();loadNotices(true);}
   else if(key==='work'){renderWork();loadWork(true);}
-  else if(key==='survey'){renderPolls();loadPolls(true);}
   else detail.innerHTML=sections[key]||'';
  }
  window.NVS_setQuickCounts=function(counts){
@@ -1135,15 +1172,15 @@ document.addEventListener('DOMContentLoaded', initPortal);
    const value=counts[key];
    if(!Number.isInteger(value)||value<0){badge.hidden=true;badge.textContent='';continue}
    badge.textContent=value>99?'99+':String(value);
-   badge.hidden=value===0;
+   badge.hidden=key==='survey'?false:value===0;
    badge.setAttribute('aria-label',String(value)+' mục');
   }
  };
  cards.forEach(c=>c.addEventListener('click',()=>open(c.dataset.nvsQuick)));
  document.getElementById('nvsBell')?.addEventListener('click',()=>open('notice'));
  // Đồng bộ khi đăng nhập hoàn tất và khi mở lại trang.
- window.NVS_refreshNotifications=()=>loadNotices(true);
- if(identity().username&&identity().token){loadNotices(false);loadWork(false);}
+ window.NVS_refreshNotifications=()=>{loadNotices(true);loadPolls(true)};
+ if(identity().username&&identity().token){loadNotices(false);loadWork(false);loadPolls(false);}
 })();
 </script>
 
