@@ -119,7 +119,7 @@ const MODULE_LINKS={
  'Bình chọn':'./NVS_BinhChon.html',
  'Khảo sát':'./NVS_KhaoSat.html',
  'Kho dữ liệu CSDL ngành':'./NVS_CSDL_Nganh_V1_XemTruoc.html',
- 'Trung tâm Quản trị NVS':'./NVS_QuanTri_Full_V1.html'
+ 'Trung tâm Quản trị NVS':'./NVS_QuanTri.html'
 };
 const NVS_SUBMENU_ROUTES={
  'Dữ liệu chuyển lên':'./NVS_CSDL_Nganh_V1_XemTruoc.html#outbound',
@@ -128,12 +128,12 @@ const NVS_SUBMENU_ROUTES={
  'CSDL học sinh':'./NVS_CSDL_Nganh_V1_XemTruoc.html#students',
  'Đối chiếu dữ liệu':'./NVS_CSDL_Nganh_V1_XemTruoc.html#compare',
  'Lịch sử cập nhật':'./NVS_CSDL_Nganh_V1_XemTruoc.html#history',
- 'Hồ sơ nghiệp vụ':'./NVS_QuanTri_Full_V1.html#records',
- 'Danh mục nghiệp vụ':'./NVS_QuanTri_Full_V1.html#modules',
- 'Tiến độ – Quá hạn':'./NVS_QuanTri_Full_V1.html#deadlines',
- 'Lịch sử tác nghiệp':'./NVS_QuanTri_Full_V1.html#audit',
- 'Thống kê – Báo cáo':'./NVS_QuanTri_Full_V1.html#reports',
- 'Nguồn dữ liệu – Phân quyền':'./NVS_QuanTri_Full_V1.html#integration'
+ 'Hồ sơ nghiệp vụ':'./NVS_QuanTri.html#records',
+ 'Danh mục nghiệp vụ':'./NVS_QuanTri.html#modules',
+ 'Tiến độ – Quá hạn':'./NVS_QuanTri.html#deadlines',
+ 'Lịch sử tác nghiệp':'./NVS_QuanTri.html#audit',
+ 'Thống kê – Báo cáo':'./NVS_QuanTri.html#reports',
+ 'Nguồn dữ liệu – Phân quyền':'./NVS_QuanTri.html#integration'
 };
 function getNVSUser(){try{return JSON.parse(localStorage.getItem('user')||sessionStorage.getItem('user')||'{}')||{}}catch(_){return {}}}
 function canManageNVS(user){const job=String(user.chucVu||user.viTriViecLam||user['Vị trí việc làm']||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');const role=String(user.vaiTro||user.role||'').toLowerCase();return /hieu truong|pho hieu truong|ban giam hieu/.test(job)||/^(bgh|hieu_truong|pho_hieu_truong|admin|quantri)$/.test(role)}
