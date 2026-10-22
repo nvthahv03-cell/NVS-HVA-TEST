@@ -586,6 +586,29 @@ body>.shell{padding-bottom:calc(125px + env(safe-area-inset-bottom,0px))!importa
 #nvsPollOverlay .nvs-poll-ordinal{font-weight:900}
 @media(max-width:600px){#nvsPollOverlay #nvsQuickDetail{font-size:13px}#nvsPollOverlay #nvsQuickDetail h3{font-size:15px!important}#nvsPollOverlay #nvsQuickDetail .nvs-quick-note{font-size:12px!important}#nvsPollOverlay #nvsQuickDetail label{font-size:13px!important}#nvsPollOverlay .nvs-poll-item-title{font-size:13px}}
 </style>
+
+<style id="nvs-mobile-stability-fix-20261022">
+/* Mobile-only compatibility: no changes to login, API, navigation or data. */
+@media(max-width:720px){
+ html,body{max-width:100%;overflow-x:clip}
+ .hva-pro-header-inner{grid-template-columns:34px minmax(0,1fr) auto!important;min-width:0!important}
+ .hva-pro-brand,.hva-pro-brandtext,.hva-pro-tools{min-width:0!important}
+ .hva-pro-brandtext{width:100%!important}
+ .hva-pro-kicker,.hva-pro-school,.hva-pro-slogan{overflow-wrap:anywhere}
+ .dtht-auth{overflow-y:auto!important;overscroll-behavior:contain;align-items:safe center!important;min-height:100dvh;padding:max(12px,env(safe-area-inset-top,0px)) 12px max(12px,env(safe-area-inset-bottom,0px))!important}
+ .dtht-auth-box{flex:0 0 auto!important;max-height:none!important;margin:auto!important}
+ .nvs-chooser,.nvs-two-gates,.nvs-gate-wrap,.nvs-gate{min-width:0!important}
+ .nvs-gate{touch-action:manipulation}
+ .nvs-premium-nav{max-width:calc(100vw - 12px)}
+ .nvs-menu-panel{max-width:calc(100vw - 16px)}
+}
+@media(max-width:380px){
+ .hva-pro-tools{gap:3px!important}
+ .hva-pro-school{font-size:11px!important}
+ .nvs-header-logout{font-size:8px!important;padding:4px!important}
+ .hva-pro-online{font-size:6px!important;padding:0 4px!important}
+}
+</style>
 </head>
 <body>
 
