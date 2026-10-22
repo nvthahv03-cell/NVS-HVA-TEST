@@ -1820,5 +1820,63 @@ window.NVS_AI_V4_init=(u,context)=>{currentUser=u||{};greet(currentUser);populat
  }
 }
 </style>
+
+<!-- V7: correction of V6 mobile layout regression; presentation only -->
+<style id="nvs-mobile-v7-regression-fix">
+@media(max-width:720px){
+ /* Same grid row height for all four cards, including the role-dependent fourth card. */
+ .nvs-quick{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;align-items:stretch!important;gap:5px!important;margin-top:8px!important}
+ .nvs-quick>.nvs-quick-card,
+ .nvs-quick #nvsQuickRoleSlot,
+ .nvs-quick #nvsQuickRoleSlot>#nvsOpenLibrary,
+ .nvs-quick #nvsQuickRoleSlot>#nvsOpenRemind,
+ .nvs-quick .nvs-quick-role-slot>#nvsOpenLibrary,
+ .nvs-quick .nvs-quick-role-slot>#nvsOpenRemind{
+  box-sizing:border-box!important;min-width:0!important;width:100%!important;
+  height:78px!important;min-height:78px!important;max-height:78px!important;
+  padding:5px 2px!important;margin:0!important;gap:4px!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  overflow:visible!important;border-radius:12px!important;
+ }
+ .nvs-quick #nvsQuickRoleSlot{display:contents!important}
+ .nvs-quick #nvsQuickRoleSlot>[hidden]{display:none!important}
+ .nvs-quick .nvs-quick-icon,.nvs-quick #nvsOpenLibrary .nvs-quick-icon{
+  width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;
+  flex:0 0 32px!important;border-radius:9px!important;
+ }
+ .nvs-quick .nvs-quick-icon>i,.nvs-quick #nvsOpenLibrary .nvs-quick-icon>i{font-size:18px!important}
+ .nvs-quick>.nvs-quick-card>strong,.nvs-quick #nvsOpenLibrary>strong,
+ .nvs-quick #nvsOpenRemind>span{
+  font-size:clamp(9px,2.25vw,11px)!important;line-height:1.15!important;
+  text-align:center!important;overflow-wrap:break-word!important;
+ }
+ /* Remind in the identity card: never crop its caption. */
+ .nvs-v14-role-action{align-self:stretch!important;display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important}
+ .nvs-v14-role-action #nvsOpenRemind{
+  box-sizing:border-box!important;height:auto!important;min-height:78px!important;max-height:none!important;
+  padding:7px 4px!important;gap:4px!important;overflow:visible!important;
+ }
+ .nvs-v14-role-action #nvsOpenRemind::before{width:30px!important;height:30px!important;min-width:30px!important;min-height:30px!important;font-size:17px!important}
+ .nvs-v14-role-action #nvsOpenRemind span,.nvs-v14-role-action #nvsOpenRemind strong{
+  font-size:clamp(9px,2.5vw,12px)!important;line-height:1.16!important;white-space:normal!important;overflow-wrap:break-word!important;
+ }
+ /* Keep the date bar readable instead of truncating a moving long sentence. */
+ .nvs-v10-ticker{min-width:0!important;height:34px!important;padding:0 9px!important;gap:7px!important}
+ .nvs-v10-ticker-window{min-width:0!important;overflow:hidden!important}
+ #nvsV10TickerText{font-size:13px!important;line-height:1.2!important}
+ /* Shorten the portal block without hiding the four bottom actions. */
+ .nvs-chooser .nvs-gate-wrap>.nvs-gate,.nvs-chooser .nvs-gate{
+  height:104px!important;min-height:104px!important;max-height:104px!important;
+  padding:8px 6px!important;gap:5px!important;
+ }
+ .nvs-chooser .nvs-gate-icon{width:32px!important;height:32px!important;font-size:18px!important}
+ .nvs-chooser .nvs-gate strong{font-size:clamp(12px,3vw,15px)!important;line-height:1.15!important}
+ .nvs-chooser{padding:12px 8px!important}
+ .nvs-chooser .nvs-premium-nav{margin-top:10px!important}
+}
+@media(max-width:380px){
+ .nvs-quick>.nvs-quick-card,.nvs-quick #nvsQuickRoleSlot>#nvsOpenLibrary,.nvs-quick #nvsQuickRoleSlot>#nvsOpenRemind{height:82px!important;min-height:82px!important;max-height:82px!important}
+}
+</style>
 </body>
 </html>
