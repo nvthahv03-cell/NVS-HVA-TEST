@@ -1,6 +1,46 @@
 <!DOCTYPE html>
 <html lang="vi" class="bg-slate-50">
 <head>
+<script id="nvs-safe-storage-v3">
+/* Browser may deny access to Window.localStorage (mobile privacy / sandbox).
+   Keep server authentication unchanged; do not bypass token validation. */
+(function(){
+  'use strict';
+  const memory = Object.create(null);
+  function backend(kind){
+    try { const store = window[kind]; const k='__nvs_storage_test__'; store.setItem(k,'1'); store.removeItem(k); return store; }
+    catch (_) { return null; }
+  }
+  const local = backend('localStorage');
+  const session = backend('sessionStorage');
+  function store(preferred){
+    return {
+      getItem(key){
+        const k=String(key);
+        for(const candidate of (preferred==='local'?[local,session]:[session,local])){
+          if(!candidate) continue;
+          try { const value=candidate.getItem(k); if(value!==null) return value; } catch(_){}
+        }
+        return Object.prototype.hasOwnProperty.call(memory,k)?memory[k]:null;
+      },
+      setItem(key,value){
+        const k=String(key),v=String(value);
+        memory[k]=v;
+        const target=preferred==='local'?(local||session):(session||local);
+        if(target){try{target.setItem(k,v)}catch(_){}}
+      },
+      removeItem(key){
+        const k=String(key);delete memory[k];
+        for(const target of [local,session]){if(target){try{target.removeItem(k)}catch(_){}}}
+      }
+    };
+  }
+  window.NVS_localStore=store('local');
+  window.NVS_sessionStore=store('session');
+  window.NVS_storagePersistent=!!(local||session);
+})();
+</script>
+
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
@@ -737,7 +777,7 @@ const DTHT_STANDALONE_BACKEND = 'https://script.google.com/macros/s/AKfycbzTRkdq
 const $ = id => document.getElementById(id);
 
 function currentUser(){
-  try{ return JSON.parse(localStorage.getItem('user') || sessionStorage.getItem('user') || '{}') || {}; }
+  try{ return JSON.parse(NVS_localStore.getItem('user') || NVS_sessionStore.getItem('user') || '{}') || {}; }
   catch(e){ return {}; }
 }
 
@@ -765,8 +805,8 @@ function nvsRenderIdentity(user, username){
 }
 
 function authToken(){
-  const token = String(localStorage.getItem('hvaSessionToken') || sessionStorage.getItem('hvaSessionToken') || '').trim();
-  const expiry = Number(localStorage.getItem('hvaSessionExpiresAt') || sessionStorage.getItem('hvaSessionExpiresAt') || 0);
+  const token = String(NVS_localStore.getItem('hvaSessionToken') || NVS_sessionStore.getItem('hvaSessionToken') || '').trim();
+  const expiry = Number(NVS_localStore.getItem('hvaSessionExpiresAt') || NVS_sessionStore.getItem('hvaSessionExpiresAt') || 0);
   if (!token || !Number.isFinite(expiry) || expiry <= Date.now()) return '';
   return token;
 }
@@ -784,9 +824,12 @@ function logoutHVA(){
 function closeLogoutHVA(){document.getElementById('hvaLogoutModal').classList.remove('is-open')}
 function confirmLogoutHVA(){
   {
-    localStorage.removeItem('user');
-    localStorage.removeItem('hvaSessionToken');
-    localStorage.removeItem('hvaSessionExpiresAt');
+    NVS_localStore.removeItem('user');
+    NVS_localStore.removeItem('hvaSessionToken');
+    NVS_localStore.removeItem('hvaSessionExpiresAt');
+    NVS_sessionStore.removeItem('user');
+    NVS_sessionStore.removeItem('hvaSessionToken');
+    NVS_sessionStore.removeItem('hvaSessionExpiresAt');
     location.reload();
   }
 }
@@ -827,10 +870,10 @@ async function dthtStandaloneLogin(){
       throw new Error((data && (data.thongBao || data.message)) || 'Đăng nhập không thành công.');
     }
 
-    localStorage.setItem('user', JSON.stringify(data.nguoiDung));
-    localStorage.setItem('hvaSessionToken', String(data.sessionToken));
-    localStorage.setItem('hvaSessionExpiresAt', String(data.hetHanLuc));
-    localStorage.setItem('hvaLastUsername', String(data.nguoiDung.tenDangNhap || username));
+    NVS_localStore.setItem('user', JSON.stringify(data.nguoiDung));
+    NVS_localStore.setItem('hvaSessionToken', String(data.sessionToken));
+    NVS_localStore.setItem('hvaSessionExpiresAt', String(data.hetHanLuc));
+    NVS_localStore.setItem('hvaLastUsername', String(data.nguoiDung.tenDangNhap || username));
 
     $('dthtAuth').classList.add('hidden');
     initPortal();
@@ -948,7 +991,7 @@ async function initPortal(){
 
   if(!token || !username){
     $('dthtAuth').classList.remove('hidden');
-    const lastUser = localStorage.getItem('hvaLastUsername') || '';
+    const lastUser = NVS_localStore.getItem('hvaLastUsername') || '';
     if(lastUser) $('dthtLoginUser').value = lastUser;
     return;
   }
@@ -976,7 +1019,7 @@ async function initPortal(){
       cnBadge.hidden = !lop;
       user.lopChuNhiem = lop;
       if(profile.toBoPhan) user.toBoPhan = profile.toBoPhan;
-      localStorage.setItem('user', JSON.stringify(user));
+      NVS_localStore.setItem('user', JSON.stringify(user));
     } else {
       // Không dùng GVCN cache khi Sheet lỗi hoặc chưa trả dữ liệu.
       cnBadge.hidden = true;
@@ -1068,9 +1111,9 @@ document.addEventListener('DOMContentLoaded', initPortal);
 
  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
  function identity(){
-  let u={};try{u=JSON.parse(localStorage.getItem('user')||'{}')}catch(_){}
+  let u={};try{u=JSON.parse(NVS_localStore.getItem('user')||'{}')}catch(_){}
   return {username:String(u.tenDangNhap||u.username||'').trim().toLowerCase(),
-          token:String(localStorage.getItem('hvaSessionToken')||'').trim()};
+          token:String(NVS_localStore.getItem('hvaSessionToken')||'').trim()};
  }
 
  function renderWork(){
@@ -1274,10 +1317,10 @@ document.addEventListener('DOMContentLoaded', initPortal);
 const btn=document.getElementById('nvsOpenRemind'),layer=document.getElementById('nvsRemindOverlay'),frame=document.getElementById('nvsRemindFrame');
 if(!btn||!layer||!frame)return;
 function roleFold(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase();}
-function isBGH(){let u={};try{u=JSON.parse(localStorage.getItem('user')||sessionStorage.getItem('user')||'{}')||{}}catch(_){}
+function isBGH(){let u={};try{u=JSON.parse(NVS_localStore.getItem('user')||NVS_sessionStore.getItem('user')||'{}')||{}}catch(_){}
 const role=roleFold(u.vaiTro||u.role),job=roleFold(u.chucVu||u.viTriViecLam||u['Vị trí việc làm']);
 return /hieu truong|pho hieu truong|ban giam hieu|to truong chuyen mon|ttcm/.test(job+" "+role)||/^(bgh|hieu_truong|pho_hieu_truong|ttcm)$/.test(role);}
-function hasSession(){const token=String(localStorage.getItem('hvaSessionToken')||sessionStorage.getItem('hvaSessionToken')||'').trim();const expiry=Number(localStorage.getItem('hvaSessionExpiresAt')||sessionStorage.getItem('hvaSessionExpiresAt')||0);return !!token&&Number.isFinite(expiry)&&expiry>Date.now();}
+function hasSession(){const token=String(NVS_localStore.getItem('hvaSessionToken')||NVS_sessionStore.getItem('hvaSessionToken')||'').trim();const expiry=Number(NVS_localStore.getItem('hvaSessionExpiresAt')||NVS_sessionStore.getItem('hvaSessionExpiresAt')||0);return !!token&&Number.isFinite(expiry)&&expiry>Date.now();}
 function syncVisibility(){const allowed=hasSession()&&isBGH();btn.hidden=!allowed;btn.style.setProperty('display',allowed?'flex':'none','important');btn.setAttribute('aria-hidden',allowed?'false':'true');if(!allowed&&layer.classList.contains('is-open'))close();return allowed;}
 function close(){layer.classList.remove('is-open');layer.setAttribute('aria-hidden','true');document.body.style.overflow='';if(!btn.hidden)btn.focus();}
 btn.addEventListener('click',function(){if(!syncVisibility())return; if(!frame.getAttribute('src'))frame.setAttribute('src',frame.dataset.src);layer.classList.add('is-open');layer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';});
@@ -1310,9 +1353,9 @@ slot.appendChild(library);roleSlot.appendChild(remind);
 remind.innerHTML='<span class="nvs-quick-icon"><i class="bi bi-clipboard2-check-fill" aria-hidden="true"></i></span><strong>Nhắc nhở<br>công vụ</strong>';
 library.innerHTML='<span class="nvs-quick-icon"><i class="bi bi-folder2-open" aria-hidden="true"></i></span><strong>Kho VB</strong>';
 function fold(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase()}
-function allowed(){let u={};try{u=JSON.parse(localStorage.getItem('user')||sessionStorage.getItem('user')||'{}')||{}}catch(_){ }
+function allowed(){let u={};try{u=JSON.parse(NVS_localStore.getItem('user')||NVS_sessionStore.getItem('user')||'{}')||{}}catch(_){ }
 const role=fold([u.vaiTro,u.role,u.vaiTroKiemNhiem].join(' ')),job=fold([u.chucVu,u.viTriViecLam,u['Vị trí việc làm']].join(' '));
-const token=String(localStorage.getItem('hvaSessionToken')||sessionStorage.getItem('hvaSessionToken')||'').trim(),exp=Number(localStorage.getItem('hvaSessionExpiresAt')||sessionStorage.getItem('hvaSessionExpiresAt')||0);
+const token=String(NVS_localStore.getItem('hvaSessionToken')||NVS_sessionStore.getItem('hvaSessionToken')||'').trim(),exp=Number(NVS_localStore.getItem('hvaSessionExpiresAt')||NVS_sessionStore.getItem('hvaSessionExpiresAt')||0);
 return !!token&&exp>Date.now()&&(/hieu truong|pho hieu truong|ban giam hieu|to truong chuyen mon|ttcm/.test(job+' '+role));}
 function refresh(){const ok=allowed();remind.hidden=!ok;remind.style.setProperty('display',ok?'flex':'none','important');remind.setAttribute('aria-hidden',ok?'false':'true');library.hidden=false;library.style.setProperty('display','flex','important');}
 refresh();window.NVS_refreshRoleQuickSlot=refresh;window.addEventListener('storage',refresh);document.addEventListener('visibilitychange',refresh);
@@ -1524,15 +1567,15 @@ body>.shell{width:min(1180px,calc(100% - 12px))!important;min-width:0!important;
 const contextSelect=document.getElementById('nvsAiContext'),identity=document.getElementById('nvsAiIdentity');
 const overlay=document.getElementById('nvsAiOverlay'),ask=document.getElementById('nvsAiAsk'),question=document.getElementById('nvsAiQuestion'),out=document.getElementById('nvsAiOutput'),status=document.getElementById('nvsAiStatus');let previous=null;
 function close(){overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');previous?.focus()}
-window.NVS_AI_open=function(context){previous=document.activeElement;overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');const label=typeof context==='string'?context:(context&&context.module)||'Nghiệp vụ chung';contextSelect.value=Array.from(contextSelect.options).some(x=>x.value===label)?label:'Nghiệp vụ chung';let user={};try{user=JSON.parse(localStorage.getItem('user')||sessionStorage.getItem('user')||'{}')}catch(_){}identity.textContent=[user.hoTen||'',user.chucVu||user.viTriViecLam||'',user.toBoPhan||''].filter(Boolean).join(' · ');window.NVS_AI_V4_init(user,label);question.focus()};
+window.NVS_AI_open=function(context){previous=document.activeElement;overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');const label=typeof context==='string'?context:(context&&context.module)||'Nghiệp vụ chung';contextSelect.value=Array.from(contextSelect.options).some(x=>x.value===label)?label:'Nghiệp vụ chung';let user={};try{user=JSON.parse(NVS_localStore.getItem('user')||NVS_sessionStore.getItem('user')||'{}')}catch(_){}identity.textContent=[user.hoTen||'',user.chucVu||user.viTriViecLam||'',user.toBoPhan||''].filter(Boolean).join(' · ');window.NVS_AI_V4_init(user,label);question.focus()};
 /* Mở trợ lý theo yêu cầu điều hướng từ module khác, sau khi trang đã tải. */
 try {
  const params=new URLSearchParams(location.search);
  if(params.get('nvs_ai')==='1'){
   const requested=params.get('nvs_context')||'Nghiệp vụ chung';
   const openAfterLogin=()=>{
-   const token=localStorage.getItem('hvaSessionToken')||sessionStorage.getItem('hvaSessionToken');
-   const expiry=Number(localStorage.getItem('hvaSessionExpiresAt')||sessionStorage.getItem('hvaSessionExpiresAt')||0);
+   const token=NVS_localStore.getItem('hvaSessionToken')||NVS_sessionStore.getItem('hvaSessionToken');
+   const expiry=Number(NVS_localStore.getItem('hvaSessionExpiresAt')||NVS_sessionStore.getItem('hvaSessionExpiresAt')||0);
    if(token&&expiry>Date.now())window.NVS_AI_open(requested);
   };
   if(document.readyState==='complete')openAfterLogin();
@@ -1555,7 +1598,7 @@ fileInput.addEventListener('change',async()=>{const f=fileInput.files&&fileInput
 const mic=document.getElementById('nvsAiMic');const Speech=window.SpeechRecognition||window.webkitSpeechRecognition;let recognition=null,listen=false;
 if(Speech){recognition=new Speech();recognition.lang='vi-VN';recognition.continuous=false;recognition.interimResults=false;recognition.onresult=e=>{const v=Array.from(e.results).map(r=>r[0].transcript).join(' ');question.value=(question.value.trim()+' '+v).trim();status.textContent='Đã nhận giọng nói.'};recognition.onerror=e=>{status.textContent='Micro: '+(e.error==='not-allowed'?'chưa được cấp quyền truy cập.':e.error)};recognition.onend=()=>{listen=false;mic.classList.remove('is-listening');mic.textContent='🎙 Micro'}}
 mic.addEventListener('click',()=>{if(!recognition){status.textContent='Trình duyệt này chưa hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome/Edge tương thích.';return}try{if(listen){recognition.stop();return}recognition.start();listen=true;mic.classList.add('is-listening');mic.textContent='■ Dừng';status.textContent='Đang nghe tiếng Việt...'}catch(e){status.textContent='Không khởi động được micro: '+e.message}});
-ask.addEventListener('click',async()=>{const prompt=question.value.trim();if(!prompt){status.textContent='Vui lòng nhập yêu cầu.';return}if(fileInput.files.length&&!attached){status.textContent='Tệp này chưa được Backend hỗ trợ đọc. Vui lòng xóa tệp hoặc dùng TXT/MD/CSV/JSON.';return}const token=String(localStorage.getItem('hvaSessionToken')||sessionStorage.getItem('hvaSessionToken')||'').trim();const expiry=Number(localStorage.getItem('hvaSessionExpiresAt')||sessionStorage.getItem('hvaSessionExpiresAt')||0);if(!token||!Number.isFinite(expiry)||expiry<=Date.now()){status.textContent='Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.';return}const fullPrompt=attached?prompt+'\n\nTÀI LIỆU ĐÍNH KÈM ('+attached.name+'):\n'+attached.text:prompt;if(fullPrompt.length>4000){status.textContent='Nội dung vượt giới hạn 4.000 ký tự của Backend. Vui lòng rút ngắn tài liệu.';return}ask.disabled=true;status.textContent='Trợ lý NVS đang xử lý...';try{const res=await fetch(DTHT_STANDALONE_BACKEND,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'askVirtualAssistant',sessionToken:token,question:fullPrompt,context:contextSelect.value})});if(!res.ok)throw Error('HTTP '+res.status);const data=await res.json();if(!data||data.success!==true||typeof data.answer!=='string')throw Error(data&&data.message||'Không nhận được kết quả');showAnswer(data.answer);copyBtn.textContent='⧉ Sao chép';copyBtn.classList.remove('copied');status.textContent='Dự thảo AI — cần kiểm tra trước khi sử dụng.'}catch(e){status.textContent='Lỗi: '+e.message}finally{ask.disabled=false}});
+ask.addEventListener('click',async()=>{const prompt=question.value.trim();if(!prompt){status.textContent='Vui lòng nhập yêu cầu.';return}if(fileInput.files.length&&!attached){status.textContent='Tệp này chưa được Backend hỗ trợ đọc. Vui lòng xóa tệp hoặc dùng TXT/MD/CSV/JSON.';return}const token=String(NVS_localStore.getItem('hvaSessionToken')||NVS_sessionStore.getItem('hvaSessionToken')||'').trim();const expiry=Number(NVS_localStore.getItem('hvaSessionExpiresAt')||NVS_sessionStore.getItem('hvaSessionExpiresAt')||0);if(!token||!Number.isFinite(expiry)||expiry<=Date.now()){status.textContent='Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.';return}const fullPrompt=attached?prompt+'\n\nTÀI LIỆU ĐÍNH KÈM ('+attached.name+'):\n'+attached.text:prompt;if(fullPrompt.length>4000){status.textContent='Nội dung vượt giới hạn 4.000 ký tự của Backend. Vui lòng rút ngắn tài liệu.';return}ask.disabled=true;status.textContent='Trợ lý NVS đang xử lý...';try{const res=await fetch(DTHT_STANDALONE_BACKEND,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'askVirtualAssistant',sessionToken:token,question:fullPrompt,context:contextSelect.value})});if(!res.ok)throw Error('HTTP '+res.status);const data=await res.json();if(!data||data.success!==true||typeof data.answer!=='string')throw Error(data&&data.message||'Không nhận được kết quả');showAnswer(data.answer);copyBtn.textContent='⧉ Sao chép';copyBtn.classList.remove('copied');status.textContent='Dự thảo AI — cần kiểm tra trước khi sử dụng.'}catch(e){status.textContent='Lỗi: '+e.message}finally{ask.disabled=false}});
 })();</script>
 <style id="nvs-ai-v41-math-style">#nvsAiOutput .katex-display{overflow-x:auto;overflow-y:hidden;padding:9px 0;margin:10px 0}#nvsAiOutput .katex{font-size:1.08em}#nvsAiOutput p{overflow-wrap:anywhere}#nvsAiOutput .katex-html{white-space:normal}#nvsAiOutput .katex-display .katex-html{white-space:nowrap}</style>
 <style id="nvs-ai-v4-style">
@@ -1662,8 +1705,8 @@ window.NVS_AI_V4_init=(u,context)=>{currentUser=u||{};greet(currentUser);populat
  function recover(){
   var name=document.getElementById('userNameLabel'), modal=document.getElementById('dthtAuth');
   if(!name||!modal||!/Đang xác thực/i.test(name.textContent||''))return;
-  var u={};try{u=JSON.parse(localStorage.getItem('user')||sessionStorage.getItem('user')||'{}')||{}}catch(e){}
-  var token='',expiry=0;try{token=String(localStorage.getItem('hvaSessionToken')||sessionStorage.getItem('hvaSessionToken')||'').trim();expiry=Number(localStorage.getItem('hvaSessionExpiresAt')||sessionStorage.getItem('hvaSessionExpiresAt')||0)}catch(e){}
+  var u={};try{u=JSON.parse(NVS_localStore.getItem('user')||NVS_sessionStore.getItem('user')||'{}')||{}}catch(e){}
+  var token='',expiry=0;try{token=String(NVS_localStore.getItem('hvaSessionToken')||NVS_sessionStore.getItem('hvaSessionToken')||'').trim();expiry=Number(NVS_localStore.getItem('hvaSessionExpiresAt')||NVS_sessionStore.getItem('hvaSessionExpiresAt')||0)}catch(e){}
   var username=String(u.tenDangNhap||u.username||'').trim();
   if(token&&Number.isFinite(expiry)&&expiry>Date.now()&&username){
    if(typeof window.nvsRenderIdentity==='function'){
@@ -1677,7 +1720,7 @@ window.NVS_AI_V4_init=(u,context)=>{currentUser=u||{};greet(currentUser);populat
    modal.classList.remove('hidden');
    name.textContent='Vui lòng đăng nhập';
    var input=document.getElementById('dthtLoginUser');
-   if(input&&!input.value){try{input.value=localStorage.getItem('hvaLastUsername')||''}catch(e){}}
+   if(input&&!input.value){try{input.value=NVS_localStore.getItem('hvaLastUsername')||''}catch(e){}}
   }
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(recover,900)},{once:true});
