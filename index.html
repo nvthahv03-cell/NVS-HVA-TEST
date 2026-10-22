@@ -1727,5 +1727,37 @@ window.NVS_AI_V4_init=(u,context)=>{currentUser=u||{};greet(currentUser);populat
  else setTimeout(recover,900);
 })();
 </script>
+
+<!-- Mobile V4: đưa điều hướng vào khung chính, giữ nguyên phần tử và listener -->
+<style id="nvs-mobile-unified-v4">
+@media(max-width:720px){
+ html,body{overflow-x:clip!important}
+ body{display:block!important;padding-bottom:max(12px,env(safe-area-inset-bottom,0px))!important;min-height:100dvh}
+ body>.shell{display:block!important;flex:none!important;margin-bottom:0!important;padding-bottom:12px!important}
+ body>.shell>.nvs-chooser{display:flex!important;flex-direction:column!important;justify-content:flex-start!important;flex:none!important;min-height:0!important;margin-bottom:0!important;padding-bottom:16px!important}
+ .nvs-chooser .nvs-premium-nav{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;top:auto!important;transform:none!important;z-index:5!important;width:100%!important;max-width:100%!important;margin:16px auto 0!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;padding:8px 3px!important;background:rgba(239,250,255,.91)!important;border:1px solid rgba(152,232,255,.8)!important;border-radius:16px!important;box-shadow:0 5px 18px rgba(0,51,115,.14)!important;backdrop-filter:none!important}
+ .nvs-chooser .nvs-premium-nav button,.nvs-chooser .nvs-premium-nav a{min-width:0!important;min-height:68px!important;font-size:clamp(9px,2.35vw,12px)!important;line-height:1.15!important;color:#064b83!important;white-space:normal!important}
+ .nvs-chooser .nvs-premium-nav button i,.nvs-chooser .nvs-premium-nav a i{width:clamp(39px,11vw,49px)!important;height:clamp(39px,11vw,49px)!important;font-size:20px!important}
+ .nvs-chooser .nvs-two-gates{margin-bottom:0!important}
+}
+@media(max-width:380px){.nvs-chooser .nvs-premium-nav{gap:2px!important}.nvs-chooser .nvs-premium-nav button,.nvs-chooser .nvs-premium-nav a{font-size:9px!important}}
+</style>
+<script id="nvs-mobile-unified-v4-script">
+(function(){
+ function placeMobileNav(){
+  const nav=document.querySelector('.nvs-premium-nav');
+  const chooser=document.querySelector('.nvs-chooser');
+  if(!nav||!chooser)return;
+  if(window.matchMedia('(max-width:720px)').matches){
+   if(nav.parentElement!==chooser)chooser.appendChild(nav);
+  }else if(nav.parentElement===chooser){
+   document.body.appendChild(nav);
+  }
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',placeMobileNav);
+ else placeMobileNav();
+ window.addEventListener('resize',placeMobileNav,{passive:true});
+})();
+</script>
 </body>
 </html>
