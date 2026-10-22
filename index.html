@@ -557,6 +557,18 @@ body>.shell{padding-bottom:calc(125px + env(safe-area-inset-bottom,0px))!importa
 .nvs-poll-dialog #nvsQuickDetail{display:block!important;overflow:auto;flex:1;min-height:0;margin:0;border:0;border-radius:0;box-shadow:none;padding:18px 22px 24px}
 .nvs-quick-card[data-nvs-quick="survey"] .nvs-quick-badge[data-nvs-count="survey"]{background:#ef3348!important;color:#fff!important}
 @media(max-width:600px){.nvs-poll-overlay{padding:7px}.nvs-poll-dialog{max-height:94dvh}.nvs-poll-modal-head{padding:12px 14px}.nvs-poll-dialog #nvsQuickDetail{padding:14px}}
+/* NVS POLL LIST V2: khoanh vùng danh sách bình chọn, không ảnh hưởng module khác */
+.nvs-poll-list-item{display:flex;align-items:flex-start;gap:13px;padding:17px 3px;border-top:1px solid #d5eafa}
+.nvs-poll-ordinal{flex:0 0 38px;width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,#e5f6ff,#d6f1ff);border:1px solid #a5dcf9;color:#075ba6;font-size:14px;font-weight:900}
+.nvs-poll-item-main{flex:1;min-width:0}.nvs-poll-item-title{display:block;color:#07529a;font-size:14px;font-weight:850;line-height:1.5}
+.nvs-poll-item-meta{display:flex;align-items:center;flex-wrap:wrap;gap:7px 12px;margin-top:7px;color:#5d7895;font-size:11px;font-weight:600}
+.nvs-poll-status{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:850;border:1px solid}
+.nvs-poll-status.is-voted{background:#e8fbf2;border-color:#9ce6c5;color:#087b56}
+.nvs-poll-status.is-pending{background:#fff7e6;border-color:#f7d995;color:#a66509}
+.nvs-poll-status.is-closed{background:#edf3f8;border-color:#cbdbe8;color:#60758b}
+.nvs-poll-item-action{margin-top:11px;padding:10px 15px;border:1px solid #118bd4;border-radius:11px;background:linear-gradient(115deg,#075cac,#078bda);color:#fff;font-size:12px;font-weight:850;box-shadow:0 5px 13px #087ac526;cursor:pointer}
+.nvs-poll-item-action:hover{background:linear-gradient(115deg,#064a91,#0875c3)}
+@media(max-width:480px){.nvs-poll-list-item{gap:9px}.nvs-poll-ordinal{flex-basis:32px;width:32px;height:32px;font-size:12px}.nvs-poll-item-title{font-size:12px}}
 </style>
 </head>
 <body>
@@ -973,7 +985,7 @@ document.addEventListener('DOMContentLoaded', initPortal);
   if(pollError)h+='<p class="nvs-quick-note" role="alert" style="color:#b42332">'+esc(pollError)+'</p>';
   else if(!pollLoaded)h+='<p class="nvs-quick-note">Đang tải bình chọn được giao...</p>';
   else if(!polls.length)h+='<p class="nvs-quick-note">Chưa có bình chọn nào được giao cho tài khoản này.</p>';
-  else h+=polls.map(p=>'<article style="padding:13px 2px;border-top:1px solid #dce9f5"><strong style="color:#074b88">'+esc(p.title)+'</strong><div class="nvs-quick-note">Hạn: '+esc(p.deadline?new Date(p.deadline).toLocaleString('vi-VN'):'Chưa xác định')+' · '+(p.voted?'Đã gửi phiếu':p.closed?'Đã hết hạn':'Chưa bình chọn')+'</div><button type="button" data-nvs-poll="'+esc(p.pollId)+'" style="margin-top:8px;padding:9px 14px;border:0;border-radius:10px;background:#076bb7;color:white;font-weight:800;cursor:pointer">'+(p.voted?'Xem phiếu đã gửi':p.closed?'Xem bình chọn':'Tham gia bình chọn')+'</button></article>').join('');
+  else h+=polls.map((p,i)=>'<article class="nvs-poll-list-item"><span class="nvs-poll-ordinal">'+String(i+1).padStart(2,'0')+'</span><div class="nvs-poll-item-main"><strong class="nvs-poll-item-title">'+esc(p.title)+'</strong><div class="nvs-poll-item-meta"><span>Hạn: '+esc(p.deadline?new Date(p.deadline).toLocaleString('vi-VN'):'Chưa xác định')+'</span><span class="nvs-poll-status '+(p.voted?'is-voted':p.closed?'is-closed':'is-pending')+'">'+(p.voted?'✓ Đã bình chọn':p.closed?'Đã hết hạn':'● Chưa bình chọn')+'</span></div><button type="button" data-nvs-poll="'+esc(p.pollId)+'" class="nvs-poll-item-action">'+(p.voted?'Xem phiếu đã gửi':p.closed?'Xem bình chọn':'Tham gia bình chọn')+'</button></div></article>').join('');
   detail.innerHTML=h;
  }
  async function loadPolls(force){
