@@ -1656,5 +1656,33 @@ window.NVS_AI_V4_init=(u,context)=>{currentUser=u||{};greet(currentUser);populat
 @media(prefers-reduced-motion:reduce){#nvsAiPanel *,#nvsAiPanel *::before,#nvsAiPanel *::after{transition:none!important;animation:none!important}}
 </style>
 <script id="nvs-ai-v43-auto-grow">(()=>{'use strict';const q=document.getElementById('nvsAiQuestion');if(!q)return;const resize=()=>{q.style.height='auto';q.style.height=Math.max(78,Math.min(q.scrollHeight,176))+'px'};q.addEventListener('input',resize);const obs=new MutationObserver(()=>{if(document.getElementById('nvsAiOverlay')?.classList.contains('is-open'))resize()});obs.observe(document.getElementById('nvsAiOverlay'),{attributes:true,attributeFilter:['class']});document.getElementById('nvsAiPreset')?.addEventListener('change',()=>requestAnimationFrame(resize));q.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();document.getElementById('nvsAiAsk')?.click()}})})();</script>
+<script id="nvs-mobile-auth-recovery-v2">
+/* Failsafe only: do not change login API, stored credentials or existing handlers. */
+(function(){'use strict';
+ function recover(){
+  var name=document.getElementById('userNameLabel'), modal=document.getElementById('dthtAuth');
+  if(!name||!modal||!/Đang xác thực/i.test(name.textContent||''))return;
+  var u={};try{u=JSON.parse(localStorage.getItem('user')||sessionStorage.getItem('user')||'{}')||{}}catch(e){}
+  var token='',expiry=0;try{token=String(localStorage.getItem('hvaSessionToken')||sessionStorage.getItem('hvaSessionToken')||'').trim();expiry=Number(localStorage.getItem('hvaSessionExpiresAt')||sessionStorage.getItem('hvaSessionExpiresAt')||0)}catch(e){}
+  var username=String(u.tenDangNhap||u.username||'').trim();
+  if(token&&Number.isFinite(expiry)&&expiry>Date.now()&&username){
+   if(typeof window.nvsRenderIdentity==='function'){
+    try{window.nvsRenderIdentity(u,username);return}catch(e){}
+   }
+   name.textContent=String(u.hoTen||u.fullName||username);
+   var team=document.getElementById('userTeamLabel'),role=document.getElementById('userRoleLabel');
+   if(team)team.textContent=String(u.toBoPhan||u.tenTo||'—');
+   if(role)role.textContent=String(u.viTriViecLam||u.chucVu||'—');
+  }else{
+   modal.classList.remove('hidden');
+   name.textContent='Vui lòng đăng nhập';
+   var input=document.getElementById('dthtLoginUser');
+   if(input&&!input.value){try{input.value=localStorage.getItem('hvaLastUsername')||''}catch(e){}}
+  }
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(recover,900)},{once:true});
+ else setTimeout(recover,900);
+})();
+</script>
 </body>
 </html>
