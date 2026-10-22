@@ -4,6 +4,24 @@
 
 /* NVS Poll Admin isolated styles */
 .poll-admin{color:#073f78;font-size:15px}.poll-admin h3{color:#0757a6}.poll-actions{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}.poll-action{border:1px solid #a7d9f8;border-radius:11px;background:#edf8ff;color:#07549b;font-weight:750;padding:11px 14px}.poll-action.primary{background:linear-gradient(110deg,#0865b8,#00a8cc);color:white;border:0}.poll-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.poll-stat{background:#edf8ff;border:1px solid #c0e4fb;border-radius:14px;padding:14px}.poll-stat strong{display:block;font-size:25px;color:#0563b0}.poll-card{border:1px solid #c4e4fa;border-radius:14px;background:white;padding:16px;margin:12px 0;box-shadow:0 4px 15px #0871b010}.poll-card h3{margin:0 0 8px;font-size:17px}.poll-tag{display:inline-block;border-radius:50px;background:#e0f5ff;color:#0756a4;padding:4px 10px;font-size:12px;font-weight:750}.poll-tag.done{background:#e4f9ef;color:#067a58}.poll-detail{margin-top:13px;padding:13px;border:1px solid #cce7f9;border-radius:12px;background:#f7fcff}.poll-person{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #dceefa}.poll-progress{height:11px;border-radius:20px;background:#dbeffc;overflow:hidden;margin:6px 0}.poll-progress span{display:block;background:linear-gradient(90deg,#076fc9,#0bc5d4);height:100%}.poll-admin input,.poll-admin select{border:1px solid #acd5f2;border-radius:9px;padding:11px;background:white;color:#073f78;min-width:0}.poll-admin .muted{color:#466987}.poll-admin .error{color:#a02828;font-weight:700}.poll-admin .success{color:#067858;font-weight:700}@media(max-width:700px){.poll-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.poll-actions{display:grid;grid-template-columns:1fr 1fr}.poll-admin{font-size:15px}}
+
+/* Chuẩn select theo CuocHop.html: mũi tên trắng trên nền xanh phía phải */
+.field select,.poll-admin select{appearance:none;-webkit-appearance:none;-moz-appearance:none;padding-right:46px!important;background-color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='40' viewBox='0 0 42 40'%3E%3Cpath d='M0 0h30c6.6 0 12 5.4 12 12v16c0 6.6-5.4 12-12 12H0z' fill='%23156fc1'/%3E%3Cpath d='M13.5 16.5L21 24l7.5-7.5' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;background-size:42px calc(100% - 4px);cursor:pointer}
+.field select:focus,.poll-admin select:focus{border-color:#0F4C81;box-shadow:0 0 0 3px rgba(15,76,129,.12)}
+@media(max-width:700px){.field select,.poll-admin select{padding-right:43px!important;background-size:39px calc(100% - 4px)}}
+</style><style id="nvs-select-cuochop-compatible-v6">
+/* Dropdown: clear blue chevron on right, consistent padding/height for PC/mobile. */
+.field select,.poll-admin select{
+  -webkit-appearance:none;appearance:none;
+  min-height:42px;padding:0 42px 0 13px!important;
+  border:1px solid #b9d8f3;border-radius:10px;
+  background-color:#f8fcff;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230668bb' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center;background-size:17px 17px;
+  color:#103e70;font-weight:650;cursor:pointer;
+}
+.field select:focus-visible,.poll-admin select:focus-visible{outline:3px solid #77ceff;outline-offset:1px}
+@media(max-width:700px){.field select,.poll-admin select{min-height:43px;font-size:13px}}
 </style></head><body>
 <header class="header"><div class="headinner"><a class="back" href="./DieuHanh.html" title="Trở về Điều hành" aria-label="Trở về Điều hành"><i class="bi bi-arrow-left"></i></a><div class="brand"><small>TRƯỜNG THPT HÒA VANG · CỔNG NGHIỆP VỤ SỐ</small><h1><i class="bi bi-grid-1x2-fill"></i> QUẢN TRỊ NGHIỆP VỤ</h1><p>Truy xuất · Giám sát · Thống kê · Báo cáo · Kiểm soát hồ sơ</p></div><span class="state"><i class="bi bi-shield-check"></i> QUẢN TRỊ V3 · KẾT NỐI API</span></div></header>
 <div class="wrap"><div class="notice" id="nvsSourceNotice"><i class="bi bi-shield-check"></i><div><b>Bình chọn – Biểu quyết:</b> lấy dữ liệu qua API quản trị, bắt buộc xác thực phiên NVS và quyền BGH tại Backend. <b>Các mục hồ sơ khác:</b> hiện vẫn hỗ trợ CSV cục bộ, chưa đồng bộ tự động; không coi số liệu CSV là dữ liệu trực tuyến. <span id="nvsApiState">Chưa xác minh kết nối.</span></div></div>
