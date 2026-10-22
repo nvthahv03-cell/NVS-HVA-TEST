@@ -1759,5 +1759,23 @@ window.NVS_AI_V4_init=(u,context)=>{currentUser=u||{};greet(currentUser);populat
  window.addEventListener('resize',placeMobileNav,{passive:true});
 })();
 </script>
+
+<!-- V5: Thu gon chieu cao hai cong tren dien thoai; khong thay doi HTML/JS -->
+<style id="nvs-mobile-v5-gates-compact">
+@media (max-width:720px){
+ .nvs-chooser .nvs-two-gates{align-items:stretch!important;gap:9px!important}
+ .nvs-chooser .nvs-gate-wrap{height:auto!important;min-height:0!important;padding:0!important}
+ .nvs-chooser .nvs-gate-wrap>.nvs-gate,
+ .nvs-chooser .nvs-gate{height:132px!important;min-height:132px!important;max-height:132px!important;padding:10px 6px!important;gap:6px!important;justify-content:center!important}
+ .nvs-chooser .nvs-gate-icon{width:47px!important;height:47px!important;font-size:25px!important;flex:0 0 auto!important}
+ .nvs-chooser .nvs-gate strong{font-size:clamp(13px,3.35vw,17px)!important;line-height:1.22!important;margin:0!important}
+ .nvs-chooser .nvs-gate-enter{display:none!important}
+}
+@media (max-width:380px){
+ .nvs-chooser .nvs-gate-wrap>.nvs-gate,
+ .nvs-chooser .nvs-gate{height:124px!important;min-height:124px!important;max-height:124px!important}
+ .nvs-chooser .nvs-gate-icon{width:42px!important;height:42px!important;font-size:22px!important}
+}
+</style>
 </body>
 </html>
