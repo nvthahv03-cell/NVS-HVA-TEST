@@ -570,6 +570,22 @@ body>.shell{padding-bottom:calc(125px + env(safe-area-inset-bottom,0px))!importa
 .nvs-poll-item-action:hover{background:linear-gradient(115deg,#064a91,#0875c3)}
 @media(max-width:480px){.nvs-poll-list-item{gap:9px}.nvs-poll-ordinal{flex-basis:32px;width:32px;height:32px;font-size:12px}.nvs-poll-item-title{font-size:12px}}
 </style>
+<style id="nvs-poll-typography-digital-v2">
+/* CHỈ tăng độ tương phản và độ rõ chữ trong bảng nổi Bình chọn; không đổi JS/API. */
+#nvsPollOverlay .nvs-poll-dialog{color:#073c73;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+#nvsPollOverlay .nvs-poll-modal-head strong{color:#fff;font-weight:900;letter-spacing:.01em;text-shadow:0 1px 2px #003a6d55}
+#nvsPollOverlay #nvsQuickDetail{font-size:14px;line-height:1.65;color:#123e67}
+#nvsPollOverlay #nvsQuickDetail h3{font-size:16px!important;font-weight:900!important;line-height:1.5!important;color:#064a89!important;letter-spacing:0!important}
+#nvsPollOverlay #nvsQuickDetail .nvs-quick-note{font-size:13px!important;line-height:1.7!important;font-weight:550!important;color:#345c7e!important}
+#nvsPollOverlay #nvsQuickDetail label{font-size:14px!important;font-weight:700!important;color:#123e67!important;line-height:1.5!important}
+#nvsPollOverlay #nvsQuickDetail input[type=radio]{accent-color:#087bd1}
+#nvsPollOverlay #nvsQuickDetail button{font-weight:850!important;letter-spacing:.005em}
+#nvsPollOverlay .nvs-poll-item-title{font-size:15px;font-weight:900;color:#064b8b}
+#nvsPollOverlay .nvs-poll-item-meta{font-size:12px;font-weight:700;color:#426989}
+#nvsPollOverlay .nvs-poll-status{font-size:12px;font-weight:850}
+#nvsPollOverlay .nvs-poll-ordinal{font-weight:900}
+@media(max-width:600px){#nvsPollOverlay #nvsQuickDetail{font-size:13px}#nvsPollOverlay #nvsQuickDetail h3{font-size:15px!important}#nvsPollOverlay #nvsQuickDetail .nvs-quick-note{font-size:12px!important}#nvsPollOverlay #nvsQuickDetail label{font-size:13px!important}#nvsPollOverlay .nvs-poll-item-title{font-size:13px}}
+</style>
 </head>
 <body>
 
