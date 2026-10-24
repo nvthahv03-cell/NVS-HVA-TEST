@@ -781,6 +781,23 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .nvs-quick>#nvsOpenRemind:hover{border-color:#f59e0b!important;background:#fff5e8!important}
 @media(max-width:720px){.nvs-quick>#nvsOpenRemind .nvs-quick-icon{width:34px!important;height:34px!important}.nvs-quick>#nvsOpenRemind strong{font-size:clamp(9px,2.35vw,12px)!important}}
 </style>
+<style id="edos-v33-assistant-style">
+.edos-v33-brand{display:flex;align-items:center;gap:10px;min-width:0}.edos-v33-robot{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#e9faff,#76c9ff);font-size:29px;box-shadow:0 3px 10px #0003}.edos-v33-brand>div{min-width:0}.edos-ai-heading .edos-v33-brand strong{display:block}.edos-ai-heading .edos-v33-brand small{margin-top:2px}.edos-ai-greeting #edosGreetingWish{color:#f0f9ff;font-weight:600;font-size:11px;line-height:1.5;margin-top:5px}.edos-ai-greeting #edosGreetingRole{font-size:10px;line-height:1.5}.edos-ai-greeting{height:auto!important;min-height:0!important;overflow:visible!important}@media(max-width:600px){.edos-v33-robot{width:36px;height:36px;flex-basis:36px;font-size:25px}.edos-v33-brand{gap:7px}.edos-ai-greeting #edosGreetingWish{font-size:10px}}
+</style>
+
+<style id="edos-login-v34-style">
+/* V3.4: chỉ tinh chỉnh giao diện đăng nhập, không thay đổi nghiệp vụ */
+.dtht-auth{flex-direction:column;gap:12px;overflow-y:auto;justify-content:center}
+.dtht-auth-box{padding:26px 25px 23px}
+.dtht-auth-field{margin-bottom:17px}
+.edos-login-recovery{margin:2px 0 22px;text-align:center;font-size:12px;line-height:1.5;color:#60748d}
+.edos-login-recovery a{color:#075cad;font-weight:800;text-decoration:none;white-space:nowrap}
+.edos-login-recovery a:hover,.edos-login-recovery a:focus-visible{text-decoration:underline}
+.edos-login-copyright{width:min(460px,100%);text-align:center;font-size:11px;line-height:1.65;color:#617f9f;padding:0 8px;box-sizing:border-box}
+.edos-login-copyright strong{display:block;color:#376e9f;font-weight:700}
+@media(max-width:480px){.dtht-auth{padding:10px 12px;gap:10px}.dtht-auth-box{padding:23px 19px 19px}.edos-login-copyright{font-size:10px}.edos-login-recovery{margin-bottom:18px}}
+@media(max-height:670px){.dtht-auth{justify-content:flex-start}.dtht-auth-box{margin-top:auto}.edos-login-copyright{margin-bottom:auto}}
+</style>
 </head>
 <body>
 
@@ -799,7 +816,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <div id="dthtAuth" class="dtht-auth hidden">
   <div class="dtht-auth-box">
     <div class="hva-login-logo"><img src="assets/nvs-image-05.png" alt="Logo chính thức Trường THPT Hòa Vang"></div><div class="dtht-auth-title">HVA-<span style="color:#e89426">EDOS</span></div><div class="edos-login-en">Hoa Vang Education Data &amp; Operations System</div><div class="edos-login-vi">HỆ THỐNG QUẢN TRỊ GIÁO DỤC – TRƯỜNG THPT HÒA VANG</div>
-    <div class="dtht-auth-sub">Trường THPT Hòa Vang · Đăng nhập tài khoản công vụ</div>
 
     <div class="dtht-auth-field">
       <label for="dthtLoginUser">Tên đăng nhập</label>
@@ -823,11 +839,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
       </div>
     </div>
 
+    <div class="edos-login-recovery">Quên mật khẩu? Liên hệ ADMIN: <a href="tel:0913977722" aria-label="Gọi quản trị viên 0913 977 722">0913 977 722</a></div>
+
     <button id="dthtLoginBtn" type="button" class="dtht-auth-btn" onclick="dthtStandaloneLogin()">
       <i class="bi bi-box-arrow-in-right"></i> <span id="dthtLoginBtnText">ĐĂNG NHẬP</span>
     </button>
     <div id="dthtAuthMsg" class="dtht-auth-msg"></div>
   </div>
+  <footer class="edos-login-copyright" aria-label="Thông tin bản quyền">
+    <div>© 2026 Trung tâm Quản trị số HVA – Trường THPT Hòa Vang</div>
+    <strong>HVA Digital • Quản trị thông minh • Giáo dục sáng tạo</strong>
+  </footer>
 </div>
 
 <!-- HEADER CHUẨN TRUNG TÂM QUẢN TRỊ SỐ HVA -->
@@ -838,7 +860,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     <div class="hva-pro-tools"><a class="nvs-home-link" href="./index.html" aria-label="Trang chủ NVS" title="Trang chủ NVS"><i class="bi bi-house-door-fill"></i></a><div class="hva-pro-online"><span class="hva-pro-online-dot"></span><span>TRỰC TUYẾN</span><span class="hva-pro-version">PORTAL</span></div><button type="button" class="logout-btn nvs-header-logout" onclick="logoutHVA()"><i class="bi bi-box-arrow-right"></i> Đăng xuất</button></div>
   </div>
 </header>
-<section class="edos-assistant" aria-label="HVA Assistant"><div class="edos-ai-heading"><div><strong>HVA Assistant</strong> <span>AI Pro</span><small>Trợ lý điều hành thông minh</small></div><button type="button" id="edosAssistantOpen" aria-label="Mở HVA Assistant"><i class="bi bi-robot"></i></button></div><div class="edos-ai-greeting"><i class="bi bi-sun"></i> <span id="edosGreeting">Chào mừng quý thầy cô đến với HVA-EDOS</span><small id="edosGreetingRole">Hỗ trợ công tác quản trị và nghiệp vụ</small></div><button class="edos-ai-prompt" type="button" id="edosAssistantAsk"><span>Hỏi HVA Assistant điều gì đó...</span><i class="bi bi-mic"></i><i class="bi bi-arrow-up-circle-fill"></i></button></section>
+<section class="edos-assistant" aria-label="HVA Assistant"><div class="edos-ai-heading"><div class="edos-v33-brand"><span class="edos-v33-robot" aria-hidden="true">🤖</span><div><strong>HVA Assistant</strong><small>Trợ lý điều hành thông minh</small></div></div><button type="button" id="edosAssistantOpen" aria-label="Mở HVA Assistant"><i class="bi bi-robot"></i></button></div><div class="edos-ai-greeting"><span id="edosGreeting">Chào mừng quý thầy cô đến với HVA-EDOS</span><small id="edosGreetingRole">Hỗ trợ công tác quản trị và nghiệp vụ</small><small id="edosGreetingWish"></small></div><button class="edos-ai-prompt" type="button" id="edosAssistantAsk"><span>Hỏi HVA Assistant điều gì đó...</span><i class="bi bi-mic"></i><i class="bi bi-arrow-up-circle-fill"></i></button></section>
 <div class="nvs-v10-ticker" aria-label="Lịch ngày và tuần học"><i class="bi bi-calendar3" aria-hidden="true"></i><div class="nvs-v10-ticker-window"><span id="nvsV10TickerText">Hôm nay là thứ Năm, ngày 15/10/2026 • Tuần học thứ 6 • HKI • Năm học 2026–2027</span></div></div>
 
 <aside id="nvsMenuPanel" class="nvs-menu-panel" hidden aria-label="Danh mục nghiệp vụ"><h3><i class="bi bi-list-nested"></i> Danh mục nghiệp vụ</h3><details><summary>BGH – Điều hành</summary><a href="./DieuHanh.html">Vào không gian điều hành</a></details><details><summary>Tác nghiệp số</summary><a href="./NghiepVu.html">Vào không gian tác nghiệp</a></details><details><summary>Kho văn bản</summary><span style="display:block;padding:9px 12px;color:#64748b;font-size:12px">Đang chờ kết nối Drive và phân quyền.</span></details></aside>
@@ -2020,8 +2042,18 @@ window.NVS_AI_V4_init=(u,context)=>{currentUser=u||{};greet(currentUser);populat
 <script id="edos-v1-visual-bind">(function(){'use strict';
 function openAssistant(){if(typeof window.NVS_AI_open==='function')window.NVS_AI_open();else alert('Trợ lý HVA đang chờ kết nối.');}
 ['edosAssistantOpen','edosAssistantAsk'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('click',openAssistant)});
-function greet(){var name=document.getElementById('userNameLabel'),role=document.getElementById('userRoleLabel'),out=document.getElementById('edosGreeting'),sub=document.getElementById('edosGreetingRole');if(!name||!out)return;var val=(name.textContent||'').trim();if(val&&val!=='Đang xác thực...')out.textContent='Chào mừng, '+val; if(role&&sub&&role.textContent.trim()!=='—')sub.textContent=role.textContent.trim()+' • HVA-EDOS';}
-var n=document.getElementById('userNameLabel'),r=document.getElementById('userRoleLabel');if(n&&typeof MutationObserver!=='undefined'){var ob=new MutationObserver(greet);ob.observe(n,{childList:true,characterData:true,subtree:true});if(r)ob.observe(r,{childList:true,characterData:true,subtree:true})}greet();
+function greet(){
+ var name=document.getElementById('userNameLabel'),role=document.getElementById('userRoleLabel'),out=document.getElementById('edosGreeting'),sub=document.getElementById('edosGreetingRole'),wish=document.getElementById('edosGreetingWish');
+ if(!name||!out)return;
+ var val=(name.textContent||'').trim();if(!val||val==='Đang xác thực...')return;
+ var hour=Number(new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Ho_Chi_Minh',hour:'2-digit',hourCycle:'h23'}).format(new Date()));
+ var greeting=hour>=5&&hour<11?['🌅','buổi sáng','một ngày tràn đầy năng lượng và làm việc hiệu quả!']:hour>=11&&hour<14?['☀️','buổi trưa','buổi trưa vui vẻ và có thời gian nghỉ ngơi!']:hour>=14&&hour<18?['🌇','buổi chiều','buổi chiều làm việc thuận lợi và hiệu quả!']:hour>=18&&hour<22?['🌙','buổi tối','buổi tối vui vẻ và thư giãn!']:['🌌','khuya','ngủ ngon và dành thời gian nghỉ ngơi để giữ gìn sức khỏe!'];
+ var honor=(val.match(/^(Thầy|Cô|Anh|Chị)\s+/i)||[])[1]||'';
+ out.textContent=greeting[0]+' Chào '+greeting[1]+', '+val+'!';
+ if(role&&sub){var pos=role.textContent.trim();sub.textContent=pos&&pos!=='—'?'Chức vụ/Vị trí: '+pos:'HVA-EDOS';}
+ if(wish)wish.textContent='HVA-EDOS kính chúc '+(honor||'quý thầy cô')+' '+greeting[2];
+}
+var n=document.getElementById('userNameLabel'),r=document.getElementById('userRoleLabel');if(n&&typeof MutationObserver!=='undefined'){var ob=new MutationObserver(greet);ob.observe(n,{childList:true,characterData:true,subtree:true});if(r)ob.observe(r,{childList:true,characterData:true,subtree:true})}greet();setInterval(greet,60000);
 })();</script>
 <style id="edos-v32-role-exclusive">
 .edos-footer-reminder{display:none!important}
