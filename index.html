@@ -819,6 +819,70 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media(max-width:600px){.edos-v35-newsbar{gap:5px!important;padding:5px 6px!important}.edos-v35-enter{min-height:34px;padding:6px 8px;font-size:11px}.edos-v35-enter-label{display:none}.edos-v35-mic{min-width:34px;font-size:19px}.edos-v35-news-track button{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.edos-v35-news-track{animation:none!important;transform:none!important}.edos-v35-news-window{overflow-x:auto}}
 </style>
+
+<style id="edos-v36-3d-bounce-footer">
+/* HVA-EDOS: visual-only upgrade; preserve four existing navigation actions. */
+.nvs-premium-nav{
+  position:fixed!important;z-index:900!important;
+  left:50%!important;bottom:calc(9px + env(safe-area-inset-bottom,0px))!important;
+  transform:translateX(-50%)!important;
+  width:min(620px,calc(100% - 16px))!important;
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-items:center!important;gap:clamp(3px,1.5vw,13px)!important;
+  padding:9px 9px 7px!important;
+  border-radius:23px!important;
+  border:1px solid rgba(160,225,255,.94)!important;
+  background:linear-gradient(165deg,rgba(243,252,255,.98),rgba(201,232,251,.97))!important;
+  box-shadow:0 13px 30px rgba(4,51,106,.26),inset 0 2px 1px rgba(255,255,255,.95)!important;
+  backdrop-filter:blur(15px)!important;
+}
+.nvs-premium-nav button,.nvs-premium-nav a{
+  min-width:0!important;min-height:77px!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;gap:6px!important;padding:2px 1px!important;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  transform:none!important;text-decoration:none!important;
+  color:#08477f!important;font:800 10px/1.15 Inter,'Segoe UI',Arial,sans-serif!important;
+  text-align:center!important;white-space:normal!important;cursor:pointer!important;
+}
+.nvs-premium-nav button i,.nvs-premium-nav a i{
+  position:relative!important;display:grid!important;place-items:center!important;
+  width:52px!important;height:50px!important;flex:none!important;
+  border-radius:16px!important;font-size:23px!important;color:#fff!important;
+  border:1px solid rgba(255,255,255,.94)!important;
+  background:linear-gradient(155deg,#45c6ff 0%,#0878d0 48%,#06458f 100%)!important;
+  box-shadow:inset 0 3px 2px rgba(255,255,255,.60),inset 0 -5px 5px rgba(0,35,100,.25),
+    0 6px 0 #063d79,0 9px 13px rgba(2,61,126,.33)!important;
+  transform:translateY(-2px)!important;
+  transition:transform .14s cubic-bezier(.2,.8,.2,1.3),box-shadow .14s ease,filter .14s ease!important;
+  filter:drop-shadow(0 1px 1px rgba(255,255,255,.25))!important;
+}
+.nvs-premium-nav button:nth-child(2) i{background:linear-gradient(155deg,#5cdadf,#079bb7 55%,#075d87)!important;box-shadow:inset 0 3px 2px #ffffff99,inset 0 -5px 5px #00375d55,0 6px 0 #075273,0 9px 13px #023d7e55!important}
+.nvs-premium-nav button:nth-child(3) i{background:linear-gradient(155deg,#8f9eff,#4364d9 55%,#243e99)!important;box-shadow:inset 0 3px 2px #ffffff99,inset 0 -5px 5px #101d6655,0 6px 0 #27377c,0 9px 13px #023d7e55!important}
+.nvs-premium-nav button:nth-child(4) i{background:linear-gradient(155deg,#6db5ff,#2572bf 55%,#124781)!important}
+.nvs-premium-nav button:hover i,.nvs-premium-nav a:hover i,
+.nvs-premium-nav button:focus-visible i,.nvs-premium-nav a:focus-visible i{
+  transform:translateY(-5px)!important;filter:brightness(1.1)!important;
+}
+.nvs-premium-nav button:active i,.nvs-premium-nav a:active i,
+.nvs-premium-nav .edos-nav-bounce i{
+  transform:translateY(4px) scale(.94)!important;
+  box-shadow:inset 0 3px 7px rgba(0,34,88,.27),0 2px 0 #063d79,0 3px 5px rgba(2,61,126,.25)!important;
+  filter:brightness(1.12)!important;
+}
+.nvs-premium-nav .edos-nav-bounce i{animation:edosFooterBounce .32s cubic-bezier(.2,.85,.3,1.15) both!important}
+@keyframes edosFooterBounce{0%{transform:translateY(-2px) scale(1)}35%{transform:translateY(5px) scale(.91)}68%{transform:translateY(-6px) scale(1.04)}100%{transform:translateY(-2px) scale(1)}}
+.nvs-premium-nav :focus-visible{outline:3px solid #fbbf24!important;outline-offset:3px!important}
+body{padding-bottom:calc(115px + env(safe-area-inset-bottom,0px))!important}
+@media(max-width:480px){
+ .nvs-premium-nav{width:calc(100% - 12px)!important;gap:2px!important;padding:7px 4px 6px!important;border-radius:18px!important}
+ .nvs-premium-nav button,.nvs-premium-nav a{min-height:70px!important;font-size:9px!important;gap:6px!important}
+ .nvs-premium-nav button i,.nvs-premium-nav a i{width:47px!important;height:45px!important;border-radius:14px!important;font-size:21px!important}
+ body{padding-bottom:calc(105px + env(safe-area-inset-bottom,0px))!important}
+}
+@media(prefers-reduced-motion:reduce){.nvs-premium-nav .edos-nav-bounce i{animation:none!important}.nvs-premium-nav button i{transition:none!important}}
+</style>
+
 </head>
 <body>
 
@@ -2141,5 +2205,15 @@ var n=document.getElementById('userNameLabel'),r=document.getElementById('userRo
  const prompts={calendar:'Cho tôi xem lịch công tác tuần hiện hành của Trường THPT Hòa Vang từ dữ liệu chính thức mà hệ thống được phép truy cập. Nếu chưa có kết nối, hãy nói rõ.',documents:'Kiểm tra các văn bản mới trong Kho văn bản HVA được cấp quyền, kèm ngày và nguồn. Nếu chưa có kết nối, hãy nói rõ.',education:'Tìm tin tức giáo dục mới nhất từ nguồn chính thức, kèm ngày đăng và đường dẫn nguồn. Nếu không có công cụ truy cập trực tuyến, hãy nói rõ.',technology:'Tìm tin tức công nghệ và AI mới nhất từ nguồn đáng tin cậy, kèm ngày đăng và đường dẫn nguồn. Nếu không có công cụ truy cập trực tuyến, hãy nói rõ.'};
  track.addEventListener('click',function(event){const b=event.target.closest('button[data-news]');if(!b)return;const q=prompts[b.dataset.news];if(!q)return;openAssistant(false,false);const field=document.getElementById('nvsAiQuestion');if(field){field.value=q;field.focus()} });
 })();</script>
+
+<script id="edos-v36-footer-bounce-js">
+/* Animation only; the existing navigation event handlers remain unchanged. */
+(()=>{'use strict';const nav=document.querySelector('.nvs-premium-nav');if(!nav)return;
+nav.addEventListener('click',event=>{const button=event.target.closest('button,a');if(!button||!nav.contains(button))return;
+button.classList.remove('edos-nav-bounce');void button.offsetWidth;button.classList.add('edos-nav-bounce');
+button.addEventListener('animationend',()=>button.classList.remove('edos-nav-bounce'),{once:true});
+});})();
+</script>
+
 </body>
 </html>
