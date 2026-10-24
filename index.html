@@ -770,6 +770,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
 </style>
+<style id="edos-v32-role-exclusive">
+.edos-footer-reminder{display:none!important}
+.nvs-quick>#nvsQuickWork[hidden],.nvs-quick>#nvsOpenRemind[hidden]{display:none!important}
+.nvs-quick>#nvsOpenRemind{position:static!important;inset:auto!important;transform:none!important;min-width:0!important;width:100%!important;max-width:none!important;box-sizing:border-box!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:6px!important;padding:8px 3px!important;border:1.5px solid #b7d9f5!important;border-radius:12px!important;background:linear-gradient(140deg,#fff8ef,#f0f8ff)!important;color:#07518d!important;box-shadow:none!important;text-shadow:none!important;cursor:pointer!important}
+.nvs-quick>#nvsOpenRemind .nvs-quick-icon{display:grid!important;place-items:center!important;width:39px!important;height:39px!important;border-radius:11px!important;background:linear-gradient(140deg,#ff9b23,#f36b0b)!important;color:#fff!important;box-shadow:0 4px 10px #e5792340!important}
+.nvs-quick>#nvsOpenRemind .nvs-quick-icon i{font-size:22px!important;color:#fff!important}
+.nvs-quick>#nvsOpenRemind strong{color:#07518d!important;font-size:clamp(10px,1.3vw,13px)!important;line-height:1.2!important;text-align:center!important}
+.nvs-quick>#nvsOpenRemind::before{content:none!important;display:none!important}
+.nvs-quick>#nvsOpenRemind:hover{border-color:#f59e0b!important;background:#fff5e8!important}
+@media(max-width:720px){.nvs-quick>#nvsOpenRemind .nvs-quick-icon{width:34px!important;height:34px!important}.nvs-quick>#nvsOpenRemind strong{font-size:clamp(9px,2.35vw,12px)!important}}
+</style>
 </head>
 <body>
 
@@ -864,10 +875,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
   <!-- NVS: Trung tâm cá nhân - giao diện tham khảo HVA, dữ liệu thực chờ kết nối -->
   <section class="nvs-quick" aria-label="Trung tâm cá nhân">
-    <button class="nvs-quick-card" type="button" data-nvs-quick="work" aria-expanded="false"><span class="nvs-quick-icon"><i class="bi bi-person-lines-fill"></i><span class="nvs-quick-badge" data-nvs-count="work" hidden></span></span><strong>Việc của tôi</strong></button>
+    <button id="nvsQuickWork" class="nvs-quick-card" type="button" data-nvs-quick="work" aria-expanded="false"><span class="nvs-quick-icon"><i class="bi bi-person-lines-fill"></i><span class="nvs-quick-badge" data-nvs-count="work" hidden></span></span><strong>Việc của tôi</strong></button>
     <button class="nvs-quick-card" type="button" data-nvs-quick="notice" aria-expanded="false"><span class="nvs-quick-icon"><i class="bi bi-bell"></i><span class="nvs-quick-badge" data-nvs-count="notice" hidden></span></span><strong>Thông báo</strong></button>
     <button class="nvs-quick-card" type="button" data-nvs-quick="survey" aria-expanded="false"><span class="nvs-quick-icon"><i class="bi bi-clipboard-check"></i><span class="nvs-quick-badge" data-nvs-count="survey" hidden></span></span><strong>Khảo sát/Bình chọn</strong></button>
-    <div id="nvsQuickRoleSlot" class="nvs-quick-role-slot" aria-label="Tiện ích theo phân quyền"></div>
+    <div id="nvsQuickRoleSlot" class="nvs-quick-role-slot" aria-label="Hồ sơ điện tử"></div>
   </section>
   <section id="nvsQuickDetail" class="nvs-quick-detail" hidden aria-live="polite"></section>
   <div id="nvsPollOverlay" class="nvs-poll-overlay" aria-hidden="true">
@@ -1432,11 +1443,7 @@ document.addEventListener('DOMContentLoaded', initPortal);
 </script>
 <!-- NVS PWA: nút cài ứng dụng -->
 <script src="./nvs-pwa.js" defer></script>
-<!-- HVA-EDOS V3: Nhắc nhở công vụ tại chân trang; tái sử dụng nút gốc và xử lý cũ. -->
-<section class="edos-footer-reminder" aria-label="Nhắc nhở công vụ">
-  <div id="nvsV14RoleAction" class="nvs-v14-role-action" aria-label="Nhắc nhở công vụ theo phân quyền"></div>
-  <div class="edos-footer-reminder-text"><strong>Nhắc nhở công vụ</strong><span>Công việc cần theo dõi và hoàn thành đúng hạn</span></div>
-</section>
+<div id="nvsV14RoleAction" hidden aria-hidden="true"></div>
 <nav class="nvs-premium-nav" aria-label="Điều hướng NVS"><button type="button" data-nvs-nav="calendar"><i class="bi bi-calendar2-week-fill" aria-hidden="true"></i><span>Lịch công tác</span></button><button type="button" data-nvs-nav="help"><i class="bi bi-book" aria-hidden="true"></i><span>Hướng dẫn sử dụng</span></button><button type="button" data-nvs-nav="connect"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i><span>Kết nối</span></button><button type="button" data-nvs-nav="person"><i class="bi bi-person-circle" aria-hidden="true"></i><span>Cá nhân</span></button></nav><div class="nvs-nav-dialog" id="nvsNavDialog" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="nvsNavDialogTitle"><div class="nvs-nav-dialog-box"><h2 id="nvsNavDialogTitle"></h2><p id="nvsNavDialogText"></p><button type="button" id="nvsNavDialogClose">Đóng</button></div></div><script id="nvs-premium-nav-script">(()=>{'use strict';const nav=document.querySelector('.nvs-premium-nav');if(!nav)return;const dialog=document.getElementById('nvsNavDialog'),close=document.getElementById('nvsNavDialogClose');let origin=null;const info={calendar:['Lịch công tác','Lịch nhà trường và Lịch của tôi sẽ được kết nối với lịch HVA hiện có sau khi xác nhận đường dẫn và quyền truy cập. Chưa có dữ liệu lịch trong NVS V2.'],help:['Hướng dẫn sử dụng','Tài liệu và video hướng dẫn sử dụng HVA-EDOS đang được hoàn thiện. Có thể mở các nghiệp vụ hiện có từ danh mục bên trái.'],connect:['Kết nối','Chức năng kết nối nội bộ HVA đang chờ xác nhận liên kết và quyền truy cập.'],person:['Cá nhân','Thông tin tài khoản đang được hiển thị trên Trang chủ NVS. Chức năng hồ sơ cá nhân chuyên biệt đang chờ kết nối.']};nav.querySelectorAll('button[data-nvs-nav]').forEach(b=>b.addEventListener('click',()=>{origin=b;const x=info[b.dataset.nvsNav];document.getElementById('nvsNavDialogTitle').textContent=x[0];document.getElementById('nvsNavDialogText').textContent=x[1];dialog.setAttribute('aria-hidden','false');close.focus()}));function hide(){dialog.setAttribute('aria-hidden','true');origin?.focus()}close.addEventListener('click',hide);dialog.addEventListener('click',e=>{if(e.target===dialog)hide()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&dialog.getAttribute('aria-hidden')==='false')hide()})})();</script><div id="nvsRemindOverlay" class="nvs-remind-overlay" aria-hidden="true"><iframe id="nvsRemindFrame" class="nvs-remind-frame" title="Nhắc nhở công vụ" data-src="./NhacNho.html" loading="lazy"></iframe></div>
 <style id="nvs-remind-v7-permission-fix">#nvsOpenRemind[hidden],#nvsOpenRemind[style*="display: none"]{display:none!important;visibility:hidden!important}#nvsOpenRemind:not([hidden]){visibility:visible}</style>
 <script id="nvs-remind-v6-script">(function(){'use strict';
@@ -1445,7 +1452,7 @@ if(!btn||!layer||!frame)return;
 function roleFold(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase();}
 function isBGH(){let u={};try{u=JSON.parse(NVS_localStore.getItem('user')||NVS_sessionStore.getItem('user')||'{}')||{}}catch(_){}
 const role=roleFold(u.vaiTro||u.role),job=roleFold(u.chucVu||u.viTriViecLam||u['Vị trí việc làm']);
-return /hieu truong|pho hieu truong|ban giam hieu|to truong chuyen mon|ttcm/.test(job+" "+role)||/^(bgh|hieu_truong|pho_hieu_truong|ttcm)$/.test(role);}
+return /hieu truong|pho hieu truong|ban giam hieu|/.test(job+" "+role)||/^(bgh|hieu_truong|pho_hieu_truong)$/.test(role);}
 function hasSession(){const token=String(NVS_localStore.getItem('hvaSessionToken')||NVS_sessionStore.getItem('hvaSessionToken')||'').trim();const expiry=Number(NVS_localStore.getItem('hvaSessionExpiresAt')||NVS_sessionStore.getItem('hvaSessionExpiresAt')||0);return !!token&&Number.isFinite(expiry)&&expiry>Date.now();}
 function syncVisibility(){const allowed=hasSession()&&isBGH();btn.hidden=!allowed;btn.style.setProperty('display',allowed?'flex':'none','important');btn.setAttribute('aria-hidden',allowed?'false':'true');if(!allowed&&layer.classList.contains('is-open'))close();return allowed;}
 function close(){layer.classList.remove('is-open');layer.setAttribute('aria-hidden','true');document.body.style.overflow='';if(!btn.hidden)btn.focus();}
@@ -1471,21 +1478,27 @@ syncVisibility();window.NVS_syncRemindBGH=syncVisibility;
 <script id="nvs-v7-library-script">(function(){'use strict';var trigger=document.getElementById('nvsOpenLibrary'),overlay=document.getElementById('nvsLibraryOverlay'),closeBtn=document.getElementById('nvsLibraryClose');if(!trigger||!overlay||!closeBtn)return;function close(){overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');document.body.style.overflow='';trigger.focus()}trigger.addEventListener('click',function(){window.location.assign('./VanBan_QuyDinh.html');});closeBtn.addEventListener('click',close);overlay.addEventListener('click',function(e){if(e.target===overlay)close()});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&overlay.classList.contains('is-open'))close();if(e.key==='Tab'&&overlay.classList.contains('is-open')){var nodes=Array.from(overlay.querySelectorAll('button,a[href]'));var first=nodes[0],last=nodes[nodes.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}})})();</script>
 
 <script id="nvs-v14-role-slot-script">(function(){'use strict';
-const slot=document.getElementById('nvsQuickRoleSlot'),roleSlot=document.getElementById('nvsV14RoleAction');
+const slot=document.getElementById('nvsQuickRoleSlot');
 const remind=document.getElementById('nvsOpenRemind'),library=document.getElementById('nvsOpenLibrary');
-if(!slot||!roleSlot||!remind||!library)return;
-// Reuse original nodes and handlers; preserve Kho VB for all roles.
-slot.appendChild(library);roleSlot.appendChild(remind);
+const work=document.getElementById('nvsQuickWork');
+if(!slot||!remind||!library||!work)return;
+// Di chuyển nút gốc, giữ nguyên sự kiện đã gắn; hai nút dùng chung đúng một ô.
+work.insertAdjacentElement('afterend',remind);
+slot.appendChild(library);
+remind.className='nvs-quick-card nvs-role-remind';
 remind.innerHTML='<span class="nvs-quick-icon"><i class="bi bi-clipboard2-check-fill" aria-hidden="true"></i></span><strong>Nhắc nhở<br>công vụ</strong>';
 library.innerHTML='<span class="nvs-quick-icon"><svg class="edos-folder-icon" viewBox="0 0 24 24" width="27" height="27" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 10h18"/></svg></span><strong>Hồ sơ điện tử</strong>';
-function fold(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase()}
-function allowed(){let u={};try{u=JSON.parse(NVS_localStore.getItem('user')||NVS_sessionStore.getItem('user')||'{}')||{}}catch(_){ }
-const role=fold([u.vaiTro,u.role,u.vaiTroKiemNhiem].join(' ')),job=fold([u.chucVu,u.viTriViecLam,u['Vị trí việc làm']].join(' '));
-const token=String(NVS_localStore.getItem('hvaSessionToken')||NVS_sessionStore.getItem('hvaSessionToken')||'').trim(),exp=Number(NVS_localStore.getItem('hvaSessionExpiresAt')||NVS_sessionStore.getItem('hvaSessionExpiresAt')||0);
-return !!token&&exp>Date.now()&&(/hieu truong|pho hieu truong|ban giam hieu|to truong chuyen mon|ttcm/.test(job+' '+role));}
-function refresh(){const ok=allowed();remind.hidden=!ok;remind.style.setProperty('display',ok?'flex':'none','important');remind.setAttribute('aria-hidden',ok?'false':'true');library.hidden=false;library.style.setProperty('display','flex','important');}
-refresh();window.NVS_refreshRoleQuickSlot=refresh;window.addEventListener('storage',refresh);document.addEventListener('visibilitychange',refresh);
-const auth=document.getElementById('dthtAuth');if(auth)new MutationObserver(refresh).observe(auth,{attributes:true,attributeFilter:['class','hidden']});
+function refresh(){
+ const allowed=typeof window.NVS_syncRemindBGH==='function'?window.NVS_syncRemindBGH():false;
+ work.hidden=allowed;work.style.setProperty('display',allowed?'none':'flex','important');
+ remind.hidden=!allowed;remind.style.setProperty('display',allowed?'flex':'none','important');
+ library.hidden=false;
+}
+refresh();window.NVS_refreshRoleQuickSlot=refresh;
+window.addEventListener('storage',refresh);
+document.addEventListener('visibilitychange',refresh);
+const auth=document.getElementById('dthtAuthModal');
+if(auth)new MutationObserver(refresh).observe(auth,{attributes:true,attributeFilter:['class','hidden']});
 })();</script>
 <script id="nvs-v10-calendar-display-only">
 (function(){
@@ -2010,5 +2023,16 @@ function openAssistant(){if(typeof window.NVS_AI_open==='function')window.NVS_AI
 function greet(){var name=document.getElementById('userNameLabel'),role=document.getElementById('userRoleLabel'),out=document.getElementById('edosGreeting'),sub=document.getElementById('edosGreetingRole');if(!name||!out)return;var val=(name.textContent||'').trim();if(val&&val!=='Đang xác thực...')out.textContent='Chào mừng, '+val; if(role&&sub&&role.textContent.trim()!=='—')sub.textContent=role.textContent.trim()+' • HVA-EDOS';}
 var n=document.getElementById('userNameLabel'),r=document.getElementById('userRoleLabel');if(n&&typeof MutationObserver!=='undefined'){var ob=new MutationObserver(greet);ob.observe(n,{childList:true,characterData:true,subtree:true});if(r)ob.observe(r,{childList:true,characterData:true,subtree:true})}greet();
 })();</script>
+<style id="edos-v32-role-exclusive">
+.edos-footer-reminder{display:none!important}
+.nvs-quick>#nvsQuickWork[hidden],.nvs-quick>#nvsOpenRemind[hidden]{display:none!important}
+.nvs-quick>#nvsOpenRemind{position:static!important;inset:auto!important;transform:none!important;min-width:0!important;width:100%!important;max-width:none!important;box-sizing:border-box!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:6px!important;padding:8px 3px!important;border:1.5px solid #b7d9f5!important;border-radius:12px!important;background:linear-gradient(140deg,#fff8ef,#f0f8ff)!important;color:#07518d!important;box-shadow:none!important;text-shadow:none!important;cursor:pointer!important}
+.nvs-quick>#nvsOpenRemind .nvs-quick-icon{display:grid!important;place-items:center!important;width:39px!important;height:39px!important;border-radius:11px!important;background:linear-gradient(140deg,#ff9b23,#f36b0b)!important;color:#fff!important;box-shadow:0 4px 10px #e5792340!important}
+.nvs-quick>#nvsOpenRemind .nvs-quick-icon i{font-size:22px!important;color:#fff!important}
+.nvs-quick>#nvsOpenRemind strong{color:#07518d!important;font-size:clamp(10px,1.3vw,13px)!important;line-height:1.2!important;text-align:center!important}
+.nvs-quick>#nvsOpenRemind::before{content:none!important;display:none!important}
+.nvs-quick>#nvsOpenRemind:hover{border-color:#f59e0b!important;background:#fff5e8!important}
+@media(max-width:720px){.nvs-quick>#nvsOpenRemind .nvs-quick-icon{width:34px!important;height:34px!important}.nvs-quick>#nvsOpenRemind strong{font-size:clamp(9px,2.35vw,12px)!important}}
+</style>
 </body>
 </html>
