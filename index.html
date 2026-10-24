@@ -724,6 +724,19 @@ body{background:#f3f8fd!important}
 .hva-pro-header-inner{min-height:78px!important}
 }
 </style>
+<style id="hva-edos-v3-footer-reminder-and-folder">
+/* Chỉ thay bố cục: nút nhắc nhở gốc giữ nguyên ID, phân quyền và sự kiện. */
+.edos-footer-reminder{display:flex;align-items:center;gap:12px;margin:12px auto 6px;padding:9px 14px;max-width:1120px;border:1px solid #f1d5b1;border-radius:13px;background:#fff8ee;min-height:62px;color:#9c460b}
+.edos-footer-reminder .nvs-v14-role-action{display:flex;flex:0 0 auto;align-items:center;justify-content:center}
+.edos-footer-reminder #nvsOpenRemind{position:relative!important;inset:auto!important;transform:none!important;margin:0!important;flex:0 0 auto!important;min-width:55px!important;min-height:55px!important;width:55px!important;height:55px!important;border-radius:13px!important;font-size:10px!important;line-height:1.1!important}
+.edos-footer-reminder #nvsOpenRemind .nvs-quick-icon{display:none!important}
+.edos-footer-reminder-text{display:flex;flex-direction:column;gap:3px;font:500 12px/1.35 Inter,Arial,sans-serif}
+.edos-footer-reminder-text strong{font-size:13px;color:#a34708}
+.edos-footer-reminder:has(#nvsOpenRemind[hidden]),.edos-footer-reminder:has(#nvsOpenRemind[aria-hidden="true"]){display:none!important}
+.nvs-quick-role-slot #nvsOpenLibrary .nvs-quick-icon svg.edos-folder-icon{display:block!important;width:27px!important;height:27px!important;min-width:27px!important;color:#fff!important;stroke:#fff!important;fill:none!important;overflow:visible!important}
+.nvs-quick-role-slot #nvsOpenLibrary>strong{font-size:clamp(10px,1.1vw,13px)!important}
+@media(max-width:720px){.edos-footer-reminder{margin:9px 8px 7px;padding:7px 10px;min-height:56px}.edos-footer-reminder #nvsOpenRemind{width:49px!important;height:49px!important;min-width:49px!important;min-height:49px!important}.edos-footer-reminder-text span{font-size:11px}.nvs-quick-role-slot #nvsOpenLibrary .nvs-quick-icon svg.edos-folder-icon{width:24px!important;height:24px!important;min-width:24px!important}}
+</style>
 </head>
 <body>
 
@@ -810,12 +823,6 @@ body{background:#f3f8fd!important}
     </div>
       </div>
 
-  <!-- HVA-EDOS: Dải nhắc việc tách khỏi hồ sơ cá nhân, tái sử dụng nút và handler cũ -->
-  <section class="edos-reminder-strip" aria-label="Nhắc nhở công vụ">
-    <div id="nvsV14RoleAction" class="nvs-v14-role-action" aria-label="Nhắc nhở công vụ theo phân quyền"></div>
-    <div class="edos-reminder-copy"><strong>Nhắc nhở công vụ</strong><span>Các công việc cần theo dõi và hoàn thành đúng hạn</span></div>
-    <i class="bi bi-chevron-right" aria-hidden="true"></i>
-  </section>
   <!-- Kính lúp tìm kiếm nhanh trên menu và nghiệp vụ hiện có -->
   <section class="nvs-search" aria-label="Tìm kiếm nhanh">
     <label class="nvs-search-wrap" for="nvsLiveSearch"><i class="bi bi-search" aria-hidden="true"></i><input id="nvsLiveSearch" type="search" autocomplete="off" placeholder="Tìm nhanh menu, nghiệp vụ..." aria-controls="nvsSearchResults" aria-expanded="false"></label>
@@ -846,7 +853,7 @@ body{background:#f3f8fd!important}
     </div>
     <div class="nvs-v4-actions" aria-label="Tiện ích công vụ">
       <button type="button" id="nvsOpenRemind" hidden style="display:none" class="nvs-v4-action nvs-v4-remind nvs-remind-trigger nvs-v7-circle nvs-v7-orange" aria-haspopup="dialog" aria-controls="nvsRemindOverlay" aria-label="Mở Nhắc nhở công vụ"><span>Nhắc nhở<br>công vụ</span></button>
-      <button type="button" id="nvsOpenLibrary" class="nvs-v4-action nvs-v4-library nvs-v7-circle nvs-v7-sapphire" aria-haspopup="dialog" aria-controls="nvsLibraryOverlay" aria-label="Mở Kho văn bản điện tử"><span>Kho VB<br>điện tử</span></button>
+      <button type="button" id="nvsOpenLibrary" class="nvs-v4-action nvs-v4-library nvs-v7-circle nvs-v7-sapphire" aria-haspopup="dialog" aria-controls="nvsLibraryOverlay" aria-label="Mở Hồ sơ điện tử"><span>Kho VB<br>điện tử</span></button>
     </div>
     <div class="nvs-process"><i class="bi bi-arrow-left-right"></i><strong>XỬ LÝ – THEO DÕI KẾT QUẢ</strong><p>Tiếp nhận → Rà soát → Bổ sung (nếu có) → Hoàn thành</p></div>
   </section>
@@ -1392,6 +1399,11 @@ document.addEventListener('DOMContentLoaded', initPortal);
 </script>
 <!-- NVS PWA: nút cài ứng dụng -->
 <script src="./nvs-pwa.js" defer></script>
+<!-- HVA-EDOS V3: Nhắc nhở công vụ tại chân trang; tái sử dụng nút gốc và xử lý cũ. -->
+<section class="edos-footer-reminder" aria-label="Nhắc nhở công vụ">
+  <div id="nvsV14RoleAction" class="nvs-v14-role-action" aria-label="Nhắc nhở công vụ theo phân quyền"></div>
+  <div class="edos-footer-reminder-text"><strong>Nhắc nhở công vụ</strong><span>Công việc cần theo dõi và hoàn thành đúng hạn</span></div>
+</section>
 <nav class="nvs-premium-nav" aria-label="Điều hướng NVS"><button type="button" data-nvs-nav="calendar"><i class="bi bi-calendar2-week-fill" aria-hidden="true"></i><span>Lịch công tác</span></button><button type="button" data-nvs-nav="help"><i class="bi bi-book" aria-hidden="true"></i><span>Hướng dẫn sử dụng</span></button><button type="button" data-nvs-nav="connect"><i class="bi bi-chat-dots-fill" aria-hidden="true"></i><span>Kết nối</span></button><button type="button" data-nvs-nav="person"><i class="bi bi-person-circle" aria-hidden="true"></i><span>Cá nhân</span></button></nav><div class="nvs-nav-dialog" id="nvsNavDialog" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="nvsNavDialogTitle"><div class="nvs-nav-dialog-box"><h2 id="nvsNavDialogTitle"></h2><p id="nvsNavDialogText"></p><button type="button" id="nvsNavDialogClose">Đóng</button></div></div><script id="nvs-premium-nav-script">(()=>{'use strict';const nav=document.querySelector('.nvs-premium-nav');if(!nav)return;const dialog=document.getElementById('nvsNavDialog'),close=document.getElementById('nvsNavDialogClose');let origin=null;const info={calendar:['Lịch công tác','Lịch nhà trường và Lịch của tôi sẽ được kết nối với lịch HVA hiện có sau khi xác nhận đường dẫn và quyền truy cập. Chưa có dữ liệu lịch trong NVS V2.'],help:['Hướng dẫn sử dụng','Tài liệu và video hướng dẫn sử dụng HVA-EDOS đang được hoàn thiện. Có thể mở các nghiệp vụ hiện có từ danh mục bên trái.'],connect:['Kết nối','Chức năng kết nối nội bộ HVA đang chờ xác nhận liên kết và quyền truy cập.'],person:['Cá nhân','Thông tin tài khoản đang được hiển thị trên Trang chủ NVS. Chức năng hồ sơ cá nhân chuyên biệt đang chờ kết nối.']};nav.querySelectorAll('button[data-nvs-nav]').forEach(b=>b.addEventListener('click',()=>{origin=b;const x=info[b.dataset.nvsNav];document.getElementById('nvsNavDialogTitle').textContent=x[0];document.getElementById('nvsNavDialogText').textContent=x[1];dialog.setAttribute('aria-hidden','false');close.focus()}));function hide(){dialog.setAttribute('aria-hidden','true');origin?.focus()}close.addEventListener('click',hide);dialog.addEventListener('click',e=>{if(e.target===dialog)hide()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&dialog.getAttribute('aria-hidden')==='false')hide()})})();</script><div id="nvsRemindOverlay" class="nvs-remind-overlay" aria-hidden="true"><iframe id="nvsRemindFrame" class="nvs-remind-frame" title="Nhắc nhở công vụ" data-src="./NhacNho.html" loading="lazy"></iframe></div>
 <style id="nvs-remind-v7-permission-fix">#nvsOpenRemind[hidden],#nvsOpenRemind[style*="display: none"]{display:none!important;visibility:hidden!important}#nvsOpenRemind:not([hidden]){visibility:visible}</style>
 <script id="nvs-remind-v6-script">(function(){'use strict';
@@ -1432,7 +1444,7 @@ if(!slot||!roleSlot||!remind||!library)return;
 // Reuse original nodes and handlers; preserve Kho VB for all roles.
 slot.appendChild(library);roleSlot.appendChild(remind);
 remind.innerHTML='<span class="nvs-quick-icon"><i class="bi bi-clipboard2-check-fill" aria-hidden="true"></i></span><strong>Nhắc nhở<br>công vụ</strong>';
-library.innerHTML='<span class="nvs-quick-icon"><i class="bi bi-folder2-open" aria-hidden="true"></i></span><strong>Kho VB</strong>';
+library.innerHTML='<span class="nvs-quick-icon"><svg class="edos-folder-icon" viewBox="0 0 24 24" width="27" height="27" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 10h18"/></svg></span><strong>Hồ sơ điện tử</strong>';
 function fold(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase()}
 function allowed(){let u={};try{u=JSON.parse(NVS_localStore.getItem('user')||NVS_sessionStore.getItem('user')||'{}')||{}}catch(_){ }
 const role=fold([u.vaiTro,u.role,u.vaiTroKiemNhiem].join(' ')),job=fold([u.chucVu,u.viTriViecLam,u['Vị trí việc làm']].join(' '));
@@ -1603,7 +1615,7 @@ body>.shell{width:min(1180px,calc(100% - 12px))!important;min-width:0!important;
 @media(max-width:360px){.nvs-quick{gap:4px!important}.nvs-quick>.nvs-quick-card,.nvs-quick-role-slot>#nvsOpenLibrary{padding:8px 1px!important}}
 </style>
 <style id="nvs-v16-3-library-rounded-icon">
-/* Vá duy nhất biểu tượng Kho VB: bo góc đồng bộ với 3 nút còn lại. */
+/* Vá duy nhất biểu tượng Hồ sơ điện tử: bo góc đồng bộ với 3 nút còn lại. */
 .nvs-quick-role-slot #nvsOpenLibrary .nvs-quick-icon{
   border-radius:13px!important;overflow:hidden!important;
   background:linear-gradient(140deg,#0960b9,#04b9d6)!important;
