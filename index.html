@@ -689,6 +689,41 @@ body{background:#f3f8fd!important}
 .nvs-chooser .nvs-premium-nav button i{width:auto!important;height:auto!important;border:0!important;box-shadow:none!important;background:transparent!important;color:#1764d8!important;font-size:24px!important}
 @media(max-width:600px){.hva-pro-header-inner{min-height:75px!important;padding:7px 6px!important;grid-template-columns:32px minmax(0,1fr) 67px!important;gap:3px!important}.hva-pro-school{font-size:clamp(19px,5.2vw,26px)!important}.hva-pro-kicker{font-size:clamp(7px,2vw,10px)!important}.hva-pro-vietnam{font-size:clamp(6.5px,1.7vw,9px)!important}.hva-pro-slogan{font-size:clamp(6px,1.5vw,8px)!important}.nvs-header-logout{font-size:8px!important}.hva-pro-online{font-size:7px!important}.edos-assistant{padding:9px 10px}.edos-ai-heading strong{font-size:13px}.edos-ai-greeting{font-size:11px}.user-meta{font-size:8px!important}.nvs-quick>.nvs-quick-card,.nvs-quick #nvsQuickRoleSlot>#nvsOpenLibrary{height:78px!important;min-height:78px!important}.nvs-quick .nvs-quick-icon>i,.nvs-quick #nvsOpenLibrary .nvs-quick-icon>i{font-size:23px!important}.nvs-chooser .nvs-gate-wrap>.nvs-gate,.nvs-chooser .nvs-gate{height:108px!important;min-height:108px!important}.nvs-chooser .nvs-gate strong{font-size:clamp(11px,3vw,14px)!important}}
 </style>
+
+<style id="hva-edos-balanced-v2">
+/* Giao diện HVA-EDOS: override hình thức, không đổi nghiệp vụ */
+.user-card#userCard{display:none!important}
+.shell>.hero{display:none!important}
+.edos-reminder-strip{display:flex;align-items:center;gap:12px;margin:8px 0 10px;padding:9px 14px;background:#fff7ec;border:1px solid #f8dfb9;border-radius:13px;min-height:66px;color:#a34412}
+.edos-reminder-strip .nvs-v14-role-action{display:flex!important;flex:0 0 auto;align-items:center;justify-content:center;min-width:58px;min-height:48px}
+.edos-reminder-strip #nvsOpenRemind{position:relative!important;inset:auto!important;transform:none!important;margin:0!important;width:64px!important;height:58px!important;min-width:64px!important;min-height:58px!important;max-width:64px!important;border-radius:12px!important;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;padding:4px!important}
+.edos-reminder-strip #nvsOpenRemind .nvs-quick-icon{width:25px!important;height:25px!important;min-height:25px!important;box-shadow:none!important}
+.edos-reminder-strip #nvsOpenRemind strong{font-size:9px!important;line-height:1.05!important}
+.edos-reminder-copy{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.edos-reminder-copy strong{font-size:14px;color:#a34412}
+.edos-reminder-copy span{font-size:12px;color:#a96139}
+.edos-reminder-strip>.bi{font-size:17px;color:#d78c39}
+.edos-reminder-strip:has(#nvsOpenRemind[hidden]){display:none!important}
+.nvs-search{margin-top:8px!important;margin-bottom:8px!important}
+.nvs-quick{gap:9px!important;margin-top:8px!important;margin-bottom:9px!important}
+.nvs-quick-card{min-height:92px!important;padding:10px 6px!important}
+.nvs-quick-icon{box-shadow:none!important}
+.nvs-chooser{margin-top:8px!important;margin-bottom:10px!important}
+.nvs-choose-heading{padding-top:10px!important;padding-bottom:8px!important}
+.nvs-two-gates .nvs-gate{min-height:120px!important}
+.hva-pro-header{margin-bottom:6px!important}
+.edos-assistant{margin-bottom:7px!important}
+.edos-login-en{text-align:center;color:#2664a1;font-size:12px;font-weight:700;margin:0 0 5px}
+.edos-login-vi{text-align:center;color:#375574;font-size:11px;font-weight:700;line-height:1.4;margin-bottom:8px}
+.dtht-auth-title{font-size:27px!important;letter-spacing:.5px!important}
+@media(max-width:650px){
+.edos-reminder-strip{padding:7px 10px;min-height:60px;gap:8px}
+.edos-reminder-copy strong{font-size:12px}.edos-reminder-copy span{font-size:11px}
+.nvs-quick-card{min-height:82px!important;padding:8px 3px!important}
+.nvs-two-gates .nvs-gate{min-height:108px!important}
+.hva-pro-header-inner{min-height:78px!important}
+}
+</style>
 </head>
 <body>
 
@@ -706,7 +741,7 @@ body{background:#f3f8fd!important}
 <!-- MODAL ĐĂNG NHẬP SSO HVA -->
 <div id="dthtAuth" class="dtht-auth hidden">
   <div class="dtht-auth-box">
-    <div class="hva-login-logo"><img src="assets/nvs-image-05.png" alt="Logo chính thức Trường THPT Hòa Vang"></div><div class="dtht-auth-title">CỔNG NGHIỆP VỤ SỐ HVA</div>
+    <div class="hva-login-logo"><img src="assets/nvs-image-05.png" alt="Logo chính thức Trường THPT Hòa Vang"></div><div class="dtht-auth-title">HVA-<span style="color:#e89426">EDOS</span></div><div class="edos-login-en">Hoa Vang Education Data &amp; Operations System</div><div class="edos-login-vi">HỆ THỐNG QUẢN TRỊ GIÁO DỤC – TRƯỜNG THPT HÒA VANG</div>
     <div class="dtht-auth-sub">Trường THPT Hòa Vang · Đăng nhập tài khoản công vụ</div>
 
     <div class="dtht-auth-field">
@@ -773,9 +808,14 @@ body{background:#f3f8fd!important}
         </div>
       </div>
     </div>
-    <div id="nvsV14RoleAction" class="nvs-v14-role-action" aria-label="Nhắc nhở công vụ theo phân quyền"></div>
-  </div>
+      </div>
 
+  <!-- HVA-EDOS: Dải nhắc việc tách khỏi hồ sơ cá nhân, tái sử dụng nút và handler cũ -->
+  <section class="edos-reminder-strip" aria-label="Nhắc nhở công vụ">
+    <div id="nvsV14RoleAction" class="nvs-v14-role-action" aria-label="Nhắc nhở công vụ theo phân quyền"></div>
+    <div class="edos-reminder-copy"><strong>Nhắc nhở công vụ</strong><span>Các công việc cần theo dõi và hoàn thành đúng hạn</span></div>
+    <i class="bi bi-chevron-right" aria-hidden="true"></i>
+  </section>
   <!-- Kính lúp tìm kiếm nhanh trên menu và nghiệp vụ hiện có -->
   <section class="nvs-search" aria-label="Tìm kiếm nhanh">
     <label class="nvs-search-wrap" for="nvsLiveSearch"><i class="bi bi-search" aria-hidden="true"></i><input id="nvsLiveSearch" type="search" autocomplete="off" placeholder="Tìm nhanh menu, nghiệp vụ..." aria-controls="nvsSearchResults" aria-expanded="false"></label>
