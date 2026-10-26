@@ -141,22 +141,6 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
 #panel-0 .nvs-a-open[hidden]{display:none}
 #panel-0 .nvs-a-open:hover{background:#034c91}
 @media(max-width:650px){#panel-0 .nvs-a-sub:not([hidden]),#panel-0 .nvs-a-subgrid{grid-template-columns:1fr}#panel-0 .nvs-a-toggle{font-size:12px}#panel-0 .nvs-a-toggle .status{max-width:96px!important}}
-</style><style id="nvs-a1-consistent-rows">
-/* Chỉ chuẩn hóa bốn dòng của nhóm A.1; không tác động nhóm A.2–A.6, B, C. */
-#panel-0 .group:first-child>.items>.nvs-a-entry,
-#panel-0 .group:first-child>.items>a.item.live{box-sizing:border-box;min-height:60px!important;padding:0!important;margin:0;align-items:stretch;display:flex!important;border-bottom:1px solid #e3edf7;font-family:Inter,"Segoe UI",Arial,sans-serif;font-size:14px!important;font-weight:700!important;line-height:1.45!important;text-decoration:none}
-#panel-0 .group:first-child>.items>.nvs-a-entry>.nvs-a-toggle{box-sizing:border-box;min-height:60px;width:100%;padding:12px 13px!important;font-family:inherit!important;font-size:14px!important;font-weight:700!important;line-height:1.45!important}
-#panel-0 .group:first-child>.items>.nvs-a-direct,
-#panel-0 .group:first-child>.items>a.item.live{padding:12px 13px!important;gap:12px;align-items:center}
-#panel-0 .group:first-child>.items .nvs-a-entry-name,
-#panel-0 .group:first-child>.items>.nvs-a-entry>.nvs-a-toggle>span:first-child,
-#panel-0 .group:first-child>.items>a.item.live>span:first-child{flex:1;min-width:0;font-size:14px!important;font-weight:700!important;line-height:1.45!important;color:#164b81;white-space:normal!important;overflow:visible!important;text-overflow:clip!important}
-#panel-0 .group:first-child>.items .item-num{display:inline-block;min-width:48px;font-size:14px!important;font-weight:800!important;color:#075aab;margin-right:6px;vertical-align:baseline}
-#panel-0 .group:first-child>.items .status{flex-shrink:0;font-size:11px!important;font-weight:700!important;max-width:180px;white-space:normal!important;text-align:right}
-#panel-0 .group:first-child>.items .nvs-a-direct>i{font-size:14px;color:#1172b4}
-#panel-0 .group:first-child>.items .nvs-a-direct:hover{background:#eef8ff}
-#panel-0 .group:first-child>.items .nvs-a-direct:focus-visible{outline:3px solid #10a8e4;outline-offset:-3px}
-@media(max-width:650px){#panel-0 .group:first-child>.items>.nvs-a-entry>.nvs-a-toggle,#panel-0 .group:first-child>.items .nvs-a-entry-name,#panel-0 .group:first-child>.items>.nvs-a-entry>.nvs-a-toggle>span:first-child,#panel-0 .group:first-child>.items>a.item.live>span:first-child{font-size:12px!important}#panel-0 .group:first-child>.items .item-num{min-width:43px;font-size:12px!important}#panel-0 .group:first-child>.items .status{font-size:10px!important;max-width:105px}}
 </style></head><body>
 <header class="hero"><div class="hero-top"><div class="eyebrow">TRƯỜNG THPT HÒA VANG · CỔNG NGHIỆP VỤ SỐ</div><a class="back" href="./index.html">← Trang chính</a></div><h1>DANH MỤC NGHIỆP VỤ SỐ</h1><p>Tác nghiệp giáo viên · Hồ sơ điện tử · Theo dõi tiến độ</p></header>
 <main class="shell"><div class="workspace"><div class="workspace-top"><div><h2>KHÔNG GIAN NGHIỆP VỤ GIÁO VIÊN</h2><p>Thực hiện hồ sơ, tra cứu thông tin và theo dõi kết quả gửi BGH. Minh chứng nộp bằng liên kết Google Drive.</p></div><span class="pill">Không tải tệp trực tiếp</span></div>
@@ -165,9 +149,15 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
 <section aria-labelledby="tab-0" class="panel" id="panel-0" role="tabpanel">
 <details class="group"><summary><span class="group-num">A.1</span><span class="group-name">Báo cáo chuyên môn <small class="group-range">(A.1.1 – A.1.4)</small></span><span aria-label="Mở hoặc thu gọn nhóm" class="chev" role="button" tabindex="0"><i aria-hidden="true" class="bi bi-chevron-down"></i></span></summary>
 <div class="items">
-  <a class="nvs-a-entry item nvs-a-direct" data-search="A.1.1 Thực hiện nhiệm vụ Báo cáo khác tập huấn bồi dưỡng hội nghị hội thảo điều động" href="./A.1.1.%20NhiemVu_BaoCao.html" aria-label="A.1.1 – Mở biểu mẫu Thực hiện nhiệm vụ – Báo cáo khác">
-    <span class="nvs-a-entry-name"><b class="item-num">A.1.1</b><span>Thực hiện nhiệm vụ – Báo cáo khác</span></span><span class="status">Đang phát triển</span><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
-  </a>
+  <div class="nvs-a-entry item" data-search="A.1.1 Thực hiện nhiệm vụ Báo cáo khác tập huấn bồi dưỡng hội nghị hội thảo điều động">
+    <button class="nvs-a-toggle" type="button" aria-expanded="false" aria-controls="nvs-a11"><span><b class="item-num">A.1.1</b> Thực hiện nhiệm vụ – Báo cáo khác</span><span class="status">Đang phát triển</span><i class="bi bi-chevron-down"></i></button>
+    <div class="nvs-a-sub" id="nvs-a11" hidden>
+      <div class="nvs-a-tile"><b>Báo cáo nhiệm vụ được giao</b><small>Đang phát triển</small></div>
+      <div class="nvs-a-tile"><b>Báo cáo công tác điều động</b><small>Đang phát triển</small></div>
+      <div class="nvs-a-tile"><b>Báo cáo tập huấn, bồi dưỡng, hội nghị, hội thảo</b><small>Đang phát triển</small></div>
+      <div class="nvs-a-tile"><b>Báo cáo khác theo yêu cầu</b><small>Đang phát triển</small></div>
+    </div>
+  </div>
   <div class="nvs-a-entry item" data-search="A.1.2 Công tác chủ nhiệm giáo dục hòa nhập khuyết tật sổ chủ nhiệm báo cáo chủ nhiệm">
     <button class="nvs-a-toggle" type="button" aria-expanded="false" aria-controls="nvs-a12"><span><b class="item-num">A.1.2</b> Công tác chủ nhiệm và giáo dục hòa nhập</span><span class="status live-status">Có nghiệp vụ đã kết nối</span><i class="bi bi-chevron-down"></i></button>
     <div class="nvs-a-sub" id="nvs-a12" hidden>
