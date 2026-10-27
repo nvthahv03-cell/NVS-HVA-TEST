@@ -156,22 +156,51 @@ function a11_nvsToggleVoice() {
 
 window.a11ToggleVoice = a11_nvsToggleVoice;
 })();
-</script><script id="a11-robot-toggle-script">(()=>{'use strict';const b=document.getElementById('a11RobotToggle'),panel=document.getElementById('a11AssistantBody');if(!b||!panel)return;b.addEventListener('click',()=>{const expanded=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',String(expanded));panel.hidden=!expanded;if(expanded)document.getElementById('a11AssistantPrompt')?.focus()});})();</script><script>(()=>{'use strict';
-const $=id=>document.getElementById(id), btn=$('a11AIDraftBtn'), prompt=$('a11AssistantPrompt'), status=$('a11AIStatus'), panel=$('a11DraftPanel'), out=$('a11DraftText');
+</script><script id="a11-robot-toggle-script">(()=>{'use strict';const b=document.getElementById('a11RobotToggle'),panel=document.getElementById('a11AssistantBody');if(!b||!panel)return;b.addEventListener('click',()=>{const expanded=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',String(expanded));panel.hidden=!expanded;if(expanded)document.getElementById('a11AssistantPrompt')?.focus()});})();</script><script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),btn=$('a11AIDraftBtn'),prompt=$('a11AssistantPrompt'),status=$('a11AIStatus'),panel=$('a11DraftPanel'),out=$('a11DraftText');
+const clean=s=>String(s||'').replace(/\s+/g,' ').trim();
+const missing='[Cần bổ sung thông tin thực tế và minh chứng]';
+const defaults={
+'Nhiệm vụ được giao':['Căn cứ thực hiện','Nội dung nhiệm vụ','Quá trình thực hiện','Kết quả thực hiện','Khó khăn, vướng mắc','Kiến nghị, đề xuất'],
+'Công tác điều động':['Căn cứ điều động','Nội dung và thời gian công tác','Quá trình thực hiện','Kết quả công tác','Bàn giao và kiến nghị'],
+'Tập huấn, bồi dưỡng, hội nghị, hội thảo':['Căn cứ cử tham gia','Thông tin hoạt động','Nội dung tiếp thu','Kết quả tham gia','Khả năng vận dụng','Đề xuất, kiến nghị'],
+'Khác theo yêu cầu':['Căn cứ và mục đích','Nội dung thực hiện','Kết quả','Kiến nghị, đề xuất']};
 let prepared='';
-const clean=s=>String(s||'').trim().replace(/\s+/g,' ');
-const sections={
- 'Nhiệm vụ được giao':['Nội dung nhiệm vụ','Quá trình thực hiện','Kết quả, sản phẩm','Khó khăn và kiến nghị'],
- 'Công tác điều động':['Nội dung công tác điều động','Thời gian, địa điểm','Kết quả thực hiện','Bàn giao và kiến nghị'],
- 'Tập huấn, bồi dưỡng, hội nghị, hội thảo':['Tên hoạt động, đơn vị tổ chức','Nội dung tiếp thu','Kết quả học tập','Khả năng vận dụng tại đơn vị'],
- 'Khác theo yêu cầu':['Căn cứ và mục đích báo cáo','Nội dung thực hiện','Kết quả','Đề xuất, kiến nghị']};
-function build(){const raw=prompt.value.trim();if(raw.length<20){status.textContent='Cần nhập ít nhất 20 ký tự thông tin thực tế trước khi tạo dự thảo.';prompt.focus();return;}
-const kind=document.querySelector('.type[aria-pressed="true"]')?.dataset.type||'Nhiệm vụ được giao';const heads=sections[kind]||sections['Khác theo yêu cầu'];
-const name=clean($('name')?.value),title=clean($('title')?.value),ref=clean($('ref')?.value),from=clean($('start')?.value),to=clean($('end')?.value);
-const parts=raw.split(/\n\s*\n|\n(?=[-•])/).map(clean).filter(Boolean);
-prepared=['DỰ THẢO BÁO CÁO – '+kind.toUpperCase(),'Người báo cáo: '+(name||'[Chưa có thông tin đăng nhập]'),'Nhiệm vụ/hoạt động: '+(title||'[Cần bổ sung]'),ref?'Mã nhiệm vụ/số văn bản: '+ref:'',from?'Bắt đầu: '+from:'',to?'Kết thúc: '+to:'','',heads[0].toUpperCase(),parts.join('\n')||raw,'',heads[1].toUpperCase(),'[Cần bổ sung thông tin cụ thể, đối chiếu thực tế]','',heads[2].toUpperCase(),'[Cần bổ sung kết quả, sản phẩm và minh chứng thực tế]','',heads[3].toUpperCase(),'[Cần bổ sung nếu có]','','LƯU Ý: Đây là bản dự thảo theo mẫu từ thông tin người dùng cung cấp; các phần trong ngoặc vuông chưa được xác minh.'].filter(x=>x!==null).join('\n');
-out.value=prepared;panel.hidden=false;status.textContent='Đã lập dự thảo theo loại báo cáo. Chưa tự tạo thêm sự kiện hoặc kết quả. Hãy kiểm tra và bổ sung các mục còn thiếu.';panel.scrollIntoView({behavior:'smooth',block:'nearest'});}
+function splitSentences(raw){return raw.replace(/\r/g,'').split(/\n+|(?<=[.!?])\s+(?=[A-ZÀ-Ỹ])/u).map(clean).filter(Boolean)}
+function parseRequest(raw){
+ const instructions=/(hãy|vui lòng|đề nghị|yêu cầu|soạn|viết|lập|bố cục|văn phong|không tự|không được|thông tin còn thiếu|ghi \[|sử dụng văn phong)/i;
+ const sentences=splitSentences(raw);
+ const command=sentences.some(x=>/^(hãy|vui lòng|soạn|viết|lập)\b/i.test(x));
+ let task='';
+ const m=raw.match(/(?:báo cáo\s+(?:kết quả\s+)?(?:thực hiện\s+)?nhiệm vụ\s+|về\s+)(.+?)(?=\.\s*(?:Bố cục|Sử dụng|Không)|\n|$)/i);
+ if(m)task=clean(m[1]).replace(/[.;]+$/,'');
+ if(!task){const x=sentences.find(x=>/nhiệm vụ|tập huấn|điều động|hội nghị|hội thảo/i.test(x)&&!/^bố cục|^không tự/i.test(x));if(x&&!instructions.test(x))task=x;}
+ const layout=raw.match(/(?:bố cục|các mục|gồm các phần)\s*(?:gồm|bao gồm|:)?\s*([^\n.]+)(?:\.|$)/i);
+ const requested=layout?layout[1].split(/\s*[;,]\s*/).map(x=>clean(x.replace(/^(?:và|gồm|bao gồm)\s+/i,''))).filter(x=>x.length>3&&x.length<90):[];
+ const facts=sentences.filter(x=>!instructions.test(x)&&!/^\s*(?:bố cục|căn cứ|nội dung|kết quả|khó khăn|kiến nghị)/i.test(x));
+ return {command,task,requested,facts};
+}
+function build(){
+ const raw=prompt.value.trim();if(raw.length<20){status.textContent='Vui lòng nhập yêu cầu hoặc dữ liệu thực tế (ít nhất 20 ký tự).';prompt.focus();return;}
+ const kind=document.querySelector('.type[aria-pressed="true"]')?.dataset.type||'Nhiệm vụ được giao';
+ const p=parseRequest(raw),name=clean($('name')?.value),title=clean($('title')?.value),ref=clean($('ref')?.value);
+ const headings=p.requested.length>=2?p.requested:defaults[kind]||defaults['Khác theo yêu cầu'];
+ const task=title||p.task||'[Cần bổ sung tên nhiệm vụ/hoạt động]';
+ const body=headings.map(h=>{
+   const norm=h.toLowerCase();let value=missing;
+   if(/nội dung nhiệm vụ|nội dung công tác/.test(norm)&&task&&!task.startsWith('['))value='Nhiệm vụ được xác định: '+task+'. Nội dung chi tiết và phạm vi thực hiện: '+missing;
+   if(/căn cứ/.test(norm)&&ref)value='Căn cứ văn bản/nhiệm vụ số '+ref+'. Cần đối chiếu văn bản gốc trước khi phát hành.';
+   if(/kết quả|khó khăn|kiến nghị|đề xuất|quá trình|thực hiện|tiếp thu|vận dụng/.test(norm))value=missing;
+   return h.toUpperCase()+'\n'+value;
+ }).join('\n\n');
+ const verified=p.facts.length?'\n\nTHÔNG TIN NGƯỜI DÙNG CUNG CẤP (CẦN KIỂM CHỨNG)\n'+p.facts.map(x=>'• '+x).join('\n'):'';
+ prepared=['DỰ THẢO BÁO CÁO – '+kind.toUpperCase(),'Người báo cáo: '+(name||'[Chưa xác thực phiên đăng nhập]'),'Nhiệm vụ/hoạt động: '+task,ref?'Mã nhiệm vụ/số văn bản: '+ref:'','',body,verified,'','LƯU Ý: Dự thảo có cấu trúc từ yêu cầu nhập vào, chưa được dịch vụ soạn thảo thông minh xử lý. Các dữ liệu chưa có căn cứ được để trống, không tự tạo số liệu hoặc kết quả.'].filter(x=>x!==null).join('\n');
+ out.value=prepared;panel.hidden=false;status.textContent=p.command?'Đã nhận diện yêu cầu, tách tên nhiệm vụ và bố cục; không còn chép câu lệnh vào nội dung nhiệm vụ. Đây vẫn là dự thảo theo quy tắc, chưa phải văn bản do dịch vụ thông minh tạo.':'Đã sắp xếp dữ liệu vào dự thảo theo mẫu; vui lòng đối chiếu và bổ sung kết quả thực tế.';
+ panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
 btn?.addEventListener('click',build);
-$('a11CopyDraft')?.addEventListener('click',async()=>{if(!prepared)return;try{await navigator.clipboard.writeText(prepared);status.textContent='Đã sao chép dự thảo.';}catch(_){out.focus();out.select();status.textContent='Không thể sao chép tự động; hãy sao chép phần văn bản đã chọn.';}});
-$('a11ApplyDraft')?.addEventListener('click',()=>{if(!prepared)return;const target=$('content');if(!target)return;if(target.value.trim()&&!confirm('Ô nội dung đã có dữ liệu. Thầy/cô có muốn thay thế bằng dự thảo vừa tạo không?'))return;target.value=prepared;target.dispatchEvent(new Event('input',{bubbles:true}));status.textContent='Đã đưa dự thảo vào ô nội dung. Cần hoàn thiện các trường kết quả, minh chứng và xem trước trước khi sử dụng.';target.focus();});
-})();</script><script>(()=>{'use strict';const add=document.getElementById('a11AttachBtn'),inp=document.getElementById('a11AttachmentInput'),list=document.getElementById('a11AttachmentList');if(!add||!inp||!list)return;add.addEventListener('click',()=>inp.click());inp.addEventListener('change',()=>{list.replaceChildren();const files=Array.from(inp.files||[]);if(files.length>5){list.textContent='Chỉ chọn tối đa 5 tệp tham khảo mỗi lần.';inp.value='';return;}for(const f of files){const div=document.createElement('div');div.textContent='📎 '+f.name+' ('+Math.ceil(f.size/1024)+' KB)';list.append(div);}if(files.length){const note=document.createElement('div');note.textContent='Tệp chỉ được chọn trên thiết bị; chưa được tải lên hoặc đọc bởi Trợ lý. Có thể dán nội dung cần xử lý vào ô yêu cầu.';list.append(note);}});})();</script></body></html>
+$('a11CopyDraft')?.addEventListener('click',async()=>{const value=out.value.trim();if(!value)return;try{await navigator.clipboard.writeText(value);status.textContent='Đã sao chép nội dung đang hiển thị.';}catch(_){out.focus();out.select();status.textContent='Không thể sao chép tự động; hãy sao chép phần văn bản đã chọn.';}});
+$('a11ApplyDraft')?.addEventListener('click',()=>{const value=out.value.trim();if(!value)return;const target=$('content');if(!target)return;if(target.value.trim()&&!confirm('Ô nội dung đã có dữ liệu. Thầy/cô có muốn thay thế bằng dự thảo này không?'))return;target.value=value;target.dispatchEvent(new Event('input',{bubbles:true}));status.textContent='Đã đưa nội dung vào biểu mẫu; cần hoàn thiện dữ liệu và minh chứng trước khi sử dụng.';target.focus();});
+})();
+</script><script>(()=>{'use strict';const add=document.getElementById('a11AttachBtn'),inp=document.getElementById('a11AttachmentInput'),list=document.getElementById('a11AttachmentList');if(!add||!inp||!list)return;add.addEventListener('click',()=>inp.click());inp.addEventListener('change',()=>{list.replaceChildren();const files=Array.from(inp.files||[]);if(files.length>5){list.textContent='Chỉ chọn tối đa 5 tệp tham khảo mỗi lần.';inp.value='';return;}for(const f of files){const div=document.createElement('div');div.textContent='📎 '+f.name+' ('+Math.ceil(f.size/1024)+' KB)';list.append(div);}if(files.length){const note=document.createElement('div');note.textContent='Tệp chỉ được chọn trên thiết bị; chưa được tải lên hoặc đọc bởi Trợ lý. Có thể dán nội dung cần xử lý vào ô yêu cầu.';list.append(note);}});})();</script></body></html>
