@@ -207,9 +207,22 @@ $('a11ApplyDraft')?.addEventListener('click',()=>{const value=out.value.trim();i
 })();
 </script><script>(()=>{'use strict';const add=document.getElementById('a11AttachBtn'),inp=document.getElementById('a11AttachmentInput'),list=document.getElementById('a11AttachmentList');if(!add||!inp||!list)return;add.addEventListener('click',()=>inp.click());inp.addEventListener('change',()=>{list.replaceChildren();const files=Array.from(inp.files||[]);if(files.length>5){list.textContent='Chỉ chọn tối đa 5 tệp tham khảo mỗi lần.';inp.value='';return;}for(const f of files){const div=document.createElement('div');div.textContent='📎 '+f.name+' ('+Math.ceil(f.size/1024)+' KB)';list.append(div);}if(files.length){const note=document.createElement('div');note.textContent='Tệp chỉ được chọn trên thiết bị; chưa được tải lên hoặc đọc bởi Trợ lý. Có thể dán nội dung cần xử lý vào ô yêu cầu.';list.append(note);}});})();</script><script>(()=>{'use strict';
 const el=id=>document.getElementById(id),ask=el('a11ModeAsk'),draft=el('a11ModeDraft'),prompt=el('a11AssistantPrompt'),out=el('a11DraftText'),status=el('a11AIStatus');
-function mode(which){const asking=which==='ask';ask.setAttribute('aria-pressed',String(asking));draft.setAttribute('aria-pressed',String(!asking));el('a11AskAttachments').hidden=!asking;el('a11AttachmentList').hidden=!asking;el('a11VoiceBtn').hidden=!asking;el('a11AskSendBtn').hidden=!asking;el('a11AIDraftBtn').hidden=asking;el('a11ApplyDraft').hidden=asking;prompt.placeholder=asking?'Nhập câu hỏi, yêu cầu giải thích, chỉnh sửa hoặc phản biện...':'Nhập dữ liệu thực tế hoặc dán yêu cầu soạn báo cáo theo mẫu đang chọn...';status.textContent=asking?'Chế độ hỏi tự do đang phát triển: chưa có kết nối dịch vụ trả lời qua máy chủ. Tệp đính kèm hiện chỉ được chọn, chưa được đọc.':'Chế độ tạo dự thảo theo mẫu trên trình duyệt; không thay thế dịch vụ soạn thảo thông minh.';out.value='';}
+function mode(which){const asking=which==='ask';ask.setAttribute('aria-pressed',String(asking));draft.setAttribute('aria-pressed',String(!asking));el('a11AskAttachments').hidden=!asking;el('a11AttachmentList').hidden=!asking;el('a11VoiceBtn').hidden=!asking;el('a11AskSendBtn').hidden=!asking;el('a11AIDraftBtn').hidden=asking;el('a11ApplyDraft').hidden=asking;prompt.placeholder=asking?'Nhập câu hỏi, yêu cầu giải thích, chỉnh sửa hoặc phản biện...':'Nhập dữ liệu thực tế hoặc dán yêu cầu soạn báo cáo theo mẫu đang chọn...';status.textContent=asking?'Chế độ hỏi: sử dụng dịch vụ AI của Backend NVS khi phiên đăng nhập hợp lệ. Tệp đính kèm chỉ được chọn, chưa được đọc.':'Chế độ tạo dự thảo theo mẫu trên trình duyệt; không thay thế dịch vụ soạn thảo thông minh.';out.value='';}
 ask.addEventListener('click',()=>mode('ask'));draft.addEventListener('click',()=>mode('draft'));
-el('a11AskSendBtn').addEventListener('click',()=>{status.textContent='Chưa kết nối dịch vụ trả lời câu hỏi. Yêu cầu chưa được gửi đi; em không tạo câu trả lời giả.';});
+el('a11AskSendBtn').addEventListener('click',async()=>{
+ const q=prompt.value.trim(),btn=el('a11AskSendBtn');
+ if(!q){status.textContent='Vui lòng nhập câu hỏi.';prompt.focus();return;}
+ if(!window.HVA_Assistant_Shared){status.textContent='Thiếu tệp HVA_Assistant_Shared.js. Chưa gửi yêu cầu.';return;}
+ if(btn.disabled)return;
+ btn.disabled=true;btn.textContent='ĐANG XỬ LÝ…';status.textContent='Đang gửi yêu cầu đến Trợ lý…';
+ try{const answer=await window.HVA_Assistant_Shared.ask({question:q,context:'Báo cáo'});out.value=answer;status.textContent='Đã nhận câu trả lời. Vui lòng kiểm tra nội dung trước khi sử dụng.';}
+ catch(e){status.textContent='Chưa nhận được câu trả lời: '+(e.message||String(e));}
+ finally{btn.disabled=false;btn.textContent='GỬI CÂU HỎI';}
+});
 el('a11ClearAnswer').addEventListener('click',()=>{out.value='';status.textContent='Đã xóa nội dung trả lời/dự thảo trên màn hình.';out.focus();});
 mode('draft');
-})();</script></body></html>
+})();</script><script src="./HVA_Assistant_Shared.js"></script>
+<script>
+/* Chặn bộ tạo mẫu cục bộ ở pha capture; dùng AI thực từ Backend. */
+(()=>{const b=document.getElementById("a11AIDraftBtn"),p=document.getElementById("a11AssistantPrompt"),o=document.getElementById("a11DraftText"),st=document.getElementById("a11AIStatus");if(!b)return;b.addEventListener("click",async e=>{e.stopImmediatePropagation();e.preventDefault();if(b.disabled)return;const q=p.value.trim();if(!q){st.textContent="Vui lòng nhập yêu cầu soạn báo cáo.";return;}if(!window.HVA_Assistant_Shared){st.textContent="Chưa nạp bộ kết nối Trợ lý.";return;}const selected=document.querySelector(".type[aria-pressed=\"true\"]");const reportType=selected?.dataset.type||"Nhiệm vụ được giao";b.disabled=true;st.textContent="Đang tạo dự thảo bằng AI...";try{o.value=await window.HVA_Assistant_Shared.draftReport({prompt:q,reportType});st.textContent="Đã nhận dự thảo AI. Vui lòng kiểm tra nội dung và số liệu.";}catch(err){st.textContent="Không tạo được dự thảo: "+err.message;}finally{b.disabled=false;}},true);})();
+</script></body></html>
