@@ -1,0 +1,32 @@
+{
+  "checks": [
+    "B.1.1 open/filter/date validation/no false results/context/reset or C controls",
+    "B.1.2 open/filter/date validation/no false results/context/reset or C controls",
+    "B.1.3 open/filter/date validation/no false results/context/reset or C controls",
+    "B.1.4 open/filter/date validation/no false results/context/reset or C controls",
+    "B.2.1 original connected link preserved",
+    "B.2.2 open/filter/date validation/no false results/context/reset or C controls",
+    "B.2.3 open/filter/date validation/no false results/context/reset or C controls",
+    "B.2.4 open/filter/date validation/no false results/context/reset or C controls",
+    "C.1 open/filter/date validation/no false results/context/reset or C controls",
+    "C.2 open/filter/date validation/no false results/context/reset or C controls",
+    "C.3 open/filter/date validation/no false results/context/reset or C controls",
+    "C.4 open/filter/date validation/no false results/context/reset or C controls",
+    "changed identity disables search and hides existing-source links",
+    "Giáo viên no widening of C scope or invented records",
+    "Nhân viên no widening of C scope or invented records",
+    "Tổ trưởng no widening of C scope or invented records",
+    "Hiệu trưởng no widening of C scope or invented records",
+    "missing session locks search",
+    "375 page responsive; wide table scrolls inside wrapper",
+    "663 page responsive; wide table scrolls inside wrapper",
+    "1200 page responsive; wide table scrolls inside wrapper",
+    "375 C modal and assistant reachable; Escape preserves C",
+    "1200 C modal and assistant reachable; Escape preserves C",
+    "personal/calendar bottom navigation reaches C1/B12"
+  ],
+  "page_errors": [],
+  "production_api_requests": 0,
+  "backend_integration": "NOT TESTED / NEW SOURCES NOT CONNECTED",
+  "owner_acceptance": "PENDING"
+}

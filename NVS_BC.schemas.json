@@ -1,0 +1,277 @@
+{
+  "B.1.1": {
+    "code": "B.1.1",
+    "name": "Phân công chuyên môn và Thời khóa biểu",
+    "types": [
+      "Phân công chuyên môn",
+      "Thời khóa biểu"
+    ],
+    "columns": [
+      "Mã / số phân công",
+      "Môn / nội dung",
+      "Lớp / nhóm",
+      "Thời gian hiệu lực",
+      "Trạng thái"
+    ],
+    "links": [],
+    "scope": "Chỉ xem phân công và lịch được phép. Nguồn thời khóa biểu chưa được cấu hình; không lấy dữ liệu từ repository khác."
+  },
+  "B.1.2": {
+    "code": "B.1.2",
+    "name": "Lịch công tác – Cuộc họp",
+    "types": [
+      "Lịch công tác",
+      "Cuộc họp"
+    ],
+    "columns": [
+      "Mã lịch / cuộc họp",
+      "Nội dung",
+      "Thời gian",
+      "Địa điểm",
+      "Trạng thái"
+    ],
+    "links": [
+      [
+        "Cuộc họp hiện hành",
+        "./CuocHop.html"
+      ],
+      [
+        "Lịch công tác hiện hành (chưa xác minh kết nối)",
+        "./NVS_LichCongTac.html"
+      ]
+    ],
+    "scope": "Chỉ xem lịch / cuộc họp thuộc phạm vi quyền. Không tự suy ra quyền từ thành phần họp."
+  },
+  "B.1.3": {
+    "code": "B.1.3",
+    "name": "Lịch kiểm tra và phân công coi kiểm tra",
+    "types": [
+      "Lịch kiểm tra",
+      "Phân công coi kiểm tra"
+    ],
+    "columns": [
+      "Mã / đợt",
+      "Môn / nội dung",
+      "Ngày / ca",
+      "Phòng / nhiệm vụ",
+      "Trạng thái"
+    ],
+    "links": [
+      [
+        "Mở phân công kiểm tra hiện hành",
+        "./PhanCong_DeKiemTra.html"
+      ]
+    ],
+    "scope": "Chờ nguồn lịch và danh sách coi kiểm tra đã được phân quyền. Không hiển thị đề thi hoặc thông tin thí sinh."
+  },
+  "B.1.4": {
+    "code": "B.1.4",
+    "name": "Nhiệm vụ được giao",
+    "types": [
+      "Nhiệm vụ được giao"
+    ],
+    "columns": [
+      "Mã nhiệm vụ",
+      "Tên nhiệm vụ",
+      "Người giao",
+      "Thời hạn",
+      "Trạng thái"
+    ],
+    "links": [
+      [
+        "Mở Giao việc – Theo dõi hiện hành",
+        "./NVS_GiaoViec_TheoDoi.html"
+      ]
+    ],
+    "scope": "Chỉ nhiệm vụ do máy chủ xác định bạn là người nhận / được cấp quyền. Không cho chọn tài khoản người khác."
+  },
+  "B.2.1": {
+    "code": "B.2.1",
+    "name": "Văn bản – Quy định",
+    "types": [
+      "Văn bản – Quy định"
+    ],
+    "columns": [
+      "Số văn bản",
+      "Trích yếu",
+      "Ngày ban hành",
+      "Cơ quan ban hành",
+      "Hiệu lực"
+    ],
+    "links": [
+      [
+        "Mở Văn bản – Quy định hiện hành",
+        "./VanBan_QuyDinh.html"
+      ]
+    ],
+    "scope": "Giữ nguyên nghiệp vụ Văn bản – Quy định. Bộ tra cứu mới chưa có nguồn dữ liệu."
+  },
+  "B.2.2": {
+    "code": "B.2.2",
+    "name": "Kế hoạch bài dạy, học liệu theo quyền",
+    "types": [
+      "Kế hoạch bài dạy",
+      "Học liệu số",
+      "Tài nguyên dạy học"
+    ],
+    "columns": [
+      "Mã hồ sơ",
+      "Tên tài liệu",
+      "Loại tài liệu",
+      "Thời điểm",
+      "Phạm vi được cấp"
+    ],
+    "links": [
+      [
+        "Lập kế hoạch bài dạy",
+        "./NVS_TacNghiep.html?item=A.3.1"
+      ],
+      [
+        "Lập học liệu số",
+        "./NVS_TacNghiep.html?item=A.4.4"
+      ]
+    ],
+    "scope": "Tài liệu của mình hoặc được máy chủ cho phép xem. Không mặc định cùng tổ thì được đọc; chỉ mở liên kết Drive có quyền."
+  },
+  "B.2.3": {
+    "code": "B.2.3",
+    "name": "Tra cứu hồ sơ chuyên môn",
+    "types": [
+      "Báo cáo chuyên môn",
+      "Hồ sơ dạy học",
+      "Sản phẩm chuyên môn",
+      "Đơn, đề nghị",
+      "Thiết bị, phòng học"
+    ],
+    "columns": [
+      "Mã hồ sơ",
+      "Tên hồ sơ",
+      "Nhóm nghiệp vụ",
+      "Ngày gửi",
+      "Trạng thái"
+    ],
+    "links": [
+      [
+        "Danh mục lập hồ sơ A.1–A.6",
+        "./NghiepVu.html"
+      ]
+    ],
+    "scope": "Máy chủ phải lọc quyền trước khi trả dữ liệu. Không nạp hồ sơ toàn trường rồi lọc bằng trình duyệt."
+  },
+  "B.2.4": {
+    "code": "B.2.4",
+    "name": "Tra cứu kết quả xử lý nghiệp vụ",
+    "types": [
+      "Kết quả tiếp nhận",
+      "Phản hồi / yêu cầu bổ sung",
+      "Kết quả xử lý"
+    ],
+    "columns": [
+      "Mã hồ sơ",
+      "Tên hồ sơ",
+      "Lần cập nhật",
+      "Trạng thái",
+      "Đơn vị xử lý"
+    ],
+    "links": [],
+    "scope": "Kết quả gắn với cùng mã hồ sơ ban đầu, không tạo bản sao riêng cho CC. Chưa nhận dữ liệu xử lý từ máy chủ."
+  },
+  "C.1": {
+    "code": "C.1",
+    "name": "Hồ sơ của tôi",
+    "types": [
+      "Tất cả hồ sơ của tôi",
+      "Báo cáo chuyên môn",
+      "Hồ sơ dạy học",
+      "Sản phẩm chuyên môn",
+      "Đơn, đề nghị",
+      "Thiết bị, phòng học"
+    ],
+    "columns": [
+      "Mã hồ sơ",
+      "Tên hồ sơ",
+      "Nhóm nghiệp vụ",
+      "Ngày gửi",
+      "Trạng thái"
+    ],
+    "links": [
+      [
+        "Báo cáo chủ nhiệm hiện hành",
+        "./BC_ChuNhiem.html"
+      ],
+      [
+        "Báo cáo DTHT hiện hành",
+        "./BC_DayThemHocThem.html"
+      ],
+      [
+        "Lập hồ sơ A.1–A.6",
+        "./NghiepVu.html"
+      ]
+    ],
+    "scope": "Chỉ hồ sơ của tài khoản hiện tại, xác minh ở máy chủ. Hồ sơ nháp chưa lưu không được coi là hồ sơ đã gửi."
+  },
+  "C.2": {
+    "code": "C.2",
+    "name": "Kết quả thực hiện nhiệm vụ",
+    "types": [
+      "Tất cả nhiệm vụ của tôi",
+      "Trước hạn",
+      "Đúng hạn",
+      "Trễ hạn",
+      "Chưa hoàn thành",
+      "Quá hạn chưa hoàn thành"
+    ],
+    "columns": [
+      "Mã nhiệm vụ",
+      "Nhiệm vụ",
+      "Thời hạn",
+      "Ngày hoàn thành",
+      "Trạng thái"
+    ],
+    "links": [
+      [
+        "Mở nhiệm vụ hiện hành",
+        "./NVS_GiaoViec_TheoDoi.html"
+      ]
+    ],
+    "scope": "Chỉ kết quả của mình. Chưa có dữ liệu giao việc và thời điểm hoàn thành chính thức nên không tự tính tỷ lệ hoặc kết luận vi phạm."
+  },
+  "C.3": {
+    "code": "C.3",
+    "name": "Khen thưởng – Nhắc nhở",
+    "types": [
+      "Tất cả ghi nhận của tôi",
+      "Biểu dương",
+      "Khen thưởng",
+      "Nhắc nhở",
+      "Đã khắc phục"
+    ],
+    "columns": [
+      "Mã ghi nhận",
+      "Nội dung đã xác nhận",
+      "Ngày hiệu lực",
+      "Người có thẩm quyền",
+      "Trạng thái"
+    ],
+    "links": [],
+    "scope": "Chỉ ghi nhận đã được người có thẩm quyền xác nhận và được phép thông báo cho mình. Không đọc nhắc nhở của người khác; không tự ghi nhận kỷ luật."
+  },
+  "C.4": {
+    "code": "C.4",
+    "name": "Tổng hợp và đánh giá công tác",
+    "types": [
+      "Theo tháng",
+      "Theo học kỳ",
+      "Theo năm học"
+    ],
+    "columns": [
+      "Kỳ đánh giá",
+      "Tiêu chí / nhiệm vụ",
+      "Kết quả có căn cứ",
+      "Xác nhận",
+      "Trạng thái"
+    ],
+    "links": [],
+    "scope": "Chưa có tiêu chí, nguồn kết quả và xác nhận chính thức; không tự chấm điểm, xếp loại hoặc dùng AI đánh giá nhân sự."
+  }
+}
