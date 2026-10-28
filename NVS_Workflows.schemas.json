@@ -1,0 +1,901 @@
+{
+  "A.2.2": {
+    "code": "A.2.2",
+    "name": "Nộp ma trận, bản đặc tả và đề kiểm tra",
+    "variants": [
+      "Nộp ma trận, bản đặc tả và đề kiểm tra"
+    ],
+    "fields": [
+      [
+        "subject",
+        "Môn học",
+        "text",
+        true
+      ],
+      [
+        "grade",
+        "Khối lớp",
+        "text",
+        true
+      ],
+      [
+        "term",
+        "Học kỳ / đợt",
+        "text",
+        true
+      ],
+      [
+        "assignment",
+        "Mã nhiệm vụ được phân công",
+        "text",
+        true
+      ],
+      [
+        "exam",
+        "Tên / loại bài kiểm tra",
+        "text",
+        true
+      ],
+      [
+        "duration",
+        "Thời lượng (phút)",
+        "number",
+        true
+      ],
+      [
+        "matrix",
+        "Liên kết ma trận",
+        "drive",
+        true
+      ],
+      [
+        "spec",
+        "Liên kết bản đặc tả",
+        "drive",
+        true
+      ],
+      [
+        "paper",
+        "Liên kết đề kiểm tra",
+        "drive",
+        true
+      ],
+      [
+        "answer",
+        "Liên kết đáp án và hướng dẫn chấm",
+        "drive",
+        true
+      ]
+    ]
+  },
+  "A.2.3": {
+    "code": "A.2.3",
+    "name": "Nộp đề kiểm tra bổ sung, đề kiểm tra lại",
+    "variants": [
+      "Đề kiểm tra bổ sung",
+      "Đề kiểm tra lại"
+    ],
+    "fields": [
+      [
+        "subject",
+        "Môn học",
+        "text",
+        true
+      ],
+      [
+        "grade",
+        "Khối lớp",
+        "text",
+        true
+      ],
+      [
+        "term",
+        "Học kỳ / đợt",
+        "text",
+        true
+      ],
+      [
+        "exam",
+        "Tên bài kiểm tra",
+        "text",
+        true
+      ],
+      [
+        "assignment",
+        "Căn cứ / mã nhiệm vụ",
+        "text",
+        true
+      ],
+      [
+        "reason",
+        "Lý do kiểm tra bổ sung / kiểm tra lại",
+        "textarea",
+        true
+      ],
+      [
+        "paper",
+        "Liên kết đề kiểm tra",
+        "drive",
+        true
+      ],
+      [
+        "answer",
+        "Liên kết đáp án, hướng dẫn chấm",
+        "drive",
+        true
+      ]
+    ]
+  },
+  "A.2.4": {
+    "code": "A.2.4",
+    "name": "Báo cáo, đề nghị về kiểm tra, đánh giá",
+    "variants": [
+      "Báo cáo kiểm tra, đánh giá",
+      "Đề nghị về kiểm tra, đánh giá"
+    ],
+    "fields": [
+      [
+        "subject",
+        "Môn học",
+        "text",
+        true
+      ],
+      [
+        "grade",
+        "Khối lớp",
+        "text",
+        true
+      ],
+      [
+        "term",
+        "Học kỳ / đợt",
+        "text",
+        true
+      ],
+      [
+        "basis",
+        "Căn cứ / đợt kiểm tra",
+        "text",
+        true
+      ],
+      [
+        "total",
+        "Số bài / lượt đánh giá",
+        "number",
+        true
+      ],
+      [
+        "findings",
+        "Kết quả, vướng mắc",
+        "textarea",
+        true
+      ],
+      [
+        "proposal",
+        "Đề nghị xử lý",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.3.1": {
+    "code": "A.3.1",
+    "name": "Nộp liên kết kế hoạch bài dạy",
+    "variants": [
+      "Nộp liên kết kế hoạch bài dạy"
+    ],
+    "fields": [
+      [
+        "subject",
+        "Môn học",
+        "text",
+        true
+      ],
+      [
+        "grade",
+        "Khối lớp",
+        "text",
+        true
+      ],
+      [
+        "term",
+        "Học kỳ / đợt",
+        "text",
+        true
+      ],
+      [
+        "class",
+        "Lớp / nhóm lớp (không nhập tên học sinh)",
+        "text",
+        true
+      ],
+      [
+        "week",
+        "Tuần / tiết / chủ đề",
+        "text",
+        true
+      ],
+      [
+        "lesson",
+        "Liên kết kế hoạch bài dạy",
+        "drive",
+        true
+      ]
+    ]
+  },
+  "A.3.2": {
+    "code": "A.3.2",
+    "name": "Báo cáo tiến độ thực hiện chương trình",
+    "variants": [
+      "Báo cáo tiến độ thực hiện chương trình"
+    ],
+    "fields": [
+      [
+        "subject",
+        "Môn học",
+        "text",
+        true
+      ],
+      [
+        "grade",
+        "Khối lớp",
+        "text",
+        true
+      ],
+      [
+        "term",
+        "Học kỳ / đợt",
+        "text",
+        true
+      ],
+      [
+        "period",
+        "Kỳ báo cáo",
+        "text",
+        true
+      ],
+      [
+        "planned",
+        "Số tiết theo kế hoạch",
+        "number",
+        true
+      ],
+      [
+        "done",
+        "Số tiết đã thực hiện",
+        "number",
+        true
+      ],
+      [
+        "adjust",
+        "Nguyên nhân chênh lệch và phương án điều chỉnh",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.3.3": {
+    "code": "A.3.3",
+    "name": "Nộp minh chứng chuyên môn theo yêu cầu",
+    "variants": [
+      "Nộp minh chứng chuyên môn theo yêu cầu"
+    ],
+    "fields": [
+      [
+        "request",
+        "Mã / nội dung yêu cầu",
+        "text",
+        true
+      ],
+      [
+        "category",
+        "Loại minh chứng",
+        "text",
+        true
+      ],
+      [
+        "period",
+        "Kỳ / thời gian minh chứng",
+        "text",
+        true
+      ],
+      [
+        "evidence",
+        "Liên kết minh chứng",
+        "drive",
+        true
+      ],
+      [
+        "description",
+        "Mô tả và đối chiếu yêu cầu",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.3.4": {
+    "code": "A.3.4",
+    "name": "Nộp hồ sơ dạy học khác theo yêu cầu",
+    "variants": [
+      "Nộp hồ sơ dạy học khác theo yêu cầu"
+    ],
+    "fields": [
+      [
+        "request",
+        "Văn bản / nhiệm vụ yêu cầu",
+        "text",
+        true
+      ],
+      [
+        "category",
+        "Loại hồ sơ",
+        "text",
+        true
+      ],
+      [
+        "period",
+        "Kỳ hồ sơ",
+        "text",
+        true
+      ],
+      [
+        "record",
+        "Liên kết hồ sơ",
+        "drive",
+        true
+      ],
+      [
+        "description",
+        "Danh mục thành phần hồ sơ",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.4.1": {
+    "code": "A.4.1",
+    "name": "Nghiên cứu khoa học, kỹ thuật và sáng kiến",
+    "variants": [
+      "Nghiên cứu khoa học, kỹ thuật",
+      "Sáng kiến"
+    ],
+    "fields": [
+      [
+        "product",
+        "Tên đề tài / sáng kiến",
+        "text",
+        true
+      ],
+      [
+        "field",
+        "Lĩnh vực",
+        "text",
+        true
+      ],
+      [
+        "scope",
+        "Phạm vi áp dụng",
+        "text",
+        true
+      ],
+      [
+        "stage",
+        "Giai đoạn / tiến độ",
+        "text",
+        true
+      ],
+      [
+        "novelty",
+        "Điểm mới, kết quả có căn cứ",
+        "textarea",
+        true
+      ],
+      [
+        "productLink",
+        "Liên kết sản phẩm / báo cáo",
+        "drive",
+        true
+      ]
+    ]
+  },
+  "A.4.2": {
+    "code": "A.4.2",
+    "name": "Giáo viên tham gia và hướng dẫn học sinh tham gia các cuộc thi",
+    "variants": [
+      "Giáo viên tham gia cuộc thi",
+      "Hướng dẫn học sinh nghiên cứu khoa học, kỹ thuật",
+      "Hướng dẫn học sinh tham gia cuộc thi"
+    ],
+    "fields": [
+      [
+        "competition",
+        "Tên cuộc thi / hoạt động",
+        "text",
+        true
+      ],
+      [
+        "level",
+        "Cấp / đơn vị tổ chức",
+        "text",
+        true
+      ],
+      [
+        "topic",
+        "Đề tài / nội dung hướng dẫn",
+        "text",
+        true
+      ],
+      [
+        "count",
+        "Số người tham gia (chỉ số tổng hợp)",
+        "number",
+        true
+      ],
+      [
+        "plan",
+        "Kế hoạch / tiến độ hướng dẫn",
+        "textarea",
+        true
+      ],
+      [
+        "result",
+        "Kết quả tổng hợp, không nhập danh tính học sinh",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.4.3": {
+    "code": "A.4.3",
+    "name": "Chuyên đề, tham luận và sản phẩm chuyên môn khác",
+    "variants": [
+      "Chuyên đề",
+      "Tham luận",
+      "Sản phẩm chuyên môn khác"
+    ],
+    "fields": [
+      [
+        "product",
+        "Tên chuyên đề / sản phẩm",
+        "text",
+        true
+      ],
+      [
+        "audience",
+        "Đối tượng sử dụng",
+        "text",
+        true
+      ],
+      [
+        "event",
+        "Đợt / sự kiện / yêu cầu",
+        "text",
+        true
+      ],
+      [
+        "description",
+        "Tóm tắt nội dung, giá trị sử dụng",
+        "textarea",
+        true
+      ],
+      [
+        "productLink",
+        "Liên kết sản phẩm chuyên môn",
+        "drive",
+        true
+      ]
+    ]
+  },
+  "A.4.4": {
+    "code": "A.4.4",
+    "name": "Học liệu số và tài nguyên dạy học",
+    "variants": [
+      "Học liệu số",
+      "Tài nguyên dạy học"
+    ],
+    "fields": [
+      [
+        "subject",
+        "Môn học",
+        "text",
+        true
+      ],
+      [
+        "grade",
+        "Khối lớp",
+        "text",
+        true
+      ],
+      [
+        "term",
+        "Học kỳ / đợt",
+        "text",
+        true
+      ],
+      [
+        "resource",
+        "Tên học liệu / tài nguyên",
+        "text",
+        true
+      ],
+      [
+        "format",
+        "Định dạng / loại học liệu",
+        "text",
+        true
+      ],
+      [
+        "rights",
+        "Nguồn, quyền sử dụng / bản quyền",
+        "text",
+        true
+      ],
+      [
+        "resourceLink",
+        "Liên kết học liệu",
+        "drive",
+        true
+      ],
+      [
+        "use",
+        "Hướng dẫn sử dụng",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.5.1": {
+    "code": "A.5.1",
+    "name": "Xin phép nghỉ dạy, nghỉ làm việc, ra ngoài",
+    "variants": [
+      "Xin phép nghỉ dạy",
+      "Xin phép nghỉ làm việc",
+      "Xin phép ra ngoài"
+    ],
+    "fields": [
+      [
+        "from",
+        "Từ ngày giờ",
+        "datetime-local",
+        true
+      ],
+      [
+        "to",
+        "Đến ngày giờ",
+        "datetime-local",
+        true
+      ],
+      [
+        "schedule",
+        "Tiết / lớp / ca làm bị ảnh hưởng (không nhập tên học sinh)",
+        "text",
+        true
+      ],
+      [
+        "reason",
+        "Lý do khái quát, không nhập thông tin sức khỏe riêng tư",
+        "textarea",
+        true
+      ],
+      [
+        "handover",
+        "Phương án bàn giao / dạy thay dự kiến",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.5.2": {
+    "code": "A.5.2",
+    "name": "Đề nghị đổi tiết, điều chỉnh lịch",
+    "variants": [
+      "Đề nghị đổi tiết",
+      "Đề nghị điều chỉnh lịch"
+    ],
+    "fields": [
+      [
+        "original",
+        "Lịch / tiết hiện tại",
+        "text",
+        true
+      ],
+      [
+        "requested",
+        "Lịch / tiết đề nghị",
+        "text",
+        true
+      ],
+      [
+        "class",
+        "Lớp / môn / phòng liên quan",
+        "text",
+        true
+      ],
+      [
+        "reason",
+        "Lý do điều chỉnh",
+        "textarea",
+        true
+      ],
+      [
+        "coordination",
+        "Phương án phối hợp (chưa xác nhận thay người khác)",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.5.3": {
+    "code": "A.5.3",
+    "name": "Đề nghị công tác, công vụ",
+    "variants": [
+      "Đề nghị công tác",
+      "Đề nghị công vụ"
+    ],
+    "fields": [
+      [
+        "mission",
+        "Nội dung công tác / công vụ",
+        "text",
+        true
+      ],
+      [
+        "location",
+        "Địa điểm / đơn vị liên hệ",
+        "text",
+        true
+      ],
+      [
+        "from",
+        "Từ ngày giờ",
+        "datetime-local",
+        true
+      ],
+      [
+        "to",
+        "Đến ngày giờ",
+        "datetime-local",
+        true
+      ],
+      [
+        "basis",
+        "Căn cứ / nhiệm vụ",
+        "text",
+        true
+      ],
+      [
+        "handover",
+        "Phương án bảo đảm công việc",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.5.4": {
+    "code": "A.5.4",
+    "name": "Đơn, đề nghị khác",
+    "variants": [
+      "Đơn khác",
+      "Đề nghị khác"
+    ],
+    "fields": [
+      [
+        "kind",
+        "Loại đơn / đề nghị",
+        "text",
+        true
+      ],
+      [
+        "basis",
+        "Căn cứ / yêu cầu liên quan",
+        "text",
+        true
+      ],
+      [
+        "reason",
+        "Lý do và nội dung đề nghị",
+        "textarea",
+        true
+      ],
+      [
+        "proposal",
+        "Phương án đề xuất",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.6.1": {
+    "code": "A.6.1",
+    "name": "Đăng ký, đề xuất sử dụng thiết bị, đồ dùng dạy học",
+    "variants": [
+      "Đăng ký sử dụng thiết bị, đồ dùng dạy học",
+      "Đề xuất sử dụng thiết bị, đồ dùng dạy học"
+    ],
+    "fields": [
+      [
+        "device",
+        "Tên / mã thiết bị",
+        "text",
+        true
+      ],
+      [
+        "quantity",
+        "Số lượng",
+        "number",
+        true
+      ],
+      [
+        "subject",
+        "Môn / chủ đề / lớp",
+        "text",
+        true
+      ],
+      [
+        "location",
+        "Địa điểm sử dụng",
+        "text",
+        true
+      ],
+      [
+        "from",
+        "Từ ngày giờ",
+        "datetime-local",
+        true
+      ],
+      [
+        "to",
+        "Đến ngày giờ",
+        "datetime-local",
+        true
+      ],
+      [
+        "purpose",
+        "Mục đích, yêu cầu kỹ thuật",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.6.2": {
+    "code": "A.6.2",
+    "name": "Đăng ký, đề xuất sử dụng phòng bộ môn, phòng Tin học, phòng chức năng",
+    "variants": [
+      "Đăng ký phòng bộ môn",
+      "Đăng ký phòng Tin học",
+      "Đăng ký phòng chức năng",
+      "Đề xuất sử dụng phòng"
+    ],
+    "fields": [
+      [
+        "room",
+        "Tên / mã phòng",
+        "text",
+        true
+      ],
+      [
+        "subject",
+        "Môn / chủ đề / lớp",
+        "text",
+        true
+      ],
+      [
+        "count",
+        "Số người sử dụng (tổng hợp)",
+        "number",
+        true
+      ],
+      [
+        "from",
+        "Từ ngày giờ",
+        "datetime-local",
+        true
+      ],
+      [
+        "to",
+        "Đến ngày giờ",
+        "datetime-local",
+        true
+      ],
+      [
+        "requirements",
+        "Yêu cầu sử dụng / thiết bị",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.6.3": {
+    "code": "A.6.3",
+    "name": "Báo cáo sử dụng thiết bị và phòng học chức năng",
+    "variants": [
+      "Báo cáo sử dụng thiết bị",
+      "Báo cáo sử dụng phòng học chức năng"
+    ],
+    "fields": [
+      [
+        "registration",
+        "Mã đăng ký (nếu có)",
+        "text",
+        false
+      ],
+      [
+        "device",
+        "Thiết bị / phòng đã sử dụng",
+        "text",
+        true
+      ],
+      [
+        "date",
+        "Ngày sử dụng",
+        "date",
+        true
+      ],
+      [
+        "quantity",
+        "Số lượng / số lượt",
+        "number",
+        true
+      ],
+      [
+        "usage",
+        "Nội dung, hiệu quả sử dụng",
+        "textarea",
+        true
+      ],
+      [
+        "condition",
+        "Tình trạng sau sử dụng / bàn giao",
+        "textarea",
+        true
+      ]
+    ]
+  },
+  "A.6.4": {
+    "code": "A.6.4",
+    "name": "Báo hỏng, đề nghị sửa chữa, bổ sung thiết bị",
+    "variants": [
+      "Báo hỏng thiết bị",
+      "Đề nghị sửa chữa",
+      "Đề nghị bổ sung thiết bị"
+    ],
+    "fields": [
+      [
+        "device",
+        "Tên / mã thiết bị / phòng",
+        "text",
+        true
+      ],
+      [
+        "quantity",
+        "Số lượng",
+        "number",
+        true
+      ],
+      [
+        "location",
+        "Vị trí",
+        "text",
+        true
+      ],
+      [
+        "condition",
+        "Hiện trạng và mức độ ảnh hưởng",
+        "textarea",
+        true
+      ],
+      [
+        "priority",
+        "Mức độ cần xử lý",
+        "text",
+        true
+      ],
+      [
+        "proposal",
+        "Phương án sửa chữa / bổ sung đề nghị",
+        "textarea",
+        true
+      ]
+    ]
+  }
+}
