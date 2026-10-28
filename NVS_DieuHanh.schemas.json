@@ -1,0 +1,446 @@
+{
+  "Phân công chuyên môn": {
+    "code": "DH.1.2.1",
+    "types": [
+      "Phân công giảng dạy",
+      "Điều chỉnh phân công giảng dạy"
+    ],
+    "fields": [
+      [
+        "year",
+        "Năm học / học kỳ",
+        "text",
+        true
+      ],
+      [
+        "subject",
+        "Môn giảng dạy",
+        "text",
+        true
+      ],
+      [
+        "grade",
+        "Khối / lớp / nhóm lớp",
+        "text",
+        true
+      ],
+      [
+        "lessons",
+        "Số tiết dự kiến",
+        "number",
+        true
+      ],
+      [
+        "from",
+        "Từ ngày",
+        "date",
+        true
+      ],
+      [
+        "to",
+        "Đến ngày",
+        "date",
+        true
+      ],
+      [
+        "basis",
+        "Căn cứ phân công",
+        "text",
+        true
+      ],
+      [
+        "plan",
+        "Phương án phân công / điều chỉnh",
+        "textarea",
+        true
+      ]
+    ],
+    "note": "Chưa có nguồn phân công và thời khóa biểu được xác minh. Chọn nhân sự chỉ từ nguồn HVA hiện có; không tự gán tổ, không ghi lịch hoặc công bố phân công.",
+    "links": [],
+    "people": true
+  },
+  "Phân công khác": {
+    "code": "DH.1.2.3",
+    "types": [
+      "Coi kiểm tra / thi",
+      "Dự giờ",
+      "Trực trường",
+      "Phân công khác"
+    ],
+    "fields": [
+      [
+        "title",
+        "Tên đợt / nhiệm vụ",
+        "text",
+        true
+      ],
+      [
+        "from",
+        "Từ ngày giờ",
+        "datetime-local",
+        true
+      ],
+      [
+        "to",
+        "Đến ngày giờ",
+        "datetime-local",
+        true
+      ],
+      [
+        "place",
+        "Địa điểm / phòng",
+        "text",
+        true
+      ],
+      [
+        "scope",
+        "Phạm vi và yêu cầu công việc",
+        "textarea",
+        true
+      ]
+    ],
+    "note": "Giữ nguyên phân công kiểm tra đã có. Các loại phân công khác chưa mở phát hành hoặc xác nhận.",
+    "links": [
+      [
+        "Mở phân công kiểm tra hiện hành",
+        "./PhanCong_DeKiemTra.html"
+      ]
+    ],
+    "people": true
+  },
+  "Điều phối công việc": {
+    "code": "DH.1.2.4",
+    "types": [
+      "Điều phối nhiệm vụ",
+      "Điều chỉnh thời hạn",
+      "Phối hợp xử lý công việc"
+    ],
+    "fields": [
+      [
+        "task",
+        "Mã / tên nhiệm vụ liên quan",
+        "text",
+        true
+      ],
+      [
+        "deadline",
+        "Thời hạn dự kiến",
+        "datetime-local",
+        true
+      ],
+      [
+        "reason",
+        "Lý do điều phối",
+        "textarea",
+        true
+      ],
+      [
+        "coordination",
+        "Phương án phối hợp và bàn giao",
+        "textarea",
+        true
+      ]
+    ],
+    "note": "Điều phối không thay đổi người giao, người nhận hoặc thời hạn thật khi chưa được máy chủ chấp nhận.",
+    "links": [
+      [
+        "Mở Giao việc – Theo dõi hiện hành",
+        "./NVS_GiaoViec_TheoDoi.html"
+      ]
+    ],
+    "people": true
+  },
+  "Kiểm tra nội bộ": {
+    "code": "DH.2.3",
+    "types": [
+      "Kế hoạch kiểm tra nội bộ",
+      "Phân công kiểm tra",
+      "Biên bản / kết luận kiểm tra",
+      "Theo dõi khắc phục"
+    ],
+    "fields": [
+      [
+        "title",
+        "Tên kế hoạch / đợt kiểm tra",
+        "text",
+        true
+      ],
+      [
+        "basis",
+        "Căn cứ kiểm tra",
+        "text",
+        true
+      ],
+      [
+        "scope",
+        "Phạm vi / nội dung (không nhập hồ sơ cá nhân nhạy cảm)",
+        "textarea",
+        true
+      ],
+      [
+        "from",
+        "Từ ngày",
+        "date",
+        true
+      ],
+      [
+        "to",
+        "Đến ngày",
+        "date",
+        true
+      ],
+      [
+        "requirements",
+        "Yêu cầu, kết luận dự kiến / biện pháp khắc phục",
+        "textarea",
+        true
+      ]
+    ],
+    "note": "Chỉ chuẩn bị nội dung không nhạy cảm. Chưa mở hồ sơ thanh tra, thông tin khiếu nại, kết luận chính thức hoặc quyền xem dữ liệu cá nhân.",
+    "links": [],
+    "people": false
+  },
+  "Bảo đảm chất lượng": {
+    "code": "DH.2.4",
+    "types": [
+      "Danh mục tiêu chí / minh chứng",
+      "Tự đánh giá theo tiêu chí",
+      "Kế hoạch cải tiến chất lượng",
+      "Theo dõi cải tiến"
+    ],
+    "fields": [
+      [
+        "criterion",
+        "Mã / tên tiêu chí",
+        "text",
+        true
+      ],
+      [
+        "basis",
+        "Bộ tiêu chuẩn / văn bản làm căn cứ",
+        "text",
+        true
+      ],
+      [
+        "period",
+        "Kỳ đánh giá",
+        "text",
+        true
+      ],
+      [
+        "current",
+        "Hiện trạng có căn cứ (không nhập dữ liệu cá nhân)",
+        "textarea",
+        true
+      ],
+      [
+        "improvement",
+        "Kế hoạch / biện pháp cải tiến",
+        "textarea",
+        true
+      ],
+      [
+        "deadline",
+        "Hạn dự kiến",
+        "date",
+        true
+      ]
+    ],
+    "note": "Không tự chấm điểm, xếp loại hoặc tạo kết quả đánh giá. Chưa có tiêu chí và nguồn được phê duyệt thì chỉ xem trước nội dung chuẩn bị.",
+    "links": [],
+    "people": false
+  },
+  "Giao nhiệm vụ": {
+    "code": "DH.1.1.3",
+    "types": [
+      "Giao nhiệm vụ",
+      "Yêu cầu phối hợp"
+    ],
+    "fields": [
+      [
+        "title",
+        "Tiêu đề nhiệm vụ",
+        "text",
+        true
+      ],
+      [
+        "deadline",
+        "Thời hạn dự kiến",
+        "datetime-local",
+        true
+      ],
+      [
+        "content",
+        "Nội dung và yêu cầu kết quả",
+        "textarea",
+        true
+      ],
+      [
+        "deliverable",
+        "Sản phẩm / minh chứng cần nộp",
+        "textarea",
+        true
+      ]
+    ],
+    "people": true,
+    "note": "Kế thừa chọn nhân sự và xem trước của Cuộc họp. Chưa phát hành nhiệm vụ từ biểu mẫu mới.",
+    "links": [
+      [
+        "Giao việc – Theo dõi hiện hành",
+        "./NVS_GiaoViec_TheoDoi.html"
+      ],
+      [
+        "Trang Giao nhiệm vụ trước đây",
+        "./NVS_GiaoNhiemVu.html"
+      ]
+    ]
+  },
+  "Lịch công tác HVA": {
+    "code": "DH.1.1.4",
+    "types": [
+      "Lịch công tác nhà trường",
+      "Lịch công tác cá nhân"
+    ],
+    "fields": [
+      [
+        "title",
+        "Tên lịch / nội dung công tác",
+        "text",
+        true
+      ],
+      [
+        "from",
+        "Bắt đầu",
+        "datetime-local",
+        true
+      ],
+      [
+        "to",
+        "Kết thúc",
+        "datetime-local",
+        true
+      ],
+      [
+        "place",
+        "Địa điểm",
+        "text",
+        true
+      ],
+      [
+        "content",
+        "Nội dung công tác",
+        "textarea",
+        true
+      ]
+    ],
+    "people": true,
+    "note": "Chuẩn bị nội dung lịch; không tự tạo sự kiện Google, gửi thư mời hoặc ghi lịch thật.",
+    "links": [
+      [
+        "Trang Lịch công tác hiện hành",
+        "./NVS_LichCongTac.html"
+      ]
+    ]
+  },
+  "Phân công dạy thay": {
+    "code": "DH.1.2.2",
+    "types": [
+      "Phân công dạy thay",
+      "Điều chỉnh phân công dạy thay"
+    ],
+    "fields": [
+      [
+        "subject",
+        "Môn học",
+        "text",
+        true
+      ],
+      [
+        "class",
+        "Lớp",
+        "text",
+        true
+      ],
+      [
+        "date",
+        "Ngày dạy thay",
+        "date",
+        true
+      ],
+      [
+        "period",
+        "Tiết / buổi",
+        "text",
+        true
+      ],
+      [
+        "basis",
+        "Căn cứ / mã đề nghị nghỉ",
+        "text",
+        true
+      ],
+      [
+        "content",
+        "Nội dung và phương án bàn giao, không ghi lý do sức khỏe riêng tư",
+        "textarea",
+        true
+      ]
+    ],
+    "people": true,
+    "note": "Chọn người dự kiến từ nhân sự HVA; chưa kiểm tra xung đột thời khóa biểu, chưa ghi thay đổi lịch hoặc xác nhận dạy thay.",
+    "links": [
+      [
+        "Trang Dạy thay hiện hành",
+        "./NVS_DayThay.html"
+      ]
+    ]
+  },
+  "Khảo sát": {
+    "code": "DH.1.1.6",
+    "types": [
+      "Khảo sát lựa chọn đơn",
+      "Khảo sát lựa chọn nhiều",
+      "Khảo sát tự luận"
+    ],
+    "fields": [
+      [
+        "title",
+        "Tên khảo sát",
+        "text",
+        true
+      ],
+      [
+        "question",
+        "Câu hỏi khảo sát",
+        "textarea",
+        true
+      ],
+      [
+        "options",
+        "Các phương án trả lời (mỗi dòng một phương án)",
+        "textarea",
+        false
+      ],
+      [
+        "from",
+        "Thời gian bắt đầu",
+        "datetime-local",
+        true
+      ],
+      [
+        "to",
+        "Thời gian kết thúc",
+        "datetime-local",
+        true
+      ]
+    ],
+    "people": true,
+    "note": "Biểu mẫu chuẩn bị một câu hỏi / đợt khảo sát để kiểm tra luồng. Chưa phát hành, thu câu trả lời hoặc thống kê. Không thu thập dữ liệu nhạy cảm.",
+    "links": [
+      [
+        "Trang Khảo sát hiện hành",
+        "./NVS_KhaoSat.html"
+      ]
+    ]
+  }
+}

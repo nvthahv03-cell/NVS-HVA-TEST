@@ -1,0 +1,78 @@
+{
+  "CuocHop.html": {
+    "sha256": "a276c0814a3bb453ac5e08ac2aa7f2b55c400f525c109b270f1ccc2073d3f26d",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "HVA_Personnel.js": {
+    "sha256": "80ebc8228ca94b38ae5e308128448dab583eba2d7ea24bb7ddf9bd39e6f0cf94",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "HVA_Assistant_Shared.js": {
+    "sha256": "47b7155108f6f452999da2d50a68cf6fcb3ce43d8aac3c40a4abd7001ebb0e85",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "index.html": {
+    "sha256": "fce499e69f4d17653acea140d663a2fb1106195105b737661b5d296799d8c7c6",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "BC_ChuNhiem.html": {
+    "sha256": "b7948dee3c5b12eaeca57c63f9e0ccbe0a8174ff4f9f048d5a99e36961e9c875",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "BC_DayThemHocThem.html": {
+    "sha256": "5514b2ac55c4fe2a81c328d82b12e75cc635d94557670470cd3d4177ee514606",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "PhanCong_DeKiemTra.html": {
+    "sha256": "e409fcf4dd0c07d2f14737b5d2fcd43c1f98e01c013cef370110caa2eddb7ecc",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_ThongBao.html": {
+    "sha256": "af8d9204e6879c23c3ed0c49f26379cd2de9682204658f8e45f93f4facad604b",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_BinhChon.html": {
+    "sha256": "59199ed39b69bdefd8d3c3666ac6f0ed42240a618ed2755e904282770ed834d3",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_QuanTri.html": {
+    "sha256": "0ad98036dcddac8706f841c26065d07fdf51485d87c7901511794f405f99edc4",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "TTPhatHanh.html": {
+    "sha256": "eb09fe67555a0363352f0a58e29a8d2c5aa9b682b0f769dbf2be263268d550e5",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_GiaoViec_TheoDoi.html": {
+    "sha256": "c47ecba6e0d9e90e4e4b4c021b16625c10de16df90eca940e511c0839fce41b9",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_GiaoNhiemVu.html": {
+    "sha256": "5a2ec2bf840f85121bf6bdf646a5f2721260e5ec9ce1fcb008fa5622bf3134f7",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_LichCongTac.html": {
+    "sha256": "beae9798c8608989edb5308507e079b6c665d1f520a10381450ad276c8e97da6",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_DayThay.html": {
+    "sha256": "22eb5704c32951fe96f00dae2547bb13b8e8499f52a978d003a2f020aad1e9ab",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_KhaoSat.html": {
+    "sha256": "f814cc26a054db6ecc4907c249d5bd46bee85f633e812bd33b94fe3b1f1da13b",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_BC.js": {
+    "sha256": "953f9a67a60bee1b3b7c4f4e324feded70bb9c02c9c9550c396ded04e4bb4395",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_Workflows.js": {
+    "sha256": "98da6f92d0bf822a9a3f8613d4ee1a27b7276efa18e4250e957e3b9b95f0a830",
+    "status": "UNCHANGED; not live integration tested"
+  },
+  "NVS_A1.js": {
+    "sha256": "e9276b4598fe0d93483a98ab1fbcbaf8930083de5b0e0d18f27186dd6bebd4fb",
+    "status": "UNCHANGED; not live integration tested"
+  }
+}

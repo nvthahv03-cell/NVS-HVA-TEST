@@ -1,0 +1,37 @@
+{
+  "checks": [
+    "14 existing names, sections, search and source-status labels",
+    "Phân công chuyên môn all variants, personnel where required, preview/edit, assistant and close",
+    "Phân công khác all variants, personnel where required, preview/edit, assistant and close",
+    "Điều phối công việc all variants, personnel where required, preview/edit, assistant and close",
+    "Kiểm tra nội bộ all variants, personnel where required, preview/edit, assistant and close",
+    "Bảo đảm chất lượng all variants, personnel where required, preview/edit, assistant and close",
+    "Giao nhiệm vụ all variants, personnel where required, preview/edit, assistant and close",
+    "Lịch công tác HVA all variants, personnel where required, preview/edit, assistant and close",
+    "Phân công dạy thay all variants, personnel where required, preview/edit, assistant and close",
+    "Khảo sát all variants, personnel where required, preview/edit, assistant and close",
+    "no writes to CuocHop publishing/draft keys; no meeting/create/send actions",
+    "personnel required before preview like CuocHop",
+    "invalid interval rejected",
+    "lookalike Drive domain denied",
+    "survey choice validation and HTML-safe text preview",
+    "personnel failure clears stale selection; retry works",
+    "375 menu/workspace responsive",
+    "663 menu/workspace responsive",
+    "1200 menu/workspace responsive",
+    "Giáo viên local gate False",
+    "Nhân viên local gate False",
+    "Tổ trưởng local gate False",
+    "Hiệu trưởng local gate True",
+    "Phó Hiệu trưởng local gate True",
+    "nonfinite session expiry denied"
+  ],
+  "form_count": 9,
+  "variant_count": 26,
+  "intercepted_actions": [
+    "getNVSMeetingPersonnel"
+  ],
+  "page_errors": [],
+  "backend_integration": "NOT TESTED; NEW WRITES DISABLED",
+  "owner_acceptance": "PENDING"
+}
