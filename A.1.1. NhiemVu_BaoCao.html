@@ -36,11 +36,13 @@
     label em{color:#c34141;font-style:normal}.field input,.field textarea{width:100%;border:1.5px solid #bcd4e6;border-radius:10px;padding:12px 14px;color:#173c5a;background:#fff;min-height:45px;font-size:14px}
     .field textarea{min-height:105px;resize:vertical;line-height:1.6}.field input:focus,.field textarea:focus{outline:none;border-color:#0772c5;box-shadow:0 0 0 3px #0871c420}
     fieldset{border:0;padding:0;margin:0;min-width:0}.actions{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}.actions .btn{min-width:132px}
-    .preview{max-width:850px;margin:18px auto;background:white;padding:32px 38px;border:1px solid #c9d7e3;box-shadow:0 10px 30px #1d345023;color:#151515;font-family:"Times New Roman",serif;font-size:16px;line-height:1.42}
+    .preview{max-width:850px;margin:18px auto;background:white;padding:34px 46px;border:1px solid #c9d7e3;box-shadow:0 10px 30px #1d345023;color:#151515;font-family:"Times New Roman",serif;font-size:16px;line-height:1.5}
     .official-head{display:grid;grid-template-columns:1fr 1fr;gap:20px;text-align:center;font-size:13px;margin-bottom:29px;align-items:start}
     .official-head strong{display:block}.official-head .under{border-bottom:1px solid #111;display:inline-block;padding-bottom:4px}.report-title{text-align:center;text-transform:uppercase;font-size:20px;font-weight:800;margin:0 0 6px}
     .report-subtitle{text-align:center;font-size:16px;font-weight:700;margin:0 0 21px}.preview p{margin:9px 0}.preview a{overflow-wrap:anywhere}.preview .report-line{white-space:pre-wrap;overflow-wrap:anywhere}
-    .sign{text-align:center;margin:30px 0 12px auto;width:42%;min-width:200px}.sign b{display:block}.sign p{margin:6px 0 45px}
+    .report-section{margin:22px 0 14px;break-inside:avoid-page}.report-section h3{color:#151515;font:700 16px "Times New Roman",serif;margin:0 0 9px;text-transform:none}.report-section p{margin:8px 0;text-align:justify;line-height:1.56}.report-section p strong{font-weight:700}.report-text{white-space:pre-wrap;overflow-wrap:anywhere}
+    .preview-note{font:500 12px Inter,"Segoe UI",sans-serif;color:#546c82;margin:8px 0 0}
+    .sign{text-align:center;margin:34px 0 12px auto;width:42%;min-width:200px}.sign b{display:block}.sign p{margin:6px 0 45px}
     .preview-stamp{margin-top:24px;padding:9px;border:1px dashed #b75f37;color:#a0462d;font:700 12px Inter,Arial,sans-serif;text-align:center}
     .bottom-nav{display:flex;align-items:center;justify-content:center;gap:18px;padding:15px;background:white;border-top:1px solid #e2eaf3;margin-top:45px}.bottom-nav a,.bottom-nav button{background:transparent;border:0;color:#205781;font-size:13px;font-weight:750;text-decoration:none}
     [hidden]{display:none!important}
@@ -58,8 +60,8 @@
   <div class="hva-pro-online">A.1.1 · BÁO CÁO CHUYÊN MÔN</div>
 </div></header>
 <main>
-  <section class="hero"><div><div class="eyebrow">A.1.1 – Thực hiện nhiệm vụ, báo cáo khác</div><h1 id="heading">Báo cáo thực hiện nhiệm vụ – Báo cáo khác</h1><p>Chọn loại báo cáo để lập nội dung và xem trước theo thể thức hành chính.</p></div>
-  <div class="header-links"><a class="btn secondary" href="./NghiepVu.html">Danh mục nghiệp vụ</a><button class="btn ghost" id="assistantTop" data-nvs-nav="ai" type="button">✦ Trợ lý</button></div></section>
+  <section class="hero"><div><div class="eyebrow">A.1.1 – Thực hiện nhiệm vụ, báo cáo khác</div><h1 id="heading">Báo cáo thực hiện nhiệm vụ – Báo cáo khác</h1><p>Lập báo cáo theo nghiệp vụ, nhờ Trợ lý góp ý, kiểm tra nội dung và xuất bản xem trước.</p></div>
+  <div class="header-links"><a class="btn secondary" href="./NghiepVu.html">Danh mục nghiệp vụ</a><button class="btn ghost" id="assistantTop" data-a11-ai="1" type="button">✦ Trợ lý</button></div></section>
   <section class="panel" id="choices" aria-labelledby="choicesHeading"><div class="panel-top"><div><h2 id="choicesHeading">Chọn loại báo cáo</h2><p class="muted">Bốn nghiệp vụ thuộc A.1.1; không lặp menu A.1.2–A.1.4 trong trang này.</p></div></div>
   <div class="choice-grid" id="choiceGrid">
     <button type="button" class="choice" data-id="task" aria-pressed="false"><span class="choice-icon" aria-hidden="true">▤</span><span><strong>Báo cáo thực hiện nhiệm vụ được giao</strong><small>Kết quả thực hiện nhiệm vụ theo phân công.</small><span class="tag">Lập bản xem trước</span></span></button>
@@ -79,16 +81,16 @@
     <div id="loginWarning" class="warning" hidden>Phiên đăng nhập chưa hợp lệ. Vui lòng đăng nhập từ <a href="./index.html">Trang chủ NVS</a> để chuẩn bị báo cáo.</div>
     <form id="reportForm" novalidate><fieldset id="formFields"><div id="fields" class="grid"></div>
       <div class="field full" style="margin-top:17px"><label for="driveLink">Liên kết tài liệu, minh chứng Google Drive (nếu có)</label><input type="url" id="driveLink" name="driveLink" placeholder="https://drive.google.com/..." autocomplete="off"><p class="muted">Chỉ ghi nhận liên kết trong bản xem trước. Không tải tệp lên NVS; không kiểm chứng quyền Drive tại đây.</p></div>
-      <div class="actions"><button class="btn" type="submit" id="previewButton">Xem trước báo cáo</button><button class="btn secondary" type="button" id="clearButton">Làm mới</button><button class="btn secondary" type="button" data-nvs-nav="ai">✦ Trợ lý soạn báo cáo</button></div>
+      <div class="actions"><button class="btn" type="submit" id="previewButton">Xem trước báo cáo</button><button class="btn secondary" type="button" id="clearButton">Làm mới</button><button class="btn secondary" type="button" data-a11-ai="1">✦ Trợ lý soạn báo cáo</button></div>
     </fieldset></form>
     <p class="muted" style="margin-top:16px"><strong>Nơi nhận dự kiến:</strong> Ban Giám hiệu; tổ trưởng chuyên môn được thông tin theo quyền được duyệt. Chưa có kết nối gửi và phản hồi hồ sơ trong trang này.</p>
   </section>
   <section class="panel" id="previewSection" hidden aria-labelledby="previewHeading"><h2 id="previewHeading">Bản xem trước báo cáo</h2>
     <div class="preview" id="previewPaper" aria-live="polite"></div>
-    <div class="actions" id="printActions"><button type="button" class="btn secondary" id="editButton">← Quay lại chỉnh sửa</button><button type="button" class="btn" id="printButton">In / Lưu PDF bản xem trước</button><span class="muted">Không phải hồ sơ đã ký hoặc gửi.</span></div>
+    <div class="actions" id="printActions"><button type="button" class="btn secondary" id="editButton">← Quay lại chỉnh sửa</button><button type="button" class="btn" id="printButton">In / Lưu PDF bản xem trước</button><button type="button" class="btn secondary" data-a11-ai="1">✦ Trợ lý góp ý báo cáo</button><span class="muted">Bản xem trước; chưa lưu, ký hoặc gửi BGH.</span></div>
   </section>
 </main>
-<nav class="bottom-nav" aria-label="Điều hướng NVS"><a href="./index.html">Trang chủ</a><a href="./NghiepVu.html">Nghiệp vụ số</a><button type="button" data-nvs-nav="ai">✦ Trợ lý</button></nav>
+<nav class="bottom-nav" aria-label="Điều hướng NVS"><a href="./index.html">Trang chủ</a><a href="./NghiepVu.html">Nghiệp vụ số</a><button type="button" data-a11-ai="1">✦ Trợ lý</button></nav>
 <script>
 (() => {
   'use strict';
@@ -166,11 +168,12 @@
     const def=defs[id];$('editorHeading').textContent=def.name;
     $('fields').replaceChildren(...def.fields.map(field));$('driveLink').value='';
     $('editor').hidden=false;$('previewSection').hidden=true;
-    $('developmentNote').textContent=def.draft?'Khung Báo cáo khác chỉ để chuẩn bị và xem trước; chưa có mẫu theo yêu cầu được phê duyệt. Không được coi là báo cáo chính thức.':'Chỉ chuẩn bị và xem trước nội dung; chưa lưu, chưa ký, chưa gửi đến BGH. Không nhập dữ liệu học sinh nhạy cảm.';
+    $('developmentNote').textContent=def.draft?'Khung Báo cáo khác chỉ để chuẩn bị và xem trước; chưa có mẫu theo yêu cầu được phê duyệt. Không được coi là báo cáo chính thức.':'Có thể lập nội dung, hỏi Trợ lý và xem trước văn bản. Chưa kết nối tiếp nhận: KHÔNG gửi báo cáo từ trang này. Không nhập dữ liệu học sinh nhạy cảm.';
     try{history.replaceState(null,'',location.pathname+'?item='+encodeURIComponent(id));}catch(_){}
     const a=verifySession();if(a)announce('Đang chuẩn bị: '+def.name+'. Có thể xem trước, chưa lưu / ký / gửi.');
     if(focus)$('editor').scrollIntoView({block:'start',behavior:'smooth'});
   }
+  function formatDateVN(v){if(!/^\d{4}-\d{2}-\d{2}$/.test(v))return v;const [y,m,d]=v.split('-');return d+'/'+m+'/'+y;}
   function appendLine(paper,label,value,asLink=false){if(!String(value||'').trim())return;const p=el('p',undefined,'report-line');p.append(el('strong',label+': '));
     if(asLink){const a=el('a',value);a.href=value;a.target='_blank';a.rel='noopener noreferrer';p.append(a)}else p.append(document.createTextNode(value));paper.append(p);
   }
@@ -188,8 +191,20 @@
     head.append(left,right);paper.append(head);
     paper.append(el('div','BÁO CÁO','report-title'),el('div',def.name,'report-subtitle'));
     paper.append(el('p','Kính gửi: Ban Giám hiệu Trường THPT Hòa Vang'));
-    appendLine(paper,'Người báo cáo',a.name);appendLine(paper,'Tổ / bộ phận',a.team);appendLine(paper,'Chức vụ',a.role);
-    def.fields.forEach(([id,label])=>appendLine(paper,label,data[id]));appendLine(paper,'Tài liệu, minh chứng',drive,true);
+    const info=el('section',undefined,'report-section');info.append(el('h3','I. Thông tin chung'));
+    appendLine(info,'Người báo cáo',a.name);appendLine(info,'Tổ / bộ phận',a.team);appendLine(info,'Chức vụ',a.role);
+    const details=el('section',undefined,'report-section');details.append(el('h3','II. Nội dung và kết quả thực hiện'));
+    const results=el('section',undefined,'report-section');results.append(el('h3','III. Kiến nghị, đề xuất'));
+    const recommendations=new Set(['recommendations','proposals','difficulties']);
+    const meta=new Set(['year','from','to','date','dueDate','assignedBy','requestedBy','organizer','location','basis']);
+    for(const [id,label] of def.fields){
+      const value=data[id]||'';if(!value)continue;
+      const target=recommendations.has(id)?results:meta.has(id)?info:details;
+      appendLine(target,label,/^(from|to|date|dueDate)$/.test(id)?formatDateVN(value):value);
+    }
+    if(drive)appendLine(details,'Tài liệu, minh chứng',drive,true);
+    paper.append(info,details);
+    if(results.children.length>1)paper.append(results);
     const sign=el('div',undefined,'sign');sign.append(el('b','NGƯỜI BÁO CÁO'),el('p','(Chưa ký)'),el('strong',a.name));paper.append(sign);
     paper.append(el('div',def.draft?'BẢN XEM TRƯỚC – MẪU CHƯA ĐƯỢC PHÊ DUYỆT – CHƯA LƯU, CHƯA GỬI':'BẢN XEM TRƯỚC – CHƯA LƯU, CHƯA KÝ, CHƯA GỬI','preview-stamp'));
     $('previewSection').hidden=false;
@@ -205,7 +220,24 @@
   $('printButton').addEventListener('click',()=>{if(!verifySession()){return;}if($('previewSection').hidden){announce('Cần xem trước báo cáo trước khi in.',true);return;}window.print();});
   window.addEventListener('beforeunload',e=>{if(!dirty)return;e.preventDefault();e.returnValue='';});
   const initial=new URL(location.href).searchParams.get('item');if(initial&&Object.hasOwn(defs,initial))setChoice(initial,false);
-  // Trợ lý dùng chung theo hệ thống NVS hiện hành; không tạo dịch vụ AI thứ hai.
+  // Dùng Trợ lý hiện hành; chỉ chuẩn bị lời nhắc sau thao tác người dùng, không gửi dữ liệu tự động.
+  document.addEventListener('click',(event)=>{
+    const button=event.target.closest('[data-a11-ai]');if(!button)return;
+    event.preventDefault();
+    if(typeof window.NVS_AI_open!=='function'){
+      announce('Trợ lý NVS chưa được tải. Kiểm tra kết nối và tải lại trang. Các nội dung báo cáo vẫn giữ nguyên.',true);return;
+    }
+    try {
+      window.NVS_AI_open();
+      const box=document.getElementById('nvsAiQuestion');
+      if(!box||!current)return;
+      const f=defs[current],lines=[];
+      for(const [id,label] of f.fields){const v=document.getElementById('field-'+id)?.value.trim();if(v)lines.push(label+': '+v.slice(0,240));}
+      const prompt='Hỗ trợ rà soát và gợi ý hoàn thiện '+f.name.toLowerCase()+'. Giữ nguyên sự thật đã cung cấp; không tự thêm số liệu, căn cứ pháp lý hoặc kết quả chưa xác minh. Viết theo văn phong hành chính THPT Hòa Vang, rõ ràng, ngắn gọn. Chỉ đưa bản nháp để người báo cáo tự kiểm tra trước khi sử dụng.';
+      box.value=prompt+(lines.length?'\n\nThông tin người dùng đã nhập (chỉ dùng để soạn nháp):\n'+lines.join('\n'):'');
+      box.value=box.value.slice(0,3500);box.dispatchEvent(new Event('input',{bubbles:true}));
+    } catch(error){announce('Không mở được Trợ lý: '+String(error?.message||error),true);}
+  },true);
 })();
 </script>
 <script src="./NVS_A1.assistant.js"></script>
