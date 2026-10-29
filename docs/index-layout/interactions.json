@@ -1,0 +1,1046 @@
+{
+  "results": [
+    {
+      "phase": "before",
+      "role": "bgh",
+      "width": 375,
+      "controls": {
+        "#nvsOpenRemind": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "before",
+      "role": "bgh",
+      "width": 1366,
+      "controls": {
+        "#nvsOpenRemind": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "before",
+      "role": "teacher",
+      "width": 375,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "before",
+      "role": "teacher",
+      "width": 1366,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "before",
+      "role": "head",
+      "width": 375,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "before",
+      "role": "head",
+      "width": 1366,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "before",
+      "role": "staff",
+      "width": 375,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "before",
+      "role": "staff",
+      "width": 1366,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "after",
+      "role": "bgh",
+      "width": 375,
+      "controls": {
+        "#nvsOpenRemind": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "after",
+      "role": "bgh",
+      "width": 1366,
+      "controls": {
+        "#nvsOpenRemind": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "after",
+      "role": "teacher",
+      "width": 375,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "after",
+      "role": "teacher",
+      "width": 1366,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "after",
+      "role": "head",
+      "width": 375,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "after",
+      "role": "head",
+      "width": 1366,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "after",
+      "role": "staff",
+      "width": 375,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    },
+    {
+      "phase": "after",
+      "role": "staff",
+      "width": 1366,
+      "controls": {
+        "#nvsQuickWork": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "nvsQuickWork"
+          ]
+        },
+        "[data-nvs-quick=notice]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "notice"
+          ]
+        },
+        "[data-nvs-quick=survey]": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "",
+            "nvsQuickDetail"
+          ],
+          "adminDisabled": null,
+          "expanded": [
+            "survey"
+          ]
+        },
+        "#nvsOpenLibrary": {
+          "path": "/NVS-HVA-TEST/VanBan_QuyDinh.html",
+          "dialogs": []
+        },
+        "#nvsAdminGate": {
+          "path": "/NVS-HVA-TEST/DieuHanh.html",
+          "dialogs": []
+        },
+        "#nvsWorkGate": {
+          "path": "/NVS-HVA-TEST/NghiepVu.html",
+          "dialogs": []
+        },
+        "#edosAssistantAsk": {
+          "path": "/NVS-HVA-TEST/index.html",
+          "dialogs": [],
+          "visible": [
+            "nvsAiPanel"
+          ],
+          "adminDisabled": null,
+          "expanded": []
+        },
+        "search": {
+          "visible": true,
+          "text": "Cuộc họp"
+        }
+      }
+    }
+  ],
+  "comparison": "All observed Index control outcomes unchanged",
+  "integration": "NOT TESTED; API blocked and navigation targets intercepted"
+}

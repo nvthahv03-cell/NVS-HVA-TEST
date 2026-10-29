@@ -1,0 +1,29 @@
+{
+  "base_commit": "7f30deb9745f1014a87f68a51c1a5018b7bbd09c",
+  "scope": "Index layout only",
+  "source_checks": "PASS: inline JS syntax, no markup/endpoint/handler edits outside two layout DOM scripts",
+  "ui_checks": "PASS LOCAL ONLY: equal quick card heights/widths/icons/labels/padding/borders and aligned gateway areas; no footer overlap",
+  "coverage": {
+    "roles": [
+      "BGH",
+      "GV",
+      "TTCM",
+      "NV"
+    ],
+    "widths": [
+      320,
+      375,
+      390,
+      600,
+      720,
+      721,
+      1024,
+      1366
+    ]
+  },
+  "integration": "NOT TESTED: production APIs blocked, destination navigations intercepted",
+  "regression": "PASS Index UI outcome comparison before/after; operational regression NOT TESTED",
+  "font_limit": "Original Bootstrap Icons used. Google Inter blocked; consistent Arial fallback before/after. Live Inter rendering pending.",
+  "live_site": "NOT directly verified: Pages domain blocked by proxy; deployment checked separately on GitHub",
+  "owner_acceptance": "PENDING; stop before A.1 until owner approves Index"
+}
