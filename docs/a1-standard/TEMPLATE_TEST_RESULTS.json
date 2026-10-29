@@ -1,0 +1,9 @@
+{
+  "pure_metadata_tests": "PASS fixture-only code/name/alias/accent normalization; module/type filters; reject pending/inactive/denied/ambiguous/missing metadata",
+  "lookup_ui": "PASS pending-source UI and isolated fixture rendering; no real template rows in production state",
+  "drive_download": "NOT TESTED: actual Word, approved File ID/URL/version/access not supplied",
+  "server_authorization": "NOT TESTED; no approved server adapter; source remains closed/pending",
+  "index": "UNCHANGED; lookup stays within A.1",
+  "drive_operations": "NONE: no folder/file/permission creation, deletion, rename or movement",
+  "planned_source": "03_TAI_NGUYEN_VAN_BAN_HVA/03_01_BIEU_MAU"
+}

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Tra cứu biểu mẫu A.1 | THPT Hòa Vang</title>
+    <link rel="stylesheet" href="./NVS_A1_Report.css" />
+    <script src="./NVS_Forms.js" defer></script>
+    <script src="./NVS_BieuMau.js" defer></script>
+  </head>
+  <body>
+    <header class="hva-pro-header">
+      <div class="hva-pro-header-inner">
+        <a
+          class="hva-pro-back"
+          href="./NVS_BaoCao_A1.html?group=A14"
+          aria-label="Về A.1.4"
+          >←</a
+        >
+        <div class="hva-pro-brand">
+          <div class="hva-pro-brandtext">
+            <div class="hva-pro-kicker">CỔNG NGHIỆP VỤ SỐ</div>
+            <div class="hva-pro-school">Trường THPT Hòa Vang</div>
+            <div class="hva-pro-slogan">Tra cứu biểu mẫu được phép sử dụng</div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="shell" id="a1Workspace">
+      <section class="hero">
+        <div>
+          <h1>Tra cứu biểu mẫu A.1</h1>
+          <p>
+            Tệp gốc do nhà trường quản lý trên Google Drive. NVS không nhận tải
+            tệp hoặc lưu bản sao biểu mẫu.
+          </p>
+        </div>
+        <a href="./NVS_BaoCao_A1.html?group=A14" class="btn secondary"
+          >Về BD HSG – DTHT</a
+        >
+      </section>
+      <section class="card">
+        <form id="templateSearch">
+          <div class="grid">
+            <div class="field full">
+              <label for="templateQuery"
+                >Tìm theo mã mẫu, tên, tên viết tắt, từ khóa hoặc môn học</label
+              ><input
+                id="templateQuery"
+                type="search"
+                maxlength="200"
+                placeholder="Nhập có dấu hoặc không dấu"
+              />
+            </div>
+            <div class="field">
+              <label for="templateModule">Nhóm nghiệp vụ</label
+              ><select id="templateModule">
+                <option value="A.1">A.1 – Báo cáo chuyên môn</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="templateFileType">Loại tệp</label
+              ><select id="templateFileType">
+                <option value="">Tất cả loại tệp</option>
+                <option value="docx">Word</option>
+                <option value="xlsx">Excel</option>
+                <option value="pdf">PDF</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="templateDocumentType">Loại hồ sơ</label
+              ><select id="templateDocumentType">
+                <option value="">Tất cả loại hồ sơ</option>
+                <option>Kế hoạch</option>
+                <option>Báo cáo</option>
+                <option>Biên bản</option>
+                <option>Đơn, đề nghị</option>
+                <option>Khác</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Trạng thái sử dụng</label
+              ><input
+                value="Đã phê duyệt, còn hiệu lực, phù hợp quyền"
+                readonly
+              />
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn primary" type="submit">Tra cứu</button
+            ><button class="btn secondary" type="reset">Xóa bộ lọc</button>
+          </div>
+        </form>
+        <p id="templateStatus" role="status" class="status">
+          Chờ kết nối danh mục biểu mẫu và xác minh quyền truy cập.
+        </p>
+        <div id="templateResults"></div>
+      </section>
+    </main>
+  </body>
+</html>

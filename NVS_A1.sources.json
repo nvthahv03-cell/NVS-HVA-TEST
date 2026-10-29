@@ -1,0 +1,17 @@
+{
+  "templates": {
+    "hsgPlan": null,
+    "teamPlan": null,
+    "teamMinutes": null,
+    "clusterPlan": null,
+    "supportPlan": null,
+    "examPlan": null
+  },
+  "hsgDiary": null,
+  "reportRequirements": [],
+  "approvedRoleRules": null,
+  "reportService": null,
+  "templateCodes": {
+    "hsgPlan": "HVA-A14-HSG-01"
+  }
+}

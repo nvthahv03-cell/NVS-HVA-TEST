@@ -1,270 +1,919 @@
 {
-  "task": {
-    "fields": [
-      [
-        "assignmentCode",
-        "Mã nhiệm vụ/văn bản giao việc",
-        "text"
-      ],
-      [
-        "assignedUnit",
-        "Người/đơn vị giao nhiệm vụ",
-        "text"
-      ],
-      [
-        "expectedOutput",
-        "Sản phẩm cần hoàn thành",
-        "textarea"
-      ],
-      [
-        "progress",
-        "Mức độ hoàn thành (%)",
-        "number"
+  "groups": {
+    "A11": {
+      "name": "A.1.1 – Thực hiện nhiệm vụ – Báo cáo khác",
+      "sections": [
+        {
+          "id": "reports",
+          "name": "Báo cáo theo nhiệm vụ và yêu cầu"
+        }
       ]
-    ]
+    },
+    "A12": {
+      "name": "A.1.2 – Công tác chủ nhiệm và giáo dục hòa nhập",
+      "sections": [
+        {
+          "id": "homeroom",
+          "name": "Công tác chủ nhiệm"
+        },
+        {
+          "id": "inclusive",
+          "name": "Giáo dục hòa nhập"
+        }
+      ]
+    },
+    "A13": {
+      "name": "A.1.3 – Sinh hoạt chuyên môn, sinh hoạt cụm",
+      "sections": [
+        {
+          "id": "team",
+          "name": "Sinh hoạt chuyên môn tổ / nhóm"
+        },
+        {
+          "id": "cluster",
+          "name": "Sinh hoạt cụm chuyên môn"
+        }
+      ]
+    },
+    "A14": {
+      "name": "A.1.4 – BD HSG – DTHT",
+      "sections": [
+        {
+          "id": "hsg",
+          "name": "Bồi dưỡng học sinh giỏi"
+        },
+        {
+          "id": "support",
+          "name": "Phụ đạo học sinh"
+        },
+        {
+          "id": "exam",
+          "name": "Ôn thi"
+        },
+        {
+          "id": "dtht",
+          "name": "Dạy thêm, học thêm"
+        }
+      ]
+    }
   },
-  "deployment": {
-    "fields": [
-      [
-        "decision",
-        "Số quyết định/văn bản điều động",
-        "text"
-      ],
-      [
-        "destination",
-        "Nơi công tác",
-        "text"
-      ],
-      [
-        "purpose",
-        "Nhiệm vụ công tác",
-        "textarea"
-      ],
-      [
-        "handover",
-        "Kết quả bàn giao/phối hợp",
-        "textarea"
+  "operations": {
+    "task": {
+      "id": "task",
+      "group": "A11",
+      "section": "reports",
+      "name": "Báo cáo thực hiện nhiệm vụ được giao",
+      "kind": "report",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "task",
+          "label": "Nhiệm vụ được giao",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "assignedBy",
+          "label": "Người / đơn vị giao nhiệm vụ",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "from",
+          "label": "Từ ngày",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "to",
+          "label": "Đến ngày",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "content",
+          "label": "Nội dung thực hiện",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "results",
+          "label": "Kết quả thực hiện",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "difficulties",
+          "label": "Khó khăn, vướng mắc",
+          "kind": "textarea",
+          "required": false
+        },
+        {
+          "key": "recommendations",
+          "label": "Kiến nghị, đề xuất",
+          "kind": "textarea",
+          "required": false
+        }
       ]
-    ]
-  },
-  "training": {
-    "fields": [
-      [
-        "topic",
-        "Tên chuyên đề/chương trình",
-        "text"
-      ],
-      [
-        "format",
-        "Hình thức tham gia",
-        "text"
-      ],
-      [
-        "hours",
-        "Thời lượng (giờ)",
-        "number"
-      ],
-      [
-        "application",
-        "Kế hoạch vận dụng/chia sẻ lại",
-        "textarea"
-      ],
-      [
-        "certificate",
-        "Liên kết tài liệu/chứng nhận (Drive/Docs)",
-        "url"
+    },
+    "deployment": {
+      "id": "deployment",
+      "group": "A11",
+      "section": "reports",
+      "name": "Báo cáo công tác điều động",
+      "kind": "report",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "deployment",
+          "label": "Nội dung điều động",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "basis",
+          "label": "Căn cứ điều động",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "from",
+          "label": "Từ ngày",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "to",
+          "label": "Đến ngày",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "location",
+          "label": "Địa điểm",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "task",
+          "label": "Nhiệm vụ tham gia",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "results",
+          "label": "Kết quả thực hiện",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "followup",
+          "label": "Nội dung cần triển khai sau điều động",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "recommendations",
+          "label": "Kiến nghị",
+          "kind": "textarea",
+          "required": false
+        }
       ]
-    ]
-  },
-  "other": {
-    "fields": [
-      [
-        "request",
-        "Yêu cầu/văn bản cần báo cáo",
-        "textarea"
-      ],
-      [
-        "recipientUnit",
-        "Đơn vị yêu cầu báo cáo",
-        "text"
-      ],
-      [
-        "scope",
-        "Phạm vi và căn cứ số liệu",
-        "textarea"
+    },
+    "training": {
+      "id": "training",
+      "group": "A11",
+      "section": "reports",
+      "name": "Báo cáo tập huấn, bồi dưỡng, hội nghị, hội thảo",
+      "kind": "report",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "activity",
+          "label": "Tên hoạt động",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "organizer",
+          "label": "Đơn vị tổ chức",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "from",
+          "label": "Từ ngày",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "to",
+          "label": "Đến ngày",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "location",
+          "label": "Địa điểm",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "content",
+          "label": "Nội dung chính",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "knowledge",
+          "label": "Kiến thức, kỹ năng tiếp thu",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "application",
+          "label": "Khả năng vận dụng vào công việc",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "proposals",
+          "label": "Đề xuất triển khai tại trường",
+          "kind": "textarea",
+          "required": false
+        }
       ]
-    ]
-  },
-  "team": {
-    "fields": [
-      [
-        "meetingUnit",
-        "Tổ/nhóm chuyên môn",
-        "text"
+    },
+    "other": {
+      "id": "other",
+      "group": "A11",
+      "section": "reports",
+      "name": "Báo cáo khác theo yêu cầu",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chờ danh mục yêu cầu và biểu mẫu được giao. Chưa mở báo cáo ngoài các yêu cầu đã được nhà trường xác nhận."
+    },
+    "homeroom": {
+      "id": "homeroom",
+      "group": "A12",
+      "section": "homeroom",
+      "name": "Báo cáo công tác chủ nhiệm hiện hành",
+      "kind": "legacy",
+      "fields": [],
+      "url": "./BC_ChuNhiem.html"
+    },
+    "inclusive-record": {
+      "id": "inclusive-record",
+      "group": "A12",
+      "section": "inclusive",
+      "name": "Hồ sơ học sinh giáo dục hòa nhập",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chờ biểu mẫu được duyệt, nguồn dữ liệu và quy định ai được đọc / ghi. Chưa mở nhập, đọc, ghi hoặc xuất dữ liệu học sinh."
+    },
+    "inclusive-plan": {
+      "id": "inclusive-plan",
+      "group": "A12",
+      "section": "inclusive",
+      "name": "Kế hoạch giáo dục cá nhân",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chờ biểu mẫu được duyệt, nguồn dữ liệu và quy định ai được đọc / ghi. Chưa mở nhập, đọc, ghi hoặc xuất dữ liệu học sinh."
+    },
+    "inclusive-progress": {
+      "id": "inclusive-progress",
+      "group": "A12",
+      "section": "inclusive",
+      "name": "Theo dõi quá trình thực hiện",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chờ biểu mẫu được duyệt, nguồn dữ liệu và quy định ai được đọc / ghi. Chưa mở nhập, đọc, ghi hoặc xuất dữ liệu học sinh."
+    },
+    "inclusive-assessment": {
+      "id": "inclusive-assessment",
+      "group": "A12",
+      "section": "inclusive",
+      "name": "Đánh giá, báo cáo giáo dục hòa nhập",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chờ biểu mẫu được duyệt, nguồn dữ liệu và quy định ai được đọc / ghi. Chưa mở nhập, đọc, ghi hoặc xuất dữ liệu học sinh."
+    },
+    "team-plan": {
+      "id": "team-plan",
+      "group": "A13",
+      "section": "team",
+      "name": "Kế hoạch sinh hoạt chuyên môn",
+      "kind": "link",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "topic",
+          "label": "Chủ đề sinh hoạt",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "date",
+          "label": "Thời gian thực hiện",
+          "kind": "date",
+          "required": true
+        }
       ],
-      [
-        "topic",
-        "Chủ đề sinh hoạt",
-        "text"
-      ],
-      [
-        "agenda",
-        "Nội dung/chương trình",
-        "textarea"
-      ],
-      [
-        "conclusions",
-        "Kết luận và việc cần thực hiện",
-        "textarea"
-      ],
-      [
-        "minutes",
-        "Liên kết biên bản (Drive/Docs)",
-        "url"
-      ],
-      [
-        "materials",
-        "Liên kết tài liệu (Drive/Docs)",
-        "url"
+      "template": "teamPlan"
+    },
+    "team-materials": {
+      "id": "team-materials",
+      "group": "A13",
+      "section": "team",
+      "name": "Nội dung, tài liệu chuẩn bị sinh hoạt",
+      "kind": "link",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "topic",
+          "label": "Chủ đề sinh hoạt",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "date",
+          "label": "Thời gian thực hiện",
+          "kind": "date",
+          "required": true
+        }
       ]
-    ],
-    "participants": true
-  },
-  "cluster": {
-    "fields": [
-      [
-        "clusterName",
-        "Cụm chuyên môn",
-        "text"
+    },
+    "team-minutes": {
+      "id": "team-minutes",
+      "group": "A13",
+      "section": "team",
+      "name": "Biên bản và kết quả sinh hoạt",
+      "kind": "link",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "topic",
+          "label": "Chủ đề sinh hoạt",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "date",
+          "label": "Thời gian thực hiện",
+          "kind": "date",
+          "required": true
+        }
       ],
-      [
-        "hostUnit",
-        "Đơn vị đăng cai/phối hợp",
-        "text"
-      ],
-      [
-        "topic",
-        "Chuyên đề sinh hoạt cụm",
-        "text"
-      ],
-      [
-        "conclusions",
-        "Kết quả và kế hoạch triển khai lại",
-        "textarea"
-      ],
-      [
-        "minutes",
-        "Liên kết biên bản (Drive/Docs)",
-        "url"
-      ],
-      [
-        "materials",
-        "Liên kết tài liệu (Drive/Docs)",
-        "url"
+      "template": "teamMinutes"
+    },
+    "team-report": {
+      "id": "team-report",
+      "group": "A13",
+      "section": "team",
+      "name": "Báo cáo, kiến nghị và minh chứng",
+      "kind": "report",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "topic",
+          "label": "Chủ đề sinh hoạt",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "date",
+          "label": "Thời gian thực hiện",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "content",
+          "label": "Nội dung sinh hoạt",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "results",
+          "label": "Kết quả sinh hoạt",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "recommendations",
+          "label": "Kiến nghị, đề xuất",
+          "kind": "textarea",
+          "required": false
+        }
       ]
-    ],
-    "participants": true
-  },
-  "gifted": {
-    "fields": [
-      [
-        "subject",
-        "Môn bồi dưỡng",
-        "text"
+    },
+    "cluster-plan": {
+      "id": "cluster-plan",
+      "group": "A13",
+      "section": "cluster",
+      "name": "Kế hoạch, thông tin sinh hoạt cụm",
+      "kind": "link",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "event",
+          "label": "Tên hoạt động sinh hoạt cụm",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "organizer",
+          "label": "Đơn vị tổ chức",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "from",
+          "label": "Từ ngày",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "to",
+          "label": "Đến ngày",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "location",
+          "label": "Địa điểm",
+          "kind": "text",
+          "required": true
+        }
       ],
-      [
-        "grade",
-        "Khối/lớp (không ghi danh tính học sinh)",
-        "text"
+      "template": "clusterPlan"
+    },
+    "cluster-members": {
+      "id": "cluster-members",
+      "group": "A13",
+      "section": "cluster",
+      "name": "Thành phần tham gia",
+      "kind": "participants",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "event",
+          "label": "Tên hoạt động sinh hoạt cụm",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "date",
+          "label": "Thời gian thực hiện",
+          "kind": "date",
+          "required": true
+        }
       ],
-      [
-        "learnerCount",
-        "Số học sinh (tổng hợp)",
-        "number"
+      "people": "participants"
+    },
+    "cluster-results": {
+      "id": "cluster-results",
+      "group": "A13",
+      "section": "cluster",
+      "name": "Nội dung và kết quả sinh hoạt cụm",
+      "kind": "link",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "event",
+          "label": "Tên hoạt động sinh hoạt cụm",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "date",
+          "label": "Thời gian thực hiện",
+          "kind": "date",
+          "required": true
+        }
       ],
-      [
-        "sessions",
-        "Số buổi đã thực hiện",
-        "number"
+      "description": "Nộp liên kết tài liệu nội dung, biên bản hoặc kết quả theo mẫu được nhà trường duyệt; không nhập lại toàn bộ tài liệu."
+    },
+    "cluster-report": {
+      "id": "cluster-report",
+      "group": "A13",
+      "section": "cluster",
+      "name": "Báo cáo sau sinh hoạt cụm",
+      "kind": "report",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "event",
+          "label": "Tên hoạt động sinh hoạt cụm",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "organizer",
+          "label": "Đơn vị tổ chức",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "from",
+          "label": "Từ ngày",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "to",
+          "label": "Đến ngày",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "location",
+          "label": "Địa điểm",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "content",
+          "label": "Nội dung sinh hoạt",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "results",
+          "label": "Kết quả sinh hoạt",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "recommendations",
+          "label": "Kiến nghị",
+          "kind": "textarea",
+          "required": false
+        }
       ],
-      [
-        "plan",
-        "Kế hoạch/nội dung bồi dưỡng",
-        "textarea"
-      ],
-      [
-        "outcomes",
-        "Kết quả có căn cứ",
-        "textarea"
+      "people": "participants"
+    },
+    "cluster-materials": {
+      "id": "cluster-materials",
+      "group": "A13",
+      "section": "cluster",
+      "name": "Tài liệu, minh chứng và kiến nghị",
+      "kind": "link",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "event",
+          "label": "Tên hoạt động sinh hoạt cụm",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "recommendations",
+          "label": "Kiến nghị kèm tài liệu",
+          "kind": "textarea",
+          "required": false
+        }
       ]
-    ]
-  },
-  "support": {
-    "fields": [
-      [
-        "subject",
-        "Môn phụ đạo",
-        "text"
+    },
+    "hsg-plan": {
+      "id": "hsg-plan",
+      "group": "A14",
+      "section": "hsg",
+      "name": "Nộp kế hoạch bồi dưỡng HSG",
+      "kind": "link",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "subject",
+          "label": "Môn học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "grade",
+          "label": "Khối",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "team",
+          "label": "Đội tuyển",
+          "kind": "text",
+          "required": true
+        }
       ],
-      [
-        "grade",
-        "Khối/lớp (không ghi danh tính học sinh)",
-        "text"
-      ],
-      [
-        "learnerCount",
-        "Số học sinh (tổng hợp)",
-        "number"
-      ],
-      [
-        "sessions",
-        "Số buổi đã thực hiện",
-        "number"
-      ],
-      [
-        "needs",
-        "Nhu cầu và mục tiêu hỗ trợ",
-        "textarea"
-      ],
-      [
-        "progressNotes",
-        "Tiến bộ và đề xuất hỗ trợ tiếp",
-        "textarea"
+      "people": "colleagues",
+      "template": "hsgPlan",
+      "description": "Tải mẫu Word được duyệt, lập kế hoạch rồi lưu trên Google Drive. Chỉ nộp thông tin quản lý và liên kết, không nhập lại nội dung kế hoạch."
+    },
+    "hsg-diary": {
+      "id": "hsg-diary",
+      "group": "A14",
+      "section": "hsg",
+      "name": "Sổ ghi đầu bài BD HSG 12",
+      "kind": "external",
+      "fields": [],
+      "configKey": "hsgDiary",
+      "reason": "Chờ URL Web App chính thức. Không sửa sổ, dữ liệu, nhân sự hoặc các chức năng ghi / sửa / xóa / in của ứng dụng hiện hành."
+    },
+    "hsg-assessment": {
+      "id": "hsg-assessment",
+      "group": "A14",
+      "section": "hsg",
+      "name": "Báo cáo các kỳ kiểm tra, đánh giá đội tuyển",
+      "kind": "report",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "subject",
+          "label": "Môn học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "grade",
+          "label": "Khối",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "team",
+          "label": "Đội tuyển",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "round",
+          "label": "Đợt kiểm tra, đánh giá",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "date",
+          "label": "Thời gian thực hiện",
+          "kind": "date",
+          "required": true
+        },
+        {
+          "key": "format",
+          "label": "Hình thức đánh giá",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "count",
+          "label": "Số học sinh tham gia",
+          "kind": "number",
+          "required": true
+        },
+        {
+          "key": "content",
+          "label": "Nội dung đánh giá",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "results",
+          "label": "Kết quả đánh giá",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "progress",
+          "label": "Nhận xét về tiến bộ, hạn chế",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "adjustments",
+          "label": "Đề xuất điều chỉnh nội dung bồi dưỡng",
+          "kind": "textarea",
+          "required": true
+        },
+        {
+          "key": "recommendations",
+          "label": "Kiến nghị về đội tuyển",
+          "kind": "textarea",
+          "required": false
+        }
       ]
-    ]
-  },
-  "exam": {
-    "fields": [
-      [
-        "examName",
-        "Kỳ thi/đợt ôn tập",
-        "text"
+    },
+    "hsg-roster": {
+      "id": "hsg-roster",
+      "group": "A14",
+      "section": "hsg",
+      "name": "Danh sách đội tuyển",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chưa có nguồn dữ liệu học sinh và quyền được phê duyệt. Không nhập hoặc phát hành danh sách thật.",
+      "workflow": [
+        "Dự kiến",
+        "Giáo viên đề xuất",
+        "Tổ trưởng rà soát",
+        "BGH xem xét, chốt theo thẩm quyền",
+        "Được duyệt hoặc cần điều chỉnh"
       ],
-      [
-        "subject",
-        "Môn ôn thi",
-        "text"
-      ],
-      [
-        "grade",
-        "Khối/lớp (không ghi danh tính học sinh)",
-        "text"
-      ],
-      [
-        "sessions",
-        "Số buổi đã thực hiện",
-        "number"
-      ],
-      [
-        "plan",
-        "Kế hoạch và tiến độ ôn tập",
-        "textarea"
-      ],
-      [
-        "assessment",
-        "Kết quả đánh giá có nguồn",
-        "textarea"
+      "statuses": [
+        "Dự kiến",
+        "Đã đề xuất",
+        "Đang rà soát",
+        "Được duyệt",
+        "Cần điều chỉnh"
       ]
-    ]
+    },
+    "support-plan": {
+      "id": "support-plan",
+      "group": "A14",
+      "section": "support",
+      "name": "Kế hoạch phụ đạo",
+      "kind": "link",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "subject",
+          "label": "Môn học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "group",
+          "label": "Khối / nhóm phụ đạo (không nhập tên học sinh)",
+          "kind": "text",
+          "required": true
+        }
+      ],
+      "template": "supportPlan"
+    },
+    "support-roster": {
+      "id": "support-roster",
+      "group": "A14",
+      "section": "support",
+      "name": "Danh sách, nhóm học sinh phụ đạo",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chưa mở danh sách học sinh khi chưa có nguồn dữ liệu và quyền được xác nhận."
+    },
+    "support-progress": {
+      "id": "support-progress",
+      "group": "A14",
+      "section": "support",
+      "name": "Theo dõi quá trình thực hiện",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chờ mẫu theo dõi, nguồn và quyền được duyệt. Chưa mở hồ sơ hoặc thông tin học sinh."
+    },
+    "support-report": {
+      "id": "support-report",
+      "group": "A14",
+      "section": "support",
+      "name": "Báo cáo kết quả phụ đạo",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chờ mẫu hoặc các trường báo cáo kết quả phụ đạo được nhà trường chốt; không tự đặt chỉ tiêu đánh giá."
+    },
+    "exam-plan": {
+      "id": "exam-plan",
+      "group": "A14",
+      "section": "exam",
+      "name": "Kế hoạch ôn thi theo môn và kỳ thi",
+      "kind": "link",
+      "fields": [
+        {
+          "key": "year",
+          "label": "Năm học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "subject",
+          "label": "Môn học",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "exam",
+          "label": "Kỳ thi",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "key": "group",
+          "label": "Khối / lớp / nhóm ôn thi (không nhập tên học sinh)",
+          "kind": "text",
+          "required": true
+        }
+      ],
+      "template": "examPlan"
+    },
+    "exam-assignment": {
+      "id": "exam-assignment",
+      "group": "A14",
+      "section": "exam",
+      "name": "Phân công giáo viên, lớp / nhóm ôn thi",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chờ nguồn phân công và quyền được duyệt. Không tự phân công hoặc tạo danh sách lớp / học sinh trong nhóm A."
+    },
+    "exam-progress": {
+      "id": "exam-progress",
+      "group": "A14",
+      "section": "exam",
+      "name": "Báo cáo tiến độ thực hiện",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chờ mẫu và các trường báo cáo tiến độ ôn thi được nhà trường chốt; không tự đặt chỉ tiêu tiến độ."
+    },
+    "exam-results": {
+      "id": "exam-results",
+      "group": "A14",
+      "section": "exam",
+      "name": "Báo cáo kết quả kiểm tra, thi thử và đề xuất điều chỉnh",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Chờ mẫu báo cáo kiểm tra / thi thử và nguồn số liệu được duyệt. Không tự tổng hợp kết quả hoặc dữ liệu học sinh."
+    },
+    "dtht": {
+      "id": "dtht",
+      "group": "A14",
+      "section": "dtht",
+      "name": "Báo cáo DTHT hiện hành",
+      "kind": "legacy",
+      "fields": [],
+      "url": "./BC_DayThemHocThem.html"
+    }
   }
 }
