@@ -120,7 +120,7 @@
     return button;
   }
   function status(op) {
-    return op.kind === "legacy" ? "Nghiệp vụ hiện hành" : "Đang phát triển";
+    return op.kind === "legacy" ? op.statusLabel || "Nghiệp vụ hiện hành" : "Đang phát triển";
   }
   function catalog(sectionId) {
     $("heading").textContent = data.groups[group].name;
@@ -167,6 +167,12 @@
     const card = element("section");
     card.className = "card";
     card.append(element("h2", "Đang phát triển"), element("p", op.reason));
+    if (op.plannedAreas) {
+      card.append(element("h3", "Cấu trúc chuẩn bị — chưa mở dữ liệu"));
+      const areas = element("ul");
+      op.plannedAreas.forEach((name) => areas.append(element("li", name)));
+      card.append(areas);
+    }
     if (op.workflow) {
       card.append(element("h3", "Quy trình dự kiến cần được phê duyệt"));
       const list = element("ol");

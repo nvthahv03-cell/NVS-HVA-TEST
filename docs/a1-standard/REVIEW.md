@@ -18,7 +18,7 @@ https://nvthahv03-cell.github.io/NVS-HVA-TEST/NVS_BaoCao_A1.html?view=a1-2026102
 
 A.1.1 có ba báo cáo nhập/xem trước với trường riêng: nhiệm vụ, điều động, tập huấn/bồi dưỡng/hội nghị/hội thảo. Báo cáo khác chờ yêu cầu và biểu mẫu được giao.
 
-A.1.2 có không gian Chủ nhiệm hiện hành và bốn nhóm hòa nhập khóa hoàn toàn dữ liệu học sinh.
+A.1.2 có hai ô Công tác chủ nhiệm cân đối cùng hàng: Sổ chủ nhiệm điện tử (Đang phát triển) và Báo cáo công tác chủ nhiệm (Đã kết nối theo xác nhận chủ dự án). Sổ chỉ chuẩn bị cấu trúc hồ sơ, kế hoạch, hoạt động; không mở dữ liệu hoặc Backend. Báo cáo giữ nguyên URL và toàn bộ mã nguồn. Bốn chức năng Giáo dục hòa nhập giữ nguyên và khóa dữ liệu học sinh.
 
 A.1.3 có bốn nghiệp vụ tổ/nhóm, năm nghiệp vụ cụm: kế hoạch/tài liệu/biên bản nộp liên kết; báo cáo kết quả có trường riêng; thành phần tham gia dùng nhân sự HVA. Phạm vi quyền GV/chủ trì/TTCM/BGH chưa được nhà trường cung cấp nên chưa mở quyền nộp/đọc/xử lý thật.
 
@@ -49,3 +49,7 @@ Kiểm thử cũ tests/a1-pages/browser.py dựa trên cấu trúc A.1 trước 
 Tệp ứng dụng sửa: NVS_BaoCao_A1.html, NVS_A1.js, NVS_A1.schemas.json; NghiepVu.html chỉ thay vùng A.1, phần A.2/B/C và JS chung giữ nguyên. Tài nguyên A.1 có mã nội dung trong URL để tránh tải nhầm JavaScript/CSS cũ từ cache; không có nhãn phiên bản trên giao diện. Tệp ứng dụng mới: NVS_A1_Report.css (riêng A.1, không sửa CSS đang được A.2/B/C dùng), NVS_A1.sources.json, NVS_Forms.js, NVS_BieuMau.html/js. Không sửa NVS_A1.assistant.js hoặc HVA_Assistant_Shared.
 
 Hoàn nguyên: revert commit đợt A.1 trên TEST về 37248a6; không cần sửa Backend/Sheets/Drive. Chưa nghiệm thu. Sau khi chủ dự án nghiệm thu A.1 mới xem xét mở rộng kính lúp Index.
+
+## Bổ sung A.1.2 ngày 29/10/2026
+
+Chỉ bổ sung Sổ chủ nhiệm điện tử, cấu trúc ba phần và bố cục / nhãn hai ô Chủ nhiệm ở trang A.1 và danh mục Nghiệp vụ. Không thêm chức năng để đủ bốn ô. Kiểm tra điều hướng và bố cục 375/768/1366; bằng chứng a12-menu-*.png. Báo cáo chủ nhiệm đã kết nối theo xác nhận của chủ dự án; chưa chạy hồi quy gửi / ký / lịch sử thật. Không sửa Index, A.6, Kho 04, B/C, Điều hành, báo cáo CN/DTHT hoặc Backend. Hoàn nguyên riêng đợt sửa này bằng revert commit bổ sung A.1.2 trên TEST.

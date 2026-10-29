@@ -1291,3 +1291,11 @@ body {
     padding: 12px;
   }
 }
+
+/* A.1.2: the two homeroom functions stay balanced on one row. */
+#a1Workspace [data-section="homeroom"] .a1-catalog-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+#a1Workspace [data-section="homeroom"] .a1-operation-card {
+  overflow-wrap: anywhere;
+}

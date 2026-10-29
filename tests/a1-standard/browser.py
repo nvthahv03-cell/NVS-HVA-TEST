@@ -35,11 +35,29 @@ with sync_playwright() as p:
    page.fill('#field-'+f['key'],value)
   if ops[id]['kind']=='link':page.fill('#field-drive','https://drive.google.com/file/d/QA_ONLY/view')
  # Complete source-defined tree, not a renamed single form.
- assert len(ops)==31;assert spec['groups']['A14']['name']=='A.1.4 – BD HSG – DTHT';assert [s['id'] for s in spec['groups']['A14']['sections']]==['hsg','support','exam','dtht']
+ assert len(ops)==32;assert spec['groups']['A14']['name']=='A.1.4 – BD HSG – DTHT';assert [s['id'] for s in spec['groups']['A14']['sections']]==['hsg','support','exam','dtht']
  assert {f['key'] for f in ops['task']['fields']}!={f['key'] for f in ops['training']['fields']};assert all(f['kind']!='textarea' for f in ops['hsg-plan']['fields']);assert 'team' not in {f['key'] for f in ops['exam-plan']['fields']}
  for group,g in spec['groups'].items():
   page.goto(app+'NVS_BaoCao_A1.html?group='+group);page.wait_for_selector('#catalog [data-operation]');assert page.locator('#catalog [data-operation]').count()==sum(op['group']==group for op in ops.values());assert page.locator('#catalog [data-section]').count()==len(g['sections']);checks.append(group+' complete catalog and distinct spaces')
+ # A12: exactly two balanced homeroom cards, original report route and four inclusion cards.
+ page.goto(app+'NVS_BaoCao_A1.html?group=A12');page.wait_for_selector('[data-operation=homeroom-notebook]')
+ home=page.locator('#catalog [data-section=homeroom]');assert home.locator('[data-operation]').count()==2
+ assert home.locator('[data-operation=homeroom]').get_attribute('href')=='./BC_ChuNhiem.html'
+ assert 'Đã kết nối' in home.locator('[data-operation=homeroom]').inner_text();assert 'Đang phát triển' in home.locator('[data-operation=homeroom-notebook]').inner_text()
+ for width in [375,768,1366]:
+  page.set_viewport_size({'width':width,'height':950});boxes=home.locator('[data-operation]').evaluate_all('(els)=>els.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}})');assert abs(boxes[0]['y']-boxes[1]['y'])<1;assert abs(boxes[0]['w']-boxes[1]['w'])<1;assert abs(boxes[0]['h']-boxes[1]['h'])<1
+ assert page.locator('#catalog [data-section=inclusive] [data-operation]').count()==4
+ home.locator('[data-operation=homeroom-notebook]').click();page.wait_for_selector('#operation h2');assert 'Đang phát triển' in page.locator('#operation').inner_text();assert page.locator('#operation li').count()==3;assert page.locator('#operation input,#operation textarea,#operation select').count()==0
+ checks.append('A12 two balanced homeroom cards, notebook safely blocked with three structural areas; original CN route and four inclusion cards preserved')
  page.goto(app+'NghiepVu.html');page.locator('details.group').first.locator('summary .chev').click();page.locator('[aria-controls=nvs-a14]').click();assert page.locator('#nvs-a14 .nvs-a-branch').count()==4;assert page.locator('#nvs-a14 a[href="./BC_DayThemHocThem.html"]').count()==1;assert page.locator('#nvs-a12 a[href="./BC_ChuNhiem.html"]').count()==1;checks.append('entry menu: four A14 branches, original CN/DTHT links')
+ page.locator('[aria-controls=nvs-a12]').click()
+ for width in [375,768,1366]:
+  page.set_viewport_size({'width':width,'height':950});tiles=page.locator('#nvs-a12 .nvs-a-branch').first.locator('a');assert tiles.count()==2
+  boxes=tiles.evaluate_all('(els)=>els.map(e=>{const r=e.getBoundingClientRect();return {y:r.y,w:r.width,h:r.height}})');assert abs(boxes[0]['y']-boxes[1]['y'])<1;assert abs(boxes[0]['w']-boxes[1]['w'])<1;assert abs(boxes[0]['h']-boxes[1]['h'])<1
+  page.screenshot(path=str(OUT/f'a12-menu-{width}.png'),full_page=True)
+ assert page.locator('#nvs-a12 .nvs-a-branch').nth(1).locator('a').count()==4
+ page.locator('#nvs-a12 a[href*=homeroom-notebook]').click();page.wait_for_selector('#operation h2');assert 'Sổ chủ nhiệm điện tử' in page.locator('#heading').inner_text();assert page.locator('#operation input').count()==0
+ checks.append('A12 entry menu: exactly two equal cards on one row at 375/768/1366; notebook navigation and four inclusion links preserved')
  for id,op in ops.items():
   if op['kind'] in ['legacy']:continue
   goto(id)

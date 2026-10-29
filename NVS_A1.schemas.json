@@ -268,14 +268,29 @@
       "fields": [],
       "reason": "Chờ danh mục yêu cầu và biểu mẫu được giao. Chưa mở báo cáo ngoài các yêu cầu đã được nhà trường xác nhận."
     },
+    "homeroom-notebook": {
+      "id": "homeroom-notebook",
+      "group": "A12",
+      "section": "homeroom",
+      "name": "Sổ chủ nhiệm điện tử",
+      "kind": "blocked",
+      "fields": [],
+      "reason": "Đang phát triển — chưa hoàn thiện và chưa được duyệt. Chưa cho phép nhập, đọc, ghi hoặc xuất dữ liệu học sinh; chưa kết nối Backend.",
+      "plannedAreas": [
+        "Quản lý hồ sơ chủ nhiệm",
+        "Kế hoạch chủ nhiệm",
+        "Hoạt động chủ nhiệm"
+      ]
+    },
     "homeroom": {
       "id": "homeroom",
       "group": "A12",
       "section": "homeroom",
-      "name": "Báo cáo công tác chủ nhiệm hiện hành",
+      "name": "Báo cáo công tác chủ nhiệm",
       "kind": "legacy",
       "fields": [],
-      "url": "./BC_ChuNhiem.html"
+      "url": "./BC_ChuNhiem.html",
+      "statusLabel": "Đã kết nối"
     },
     "inclusive-record": {
       "id": "inclusive-record",

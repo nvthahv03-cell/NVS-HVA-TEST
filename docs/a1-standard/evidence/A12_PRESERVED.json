@@ -1,0 +1,30 @@
+{
+  "baseline": "d6fcae28a8af90549459a9e1e9c1f9774814bb7b",
+  "files": {
+    "index.html": {
+      "unchanged": true,
+      "sha256": "84395ac329c19264d586e85017d54763da27f9b4e667b7afbcdaac0b6983ccaf"
+    },
+    "BC_ChuNhiem.html": {
+      "unchanged": true,
+      "sha256": "b7948dee3c5b12eaeca57c63f9e0ccbe0a8174ff4f9f048d5a99e36961e9c875"
+    },
+    "BC_DayThemHocThem.html": {
+      "unchanged": true,
+      "sha256": "5514b2ac55c4fe2a81c328d82b12e75cc635d94557670470cd3d4177ee514606"
+    },
+    "NVS_TacNghiep.html": {
+      "unchanged": true,
+      "sha256": "e4c95e1db6aa59be9f49f273faf8a0a97211ef3006a2639e26ef5e7e1f5a5633"
+    },
+    "NVS_BC.js": {
+      "unchanged": true,
+      "sha256": "953f9a67a60bee1b3b7c4f4e324feded70bb9c02c9c9550c396ded04e4bb4395"
+    },
+    "DieuHanh.html": {
+      "unchanged": true,
+      "sha256": "66ed3e8d4e539030e735dfdc34cde2185cff40829dced918ed2de623c9810730"
+    }
+  },
+  "legacy_live_regression": "NOT TESTED"
+}
