@@ -44,6 +44,15 @@
     .preview-note{font:500 12px Inter,"Segoe UI",sans-serif;color:#546c82;margin:8px 0 0}
     .sign{text-align:center;margin:34px 0 12px auto;width:42%;min-width:200px}.sign b{display:block}.sign p{margin:6px 0 45px}
     .preview-stamp{margin-top:24px;padding:9px;border:1px dashed #b75f37;color:#a0462d;font:700 12px Inter,Arial,sans-serif;text-align:center}
+
+    /* Trợ lý báo cáo: cùng dịch vụ AI dùng chung của NVS, không xây Backend mới. */
+    .a11-ai-panel{margin-top:18px;border:1px solid #a8d0eb;border-radius:16px;padding:19px;background:linear-gradient(130deg,#f8fcff,#edf7ff);box-shadow:0 5px 16px #124c7710}
+    .a11-ai-panel h3{margin:0 0 6px;color:#075cad;font-size:18px}.a11-ai-panel .ai-hint{color:#44647e;font-size:13px;line-height:1.6;margin:0 0 14px}
+    .a11-ai-panel label{font-size:14px;font-weight:700}.a11-ai-panel textarea{width:100%;min-height:130px;resize:vertical;background:#fff;margin-top:6px}
+    .a11-ai-panel .actions{margin-top:12px}.a11-ai-panel .ai-answer{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7;background:#fff;border:1px solid #bed6e9;border-radius:11px;padding:17px;margin:15px 0 0;max-height:440px;overflow:auto}
+    .a11-ai-panel .ai-status{font-size:13px;color:#315f7d;margin:10px 0 0;min-height:20px}.a11-ai-panel .ai-status[data-error=true]{color:#a33326;font-weight:700}
+    .a11-ai-panel button:disabled{opacity:.55;cursor:not-allowed}
+    @media(max-width:720px){.a11-ai-panel{padding:14px}.a11-ai-panel .actions>*{flex:1 1 135px}}
     .bottom-nav{display:flex;align-items:center;justify-content:center;gap:18px;padding:15px;background:white;border-top:1px solid #e2eaf3;margin-top:45px}.bottom-nav a,.bottom-nav button{background:transparent;border:0;color:#205781;font-size:13px;font-weight:750;text-decoration:none}
     [hidden]{display:none!important}
     @media(max-width:720px){.hva-pro-header-inner{grid-template-columns:44px minmax(0,1fr);gap:8px;padding:12px}.hva-pro-back{width:42px;height:42px;font-size:20px}.hva-pro-online{display:none}.hva-pro-kicker{font-size:9px}.hva-pro-school{font-size:20px}.hva-pro-slogan{font-size:10px}
@@ -83,6 +92,20 @@
       <div class="field full" style="margin-top:17px"><label for="driveLink">Liên kết tài liệu, minh chứng Google Drive (nếu có)</label><input type="url" id="driveLink" name="driveLink" placeholder="https://drive.google.com/..." autocomplete="off"><p class="muted">Chỉ ghi nhận liên kết trong bản xem trước. Không tải tệp lên NVS; không kiểm chứng quyền Drive tại đây.</p></div>
       <div class="actions"><button class="btn" type="submit" id="previewButton">Xem trước báo cáo</button><button class="btn secondary" type="button" id="clearButton">Làm mới</button><button class="btn secondary" type="button" data-a11-ai="1">✦ Trợ lý soạn báo cáo</button></div>
     </fieldset></form>
+    <section id="a11AiPanel" class="a11-ai-panel" aria-labelledby="a11AiHeading" hidden>
+      <h3 id="a11AiHeading">Trợ lý hỗ trợ soạn và góp ý báo cáo</h3>
+      <p class="ai-hint">Trợ lý sử dụng dịch vụ AI hiện hành của NVS. Thầy cô xem lại nội dung trước khi bấm <strong>Gửi câu hỏi</strong>; không đưa dữ liệu cá nhân nhạy cảm vào yêu cầu. Phản hồi AI chỉ là gợi ý, không tự thay đổi báo cáo.</p>
+      <label for="a11AiQuestion">Nội dung yêu cầu gửi Trợ lý</label>
+      <textarea id="a11AiQuestion" maxlength="3900" placeholder="Nhập yêu cầu hoặc sử dụng nội dung báo cáo đã soạn..." spellcheck="true"></textarea>
+      <div class="actions">
+        <button class="btn" type="button" id="a11AiAsk">✦ Gửi câu hỏi đến Trợ lý</button>
+        <button class="btn secondary" type="button" id="a11AiPrepare">Lấy lại nội dung báo cáo</button>
+        <button class="btn secondary" type="button" id="a11AiCopy" disabled>Sao chép gợi ý</button>
+        <button class="btn ghost" type="button" id="a11AiClose">Đóng</button>
+      </div>
+      <p class="ai-status" id="a11AiStatus" data-error="false" role="status" aria-live="polite">Trợ lý sẵn sàng nhận câu hỏi sau khi đăng nhập.</p>
+      <div id="a11AiAnswer" class="ai-answer" role="region" aria-label="Gợi ý từ Trợ lý" hidden></div>
+    </section>
     <p class="muted" style="margin-top:16px"><strong>Nơi nhận dự kiến:</strong> Ban Giám hiệu; tổ trưởng chuyên môn được thông tin theo quyền được duyệt. Chưa có kết nối gửi và phản hồi hồ sơ trong trang này.</p>
   </section>
   <section class="panel" id="previewSection" hidden aria-labelledby="previewHeading"><h2 id="previewHeading">Bản xem trước báo cáo</h2>
@@ -240,25 +263,67 @@
   $('printButton').addEventListener('click',()=>{if(!verifySession()){return;}if($('previewSection').hidden){announce('Cần xem trước báo cáo trước khi in.',true);return;}window.print();});
   window.addEventListener('beforeunload',e=>{if(!dirty)return;e.preventDefault();e.returnValue='';});
   const initial=new URL(location.href).searchParams.get('item');if(initial&&Object.hasOwn(defs,initial))setChoice(initial,false);
-  // Dùng Trợ lý hiện hành; chỉ chuẩn bị lời nhắc sau thao tác người dùng, không gửi dữ liệu tự động.
-  document.addEventListener('click',(event)=>{
-    const button=event.target.closest('[data-a11-ai]');if(!button)return;
-    event.preventDefault();
-    if(typeof window.NVS_AI_open!=='function'){
-      announce('Trợ lý NVS chưa được tải. Kiểm tra kết nối và tải lại trang. Các nội dung báo cáo vẫn giữ nguyên.',true);return;
+  // Trợ lý trong A.1.1: chỉ gọi dịch vụ AI dùng chung sau khi người dùng chủ động bấm gửi.
+  const aiPanel=$('a11AiPanel'),aiQuestion=$('a11AiQuestion'),aiAnswer=$('a11AiAnswer');
+  let lastAiAnswer='';
+  function aiMessage(message,error=false){
+    $('a11AiStatus').textContent=message;$('a11AiStatus').dataset.error=String(error);
+  }
+  function buildAiPrompt(){
+    const def=defs[current];if(!def)return '';
+    const lines=[];
+    for(const [id,label] of def.fields){
+      const v=String(document.getElementById('field-'+id)?.value||'').trim();
+      if(v)lines.push(label+': '+(/^(from|to|dueDate)$/.test(id)?formatDateVN(v):v).slice(0,280));
     }
+    const doc=$('driveLink').value.trim();if(doc)lines.push('Có liên kết minh chứng (không cần mở liên kết).');
+    const intro='Hỗ trợ rà soát, góp ý và đề xuất cách viết cho '+def.name+'. Giữ nguyên sự thật đã được cung cấp, không suy diễn số liệu, sự kiện hoặc căn cứ pháp lý. Dùng văn phong hành chính nhà trường. Chỉ trả về bản gợi ý; không tự gửi báo cáo.';
+    return (intro+(lines.length?'\n\nThông tin người dùng chủ động cung cấp:\n'+lines.join('\n'):'\n\nChưa có nội dung báo cáo; hãy đề xuất dàn ý và câu hỏi cần làm rõ.')).slice(0,3750);
+  }
+  function openAi(){
+    if(!current)setChoice('task',false);
+    $('editor').hidden=false;
+    aiPanel.hidden=false;
+    aiQuestion.value=buildAiPrompt();
+    aiMessage('Kiểm tra yêu cầu rồi bấm “Gửi câu hỏi đến Trợ lý” để nhận gợi ý.');
+    aiPanel.scrollIntoView({block:'nearest',behavior:'smooth'});
+    aiQuestion.focus();
+  }
+  for(const button of document.querySelectorAll('[data-a11-ai]'))
+    button.addEventListener('click',event=>{event.preventDefault();openAi();});
+  $('a11AiPrepare').addEventListener('click',()=>{aiQuestion.value=buildAiPrompt();aiMessage('Đã lấy lại thông tin từ biểu mẫu; chưa gửi đến AI.');});
+  $('a11AiClose').addEventListener('click',()=>{aiPanel.hidden=true;});
+  $('a11AiCopy').addEventListener('click',async()=>{
+    if(!lastAiAnswer)return;
+    try {await navigator.clipboard.writeText(lastAiAnswer);aiMessage('Đã sao chép gợi ý của Trợ lý.');}
+    catch(_){aiMessage('Không sao chép tự động được. Có thể chọn văn bản ở khung kết quả để sao chép.',true);}
+  });
+  $('a11AiAsk').addEventListener('click',async()=>{
+    let a;
+    try {a=account();} catch(e){aiMessage('Cần đăng nhập lại ở Trang chủ NVS trước khi sử dụng Trợ lý. '+e.message,true);return;}
+    const prompt=aiQuestion.value.trim();
+    if(!prompt){aiMessage('Vui lòng nhập yêu cầu gửi Trợ lý.',true);aiQuestion.focus();return;}
+    if(prompt.length>3900){aiMessage('Yêu cầu tối đa 3.900 ký tự.',true);return;}
+    if(typeof window.HVA_Assistant_Shared?.ask!=='function'){
+      aiMessage('Chưa tải được dịch vụ Trợ lý NVS. Kiểm tra mạng và tải lại trang.',true);return;
+    }
+    const button=$('a11AiAsk');button.disabled=true;
+    aiMessage('Đang yêu cầu Trợ lý NVS phản hồi…');
+    aiAnswer.hidden=true;aiAnswer.textContent='';lastAiAnswer='';$('a11AiCopy').disabled=true;
     try {
-      window.NVS_AI_open();
-      const box=document.getElementById('nvsAiQuestion');
-      if(!box||!current)return;
-      const f=defs[current],lines=[];
-      for(const [id,label] of f.fields){const v=document.getElementById('field-'+id)?.value.trim();if(v)lines.push(label+': '+v.slice(0,240));}
-      const prompt='Hỗ trợ rà soát và gợi ý hoàn thiện '+f.name.toLowerCase()+'. Giữ nguyên sự thật đã cung cấp; không tự thêm số liệu, căn cứ pháp lý hoặc kết quả chưa xác minh. Viết theo văn phong hành chính THPT Hòa Vang, rõ ràng, ngắn gọn. Chỉ đưa bản nháp để người báo cáo tự kiểm tra trước khi sử dụng.';
-      box.value=prompt+(lines.length?'\n\nThông tin người dùng đã nhập (chỉ dùng để soạn nháp):\n'+lines.join('\n'):'');
-      box.value=box.value.slice(0,3500);box.dispatchEvent(new Event('input',{bubbles:true}));
-    } catch(error){announce('Không mở được Trợ lý: '+String(error?.message||error),true);}
-  },true);
+      const result=await window.HVA_Assistant_Shared.ask({
+        question:prompt,context:'Báo cáo',sessionToken:safeRead('hvaSessionToken')
+      });
+      lastAiAnswer=String(result||'').trim();
+      if(!lastAiAnswer)throw Error('Máy chủ chưa trả về nội dung góp ý.');
+      aiAnswer.textContent=lastAiAnswer;aiAnswer.hidden=false;
+      $('a11AiCopy').disabled=false;
+      aiMessage('Đã nhận gợi ý từ Trợ lý. Thầy cô kiểm tra nội dung trước khi sử dụng.');
+    }catch(e){
+      aiMessage('Trợ lý chưa trả lời được: '+String(e?.message||e)+'. Không thay đổi nội dung báo cáo.',true);
+    }finally {button.disabled=false;}
+  });
 })();
 </script>
-<script src="./NVS_A1.assistant.js"></script>
+
 </body></html>
