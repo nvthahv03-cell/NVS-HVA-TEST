@@ -935,13 +935,6 @@
       const requested = data.operationAliases?.[requestedId] ||
         (data.operations[requestedId] ? requestedId : null);
       group ||= data.operations[requested]?.group || aliases[requestedId]?.[0] || "A11";
-      for (const [code, g] of Object.entries(data.groups)) {
-        const link = element("a", g.name);
-        link.className = "btn secondary";
-        link.href = "./NVS_BaoCao_A1.html?view=a1-20261029&group=" + code;
-        if (code === group) link.setAttribute("aria-current", "page");
-        $("groupNav").append(link);
-      }
       if (params.get("item") && !requested)
         throw Error("Không tìm thấy nghiệp vụ. Vui lòng chọn lại từ danh mục A.1.");
       if (!requested) {
