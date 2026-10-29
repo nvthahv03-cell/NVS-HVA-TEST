@@ -63,3 +63,7 @@ A.1.3: hai nhóm lưới 2×2 ở 375/768/1366, ô đồng đều và không c�
 Kiểm tra A.1.1–A.1.4: biểu mẫu hoạt động ở mức nhập / xem trước / chỉnh sửa, dùng Trợ lý chung và lớp nhân sự HVA hiện có; nguồn nhân sự được thay bằng fixture cô lập trong kiểm thử. Lưu / ký / gửi / tiếp nhận / phản hồi / lịch sử mới chưa có Backend TEST và vẫn khóa. Không có PASS tích hợp, không coi kiểm tra mã nguồn nguyên vẹn là PASS hồi quy nghiệp vụ Chủ nhiệm / DTHT. Chưa nghiệm thu.
 
 Ảnh Sổ chủ nhiệm do chủ dự án gửi chỉ được xem làm nguồn tham khảo, không đưa vào GitHub hoặc gói mã nguồn. Không chỉnh Sổ chủ nhiệm trong đợt ưu tiên A.1.3–A.1.4 này.
+
+## Rà soát kết thúc giai đoạn
+
+Giữ 31 chức năng; sửa liên kết chỉ có item để nhận đúng nhóm, giữ hỗ trợ năm đường dẫn nhóm cũ, chặn item không tồn tại hoặc nhóm chỉ định sai. Tìm nhân sự hỗ trợ đ/d không dấu. Không thêm chức năng nghiệp vụ hoặc cơ chế lưu mới. BLOCKERS.csv ghi điều kiện của từng chức năng; BACKEND_READINESS.md ghi đúng phần tích hợp còn thiếu và các ca chuẩn bị. Hai nguồn Sổ HSG mới chỉ được đọc, không nhập vào repository/gói FULL hoặc gọi chạy. Chưa có URL sổ hay Backend TEST báo cáo. Chưa nghiệm thu.

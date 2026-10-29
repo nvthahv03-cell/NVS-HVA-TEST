@@ -35,6 +35,15 @@ with sync_playwright() as p:
    if f['key']=='to':value='2026-11-02'
    page.fill('#field-'+f['key'],value)
   if ops[id]['kind']=='link':page.fill('#field-drive','https://drive.google.com/file/d/QA_ONLY/view')
+ # Every direct function link resolves its actual group; legacy pages remain external links only.
+ for id,op in ops.items():
+  page.goto(app+'NVS_BaoCao_A1.html?item='+id);page.wait_for_function("()=>document.getElementById('notice').textContent!=='Đang tải danh mục…'");assert page.locator('#heading').inner_text()==op['name'];assert op['group'] in page.locator('#groupNav [aria-current=page]').get_attribute('href')
+  if op['kind']=='legacy':assert page.locator('#operation a').get_attribute('href')==op['url']
+ for name,section in [('team','team'),('cluster','cluster'),('gifted','hsg'),('support','support'),('exam','exam')]:
+  page.goto(app+'NVS_BaoCao_A1.html?type='+name);page.wait_for_selector('#catalog [data-section='+section+']');assert not page.locator('#catalog').is_hidden()
+ page.goto(app+'NVS_BaoCao_A1.html?item=unknown');page.wait_for_function("()=>document.getElementById('notice').dataset.error==='true'");assert page.locator('#operation input').count()==0
+ page.goto(app+'NVS_BaoCao_A1.html?group=A11&item=cluster-report');page.wait_for_function("()=>document.getElementById('notice').dataset.error==='true'");assert page.locator('#operation input').count()==0
+ checks.append('All 31 direct item links infer correct group; five legacy category links resolve; invalid item and explicit wrong group fail safely; CN/DTHT remain original links')
  # Complete source-defined tree, not a renamed single form.
  assert len(ops)==31;assert spec['groups']['A14']['name']=='A.1.4 – BD HSG – DTHT';assert [s['id'] for s in spec['groups']['A14']['sections']]==['hsg','support','exam','dtht']
  assert {f['key'] for f in ops['task']['fields']}!={f['key'] for f in ops['training']['fields']};assert all(f['kind']!='textarea' for f in ops['hsg-plan']['fields']);assert 'team' not in {f['key'] for f in ops['exam-plan']['fields']}
@@ -70,7 +79,7 @@ with sync_playwright() as p:
   if op.get('people'):
    page.locator('[data-load-people]').click();page.wait_for_function("()=>document.getElementById('peopleList').querySelectorAll('input').length===3");assert 'Họ tên từ nguồn thử' in page.locator('#identityName').inner_text();
    if op['people']=='colleagues':assert page.locator('[data-person=qa_staff]').is_disabled()
-   page.locator('[data-person=qa_colleague]').check();assert '1 người' in page.locator('#peopleCount').inner_text();page.locator('#peopleSearch').fill('đồng nghiệp');assert page.locator('#peopleList input').count()==1;page.locator('#peopleSearch').fill('')
+   page.locator('[data-person=qa_colleague]').check();assert '1 người' in page.locator('#peopleCount').inner_text();page.locator('#peopleSearch').fill('dong nghiep');assert page.locator('#peopleList input').count()==1;page.locator('#peopleSearch').fill('đồng nghiệp');assert page.locator('#peopleList input').count()==1;page.locator('#peopleSearch').fill('')
   page.locator('#preview').click();assert page.locator('#previewCard').is_visible();assert 'CHƯA GỬI' in page.locator('#previewPaper').inner_text();assert page.locator('#previewPaper').get_attribute('class')==('official-paper' if op['kind']=='report' else None)
   if op['kind']=='link':assert page.locator('#field-drive').get_attribute('required') is not None
   page.locator('#edit').click();assert not page.locator('#previewCard').is_visible();assert page.locator('#field-year').input_value();page.locator('#reportForm [data-nvs-nav=ai]').click();assert op['name'] in page.locator('#nvsAiIdentity').inner_text();page.keyboard.press('Escape');checks.append(id+' correct fields/input/preview/edit/shared assistant; save/sign/send disabled')

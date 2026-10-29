@@ -5,9 +5,9 @@
   "use strict";
   const $ = (id) => document.getElementById(id),
     params = new URL(location.href).searchParams;
-  const group = ["A11", "A12", "A13", "A14"].includes(params.get("group"))
+  let group = ["A11", "A12", "A13", "A14"].includes(params.get("group"))
     ? params.get("group")
-    : "A11";
+    : null;
   const aliases = {
     team: ["A13", "team"],
     cluster: ["A13", "cluster"],
@@ -340,7 +340,8 @@
     const keyword = ($("peopleSearch")?.value || "")
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
+      .toLowerCase()
+      .replace(/đ/g, "d");
     list.replaceChildren();
     for (const [id, person] of people) {
       if (
@@ -349,6 +350,7 @@
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .toLowerCase()
+          .replace(/đ/g, "d")
           .includes(keyword)
       )
         continue;
@@ -929,6 +931,10 @@
       [data, sources] = await Promise.all(
         results.map((response) => response.json()),
       );
+      const requestedId = params.get("item") || params.get("type");
+      const requested = data.operationAliases?.[requestedId] ||
+        (data.operations[requestedId] ? requestedId : null);
+      group ||= data.operations[requested]?.group || aliases[requestedId]?.[0] || "A11";
       for (const [code, g] of Object.entries(data.groups)) {
         const link = element("a", g.name);
         link.className = "btn secondary";
@@ -936,10 +942,8 @@
         if (code === group) link.setAttribute("aria-current", "page");
         $("groupNav").append(link);
       }
-      const requestedId =
-        params.get("item") ||
-        (data.operations[params.get("type")] ? params.get("type") : null);
-      const requested = data.operationAliases?.[requestedId] || requestedId;
+      if (params.get("item") && !requested)
+        throw Error("Không tìm thấy nghiệp vụ. Vui lòng chọn lại từ danh mục A.1.");
       if (!requested) {
         catalog(aliases[params.get("type")]?.[1]);
         return;

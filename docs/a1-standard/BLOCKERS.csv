@@ -1,0 +1,32 @@
+STT,Chức năng,Thao tác đủ điều kiện,Điều kiện còn thiếu,Trạng thái
+1,Báo cáo thực hiện nhiệm vụ được giao,Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+2,Báo cáo công tác điều động,Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+3,"Báo cáo tập huấn, bồi dưỡng, hội nghị, hội thảo",Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+4,Báo cáo khác theo yêu cầu,Mở mô tả và điều kiện chờ,Chờ danh mục yêu cầu và biểu mẫu được giao. Chưa mở báo cáo ngoài các yêu cầu đã được nhà trường xác nhận.,Đang phát triển
+5,Sổ chủ nhiệm điện tử,Mở mô tả và điều kiện chờ,"Đang phát triển — chưa hoàn thiện và chưa được duyệt. Chưa cho phép nhập, đọc, ghi hoặc xuất dữ liệu học sinh; chưa kết nối Backend.",Đang phát triển
+6,Báo cáo công tác chủ nhiệm,Liên kết nghiệp vụ hiện hành,Chưa kiểm thử hồi quy Backend thật,"Nghiệp vụ hiện hành, chưa nghiệm thu lại"
+7,Hồ sơ học sinh giáo dục hòa nhập,Mở mô tả và điều kiện chờ,"Chờ biểu mẫu được duyệt, nguồn dữ liệu và quy định ai được đọc / ghi. Chưa mở nhập, đọc, ghi hoặc xuất dữ liệu học sinh.",Đang phát triển
+8,Kế hoạch giáo dục cá nhân,Mở mô tả và điều kiện chờ,"Chờ biểu mẫu được duyệt, nguồn dữ liệu và quy định ai được đọc / ghi. Chưa mở nhập, đọc, ghi hoặc xuất dữ liệu học sinh.",Đang phát triển
+9,Theo dõi quá trình thực hiện,Mở mô tả và điều kiện chờ,"Chờ biểu mẫu được duyệt, nguồn dữ liệu và quy định ai được đọc / ghi. Chưa mở nhập, đọc, ghi hoặc xuất dữ liệu học sinh.",Đang phát triển
+10,"Đánh giá, báo cáo giáo dục hòa nhập",Mở mô tả và điều kiện chờ,"Chờ biểu mẫu được duyệt, nguồn dữ liệu và quy định ai được đọc / ghi. Chưa mở nhập, đọc, ghi hoặc xuất dữ liệu học sinh.",Đang phát triển
+11,Kế hoạch sinh hoạt chuyên môn,Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+12,"Nội dung, tài liệu chuẩn bị sinh hoạt",Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+13,Biên bản và kết quả sinh hoạt,Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+14,"Báo cáo, kiến nghị và minh chứng",Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+15,"Kế hoạch, thông tin sinh hoạt cụm",Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+16,Thành phần tham gia,Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+17,Nội dung và kết quả sinh hoạt cụm,Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+18,"Báo cáo, minh chứng và kiến nghị",Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+19,Nộp kế hoạch bồi dưỡng HSG,Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+20,Sổ ghi đầu bài BD HSG 12,Mở mô tả và điều kiện chờ,"Chờ URL Web App chính thức. Không sửa sổ, dữ liệu, nhân sự hoặc các chức năng ghi / sửa / xóa / in của ứng dụng hiện hành.",Đang phát triển
+21,"Báo cáo các kỳ kiểm tra, đánh giá đội tuyển",Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+22,Danh sách đội tuyển,Mở mô tả và điều kiện chờ,Chưa có nguồn dữ liệu học sinh và quyền được phê duyệt. Không nhập hoặc phát hành danh sách thật.,Đang phát triển
+23,Kế hoạch phụ đạo,Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+24,"Danh sách, nhóm học sinh phụ đạo",Mở mô tả và điều kiện chờ,Chưa mở danh sách học sinh khi chưa có nguồn dữ liệu và quyền được xác nhận.,Đang phát triển
+25,Theo dõi quá trình thực hiện,Mở mô tả và điều kiện chờ,"Chờ mẫu theo dõi, nguồn và quyền được duyệt. Chưa mở hồ sơ hoặc thông tin học sinh.",Đang phát triển
+26,Báo cáo kết quả phụ đạo,Mở mô tả và điều kiện chờ,Chờ mẫu hoặc các trường báo cáo kết quả phụ đạo được nhà trường chốt; không tự đặt chỉ tiêu đánh giá.,Đang phát triển
+27,Kế hoạch ôn thi theo môn và kỳ thi,Nhập / kiểm tra / xem trước / chỉnh sửa,"Backend TEST, xác thực phiên / ký / phân phối BGH và CC; mẫu được duyệt nếu áp dụng",Đang phát triển
+28,"Phân công giáo viên, lớp / nhóm ôn thi",Mở mô tả và điều kiện chờ,Chờ nguồn phân công và quyền được duyệt. Không tự phân công hoặc tạo danh sách lớp / học sinh trong nhóm A.,Đang phát triển
+29,Báo cáo tiến độ thực hiện,Mở mô tả và điều kiện chờ,Chờ mẫu và các trường báo cáo tiến độ ôn thi được nhà trường chốt; không tự đặt chỉ tiêu tiến độ.,Đang phát triển
+30,"Báo cáo kết quả kiểm tra, thi thử và đề xuất điều chỉnh",Mở mô tả và điều kiện chờ,Chờ mẫu báo cáo kiểm tra / thi thử và nguồn số liệu được duyệt. Không tự tổng hợp kết quả hoặc dữ liệu học sinh.,Đang phát triển
+31,Báo cáo DTHT hiện hành,Liên kết nghiệp vụ hiện hành,Chưa kiểm thử hồi quy Backend thật,"Nghiệp vụ hiện hành, chưa nghiệm thu lại"

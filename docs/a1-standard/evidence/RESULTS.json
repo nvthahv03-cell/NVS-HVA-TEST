@@ -1,5 +1,6 @@
 {
   "checks": [
+    "All 31 direct item links infer correct group; five legacy category links resolve; invalid item and explicit wrong group fail safely; CN/DTHT remain original links",
     "A11 complete catalog and distinct spaces",
     "A12 complete catalog and distinct spaces",
     "A13 complete catalog and distinct spaces",
