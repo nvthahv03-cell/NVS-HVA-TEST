@@ -20,7 +20,7 @@ A.1.1 có ba báo cáo nhập/xem trước với trường riêng: nhiệm vụ,
 
 A.1.2 có hai ô Công tác chủ nhiệm cân đối cùng hàng: Sổ chủ nhiệm điện tử (Đang phát triển) và Báo cáo công tác chủ nhiệm (Đã kết nối theo xác nhận chủ dự án). Sổ chỉ chuẩn bị cấu trúc hồ sơ, kế hoạch, hoạt động; không mở dữ liệu hoặc Backend. Báo cáo giữ nguyên URL và toàn bộ mã nguồn. Bốn chức năng Giáo dục hòa nhập giữ nguyên và khóa dữ liệu học sinh.
 
-A.1.3 có bốn nghiệp vụ tổ/nhóm, năm nghiệp vụ cụm: kế hoạch/tài liệu/biên bản nộp liên kết; báo cáo kết quả có trường riêng; thành phần tham gia dùng nhân sự HVA. Phạm vi quyền GV/chủ trì/TTCM/BGH chưa được nhà trường cung cấp nên chưa mở quyền nộp/đọc/xử lý thật.
+A.1.3 có bốn nghiệp vụ tổ/nhóm, bốn nghiệp vụ cụm: kế hoạch/tài liệu/biên bản nộp liên kết; báo cáo kết quả có trường riêng; thành phần tham gia dùng nhân sự HVA. Phạm vi quyền GV/chủ trì/TTCM/BGH chưa được nhà trường cung cấp nên chưa mở quyền nộp/đọc/xử lý thật.
 
 A.1.4 hiển thị đúng bốn nhóm BD HSG / Phụ đạo / Ôn thi / DTHT. HSG có kế hoạch dạng nộp liên kết, sổ chờ URL, báo cáo kiểm tra/đánh giá có các trường được chỉ đạo, danh sách đội tuyển khóa và mô tả đúng luồng GV → TTCM → BGH. Phụ đạo và ôn thi có kế hoạch nộp liên kết riêng; danh sách, phân công, theo dõi và báo cáo chưa có mẫu/nguồn/quyền đã chốt giữ Đang phát triển, không tự đặt chỉ tiêu.
 
@@ -38,7 +38,7 @@ Còn cần: mẫu và trường báo cáo phụ đạo/tiến độ ôn thi/ki�
 
 ## Kiểm thử và giới hạn
 
-CHECKLIST.csv ghi từng nghiệp vụ và thao tác còn khóa; evidence/RESULTS.json ghi kết quả trình duyệt. Sáu báo cáo riêng, chín biểu mẫu liên kết và một luồng chọn thành phần đã kiểm tra nhập/xem trước/chỉnh sửa ở môi trường cục bộ. Các trạng thái khóa còn lại được kiểm tra không có ô nhập dữ liệu nhạy cảm. Đã sửa trường hợp form còn thiếu trường khiến trình duyệt chặn submit trước khi kiểm tra phiên: controller xác minh phiên trước rồi gọi reportValidity; ca hết hạn và đổi tài khoản đã kiểm chứng khóa chuẩn bị. Mọi yêu cầu ngoài bị chặn/intercept; chưa gọi API sản xuất.
+CHECKLIST.csv ghi từng nghiệp vụ và thao tác còn khóa; evidence/RESULTS.json ghi kết quả trình duyệt. Sáu báo cáo riêng, tám biểu mẫu liên kết và một luồng chọn thành phần đã kiểm tra nhập/xem trước/chỉnh sửa ở môi trường cục bộ. Các trạng thái khóa còn lại được kiểm tra không có ô nhập dữ liệu nhạy cảm. Đã sửa trường hợp form còn thiếu trường khiến trình duyệt chặn submit trước khi kiểm tra phiên: controller xác minh phiên trước rồi gọi reportValidity; ca hết hạn và đổi tài khoản đã kiểm chứng khóa chuẩn bị. Mọi yêu cầu ngoài bị chặn/intercept; chưa gọi API sản xuất.
 
 Bằng chứng bảo toàn không đồng nghĩa PASS hồi quy: Chủ nhiệm/DTHT/Cuộc họp và các nghiệp vụ PASS chưa kiểm thử lại Backend thật. Proxy chặn tên miền Pages/Google Fonts; Chromium dùng cùng icon font thật và Arial dự phòng. Pages chỉ xác minh qua build GitHub, chưa trực tiếp mở được website từ môi trường. Chưa PASS tích hợp hoặc nghiệm thu.
 
@@ -53,3 +53,13 @@ Hoàn nguyên: revert commit đợt A.1 trên TEST về 37248a6; không cần s�
 ## Bổ sung A.1.2 ngày 29/10/2026
 
 Chỉ bổ sung Sổ chủ nhiệm điện tử, cấu trúc ba phần và bố cục / nhãn hai ô Chủ nhiệm ở trang A.1 và danh mục Nghiệp vụ. Không thêm chức năng để đủ bốn ô. Kiểm tra điều hướng và bố cục 375/768/1366; bằng chứng a12-menu-*.png. Báo cáo chủ nhiệm đã kết nối theo xác nhận của chủ dự án; chưa chạy hồi quy gửi / ký / lịch sử thật. Không sửa Index, A.6, Kho 04, B/C, Điều hành, báo cáo CN/DTHT hoặc Backend. Hoàn nguyên riêng đợt sửa này bằng revert commit bổ sung A.1.2 trên TEST.
+
+## Bổ sung A.1.3–A.1.4
+
+Sinh hoạt chuyên môn giữ bốn mục. Sinh hoạt cụm gộp Tài liệu, minh chứng và kiến nghị vào Báo cáo sau sinh hoạt cụm, tên mới Báo cáo, minh chứng và kiến nghị. Giữ toàn bộ trường báo cáo cũ, bổ sung hai liên kết Google Drive riêng cho tài liệu và minh chứng; phần kiến nghị giữ nguyên. URL cũ item=cluster-materials mở nghiệp vụ gộp, không tạo bản ghi song song. Không dùng API Cuộc họp để lưu.
+
+A.1.3: hai nhóm lưới 2×2 ở 375/768/1366, ô đồng đều và không cắt chữ. A.1.4: HSG / Phụ đạo / Ôn thi mỗi nhóm bốn ô 2×2; DTHT một ô trọn hàng mở đúng trang cũ. Mẫu tài liệu chuẩn bị và kết quả sinh hoạt cụm được bổ sung trạng thái chờ nguồn đã duyệt, không tạo mẫu Word hoặc mã mẫu mới. Báo cáo khác, báo cáo phụ đạo / tiến độ ôn thi / kết quả thi thử vẫn chờ trường được nhà trường chốt; chưa nhập dữ liệu học sinh hoặc mở quyền mới. HSG12 vẫn chờ URL hiện hành. Chưa nhận DOCX HVA-A14-HSG-01 hay nguồn Drive được xác minh; gói ảnh Sổ chủ nhiệm không thay thế mẫu HSG.
+
+Kiểm tra A.1.1–A.1.4: biểu mẫu hoạt động ở mức nhập / xem trước / chỉnh sửa, dùng Trợ lý chung và lớp nhân sự HVA hiện có; nguồn nhân sự được thay bằng fixture cô lập trong kiểm thử. Lưu / ký / gửi / tiếp nhận / phản hồi / lịch sử mới chưa có Backend TEST và vẫn khóa. Không có PASS tích hợp, không coi kiểm tra mã nguồn nguyên vẹn là PASS hồi quy nghiệp vụ Chủ nhiệm / DTHT. Chưa nghiệm thu.
+
+Ảnh Sổ chủ nhiệm do chủ dự án gửi chỉ được xem làm nguồn tham khảo, không đưa vào GitHub hoặc gói mã nguồn. Không chỉnh Sổ chủ nhiệm trong đợt ưu tiên A.1.3–A.1.4 này.

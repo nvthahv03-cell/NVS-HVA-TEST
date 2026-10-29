@@ -381,7 +381,8 @@
           "kind": "date",
           "required": true
         }
-      ]
+      ],
+      "template": "teamMaterials"
     },
     "team-minutes": {
       "id": "team-minutes",
@@ -556,13 +557,14 @@
           "required": true
         }
       ],
-      "description": "Nộp liên kết tài liệu nội dung, biên bản hoặc kết quả theo mẫu được nhà trường duyệt; không nhập lại toàn bộ tài liệu."
+      "description": "Nộp liên kết tài liệu nội dung, biên bản hoặc kết quả theo mẫu được nhà trường duyệt; không nhập lại toàn bộ tài liệu.",
+      "template": "clusterResults"
     },
     "cluster-report": {
       "id": "cluster-report",
       "group": "A13",
       "section": "cluster",
-      "name": "Báo cáo sau sinh hoạt cụm",
+      "name": "Báo cáo, minh chứng và kiến nghị",
       "kind": "report",
       "fields": [
         {
@@ -618,36 +620,22 @@
           "label": "Kiến nghị",
           "kind": "textarea",
           "required": false
-        }
-      ],
-      "people": "participants"
-    },
-    "cluster-materials": {
-      "id": "cluster-materials",
-      "group": "A13",
-      "section": "cluster",
-      "name": "Tài liệu, minh chứng và kiến nghị",
-      "kind": "link",
-      "fields": [
-        {
-          "key": "year",
-          "label": "Năm học",
-          "kind": "text",
-          "required": true
         },
         {
-          "key": "event",
-          "label": "Tên hoạt động sinh hoạt cụm",
-          "kind": "text",
-          "required": true
+          "key": "materialsDrive",
+          "label": "Liên kết tài liệu sinh hoạt cụm (nếu có)",
+          "kind": "url",
+          "required": false
         },
         {
-          "key": "recommendations",
-          "label": "Kiến nghị kèm tài liệu",
-          "kind": "textarea",
+          "key": "evidenceDrive",
+          "label": "Liên kết minh chứng sinh hoạt cụm (nếu có)",
+          "kind": "url",
           "required": false
         }
-      ]
+      ],
+      "people": "participants",
+      "description": "Tổng hợp báo cáo sau sinh hoạt cụm, tài liệu, minh chứng và kiến nghị trong một nghiệp vụ. Tài liệu và minh chứng chỉ nộp bằng liên kết Google Drive; không tải tệp lên NVS."
     },
     "hsg-plan": {
       "id": "hsg-plan",
@@ -930,5 +918,8 @@
       "fields": [],
       "url": "./BC_DayThemHocThem.html"
     }
+  },
+  "operationAliases": {
+    "cluster-materials": "cluster-report"
   }
 }

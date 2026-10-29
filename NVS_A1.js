@@ -804,6 +804,8 @@
       const value = values[spec.key];
       if (spec.required && !value)
         throw Error(spec.label + ": không được để trống.");
+      if (spec.kind === "url" && !driveUrl(value))
+        throw Error(spec.label + ": cần liên kết Google Drive / Docs hợp lệ.");
       if (
         spec.kind === "number" &&
         value &&
@@ -862,10 +864,14 @@
     for (const spec of current.fields) {
       if (!values[spec.key]) continue;
       const p = element("p");
-      p.append(
-        element("strong", spec.label + ": "),
-        document.createTextNode(values[spec.key]),
-      );
+      p.append(element("strong", spec.label + ": "));
+      if (spec.kind === "url") {
+        const link = element("a", values[spec.key]);
+        link.href = values[spec.key];
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        p.append(link);
+      } else p.append(document.createTextNode(values[spec.key]));
       paper.append(p);
     }
     if (selected.size)
@@ -930,9 +936,10 @@
         if (code === group) link.setAttribute("aria-current", "page");
         $("groupNav").append(link);
       }
-      const requested =
+      const requestedId =
         params.get("item") ||
         (data.operations[params.get("type")] ? params.get("type") : null);
+      const requested = data.operationAliases?.[requestedId] || requestedId;
       if (!requested) {
         catalog(aliases[params.get("type")]?.[1]);
         return;

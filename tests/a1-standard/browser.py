@@ -30,12 +30,13 @@ with sync_playwright() as p:
  def fill(id):
   for f in ops[id]['fields']:
    value={'number':'12','date':'2026-11-01'}.get(f['kind'],'Nội dung kiểm thử, không gửi')
+   if f['kind']=='url':value='https://drive.google.com/file/d/QA_ONLY/view'
    if f['key']=='year':value='2026–2027'
    if f['key']=='to':value='2026-11-02'
    page.fill('#field-'+f['key'],value)
   if ops[id]['kind']=='link':page.fill('#field-drive','https://drive.google.com/file/d/QA_ONLY/view')
  # Complete source-defined tree, not a renamed single form.
- assert len(ops)==32;assert spec['groups']['A14']['name']=='A.1.4 – BD HSG – DTHT';assert [s['id'] for s in spec['groups']['A14']['sections']]==['hsg','support','exam','dtht']
+ assert len(ops)==31;assert spec['groups']['A14']['name']=='A.1.4 – BD HSG – DTHT';assert [s['id'] for s in spec['groups']['A14']['sections']]==['hsg','support','exam','dtht']
  assert {f['key'] for f in ops['task']['fields']}!={f['key'] for f in ops['training']['fields']};assert all(f['kind']!='textarea' for f in ops['hsg-plan']['fields']);assert 'team' not in {f['key'] for f in ops['exam-plan']['fields']}
  for group,g in spec['groups'].items():
   page.goto(app+'NVS_BaoCao_A1.html?group='+group);page.wait_for_selector('#catalog [data-operation]');assert page.locator('#catalog [data-operation]').count()==sum(op['group']==group for op in ops.values());assert page.locator('#catalog [data-section]').count()==len(g['sections']);checks.append(group+' complete catalog and distinct spaces')
@@ -73,6 +74,40 @@ with sync_playwright() as p:
   page.locator('#preview').click();assert page.locator('#previewCard').is_visible();assert 'CHƯA GỬI' in page.locator('#previewPaper').inner_text();assert page.locator('#previewPaper').get_attribute('class')==('official-paper' if op['kind']=='report' else None)
   if op['kind']=='link':assert page.locator('#field-drive').get_attribute('required') is not None
   page.locator('#edit').click();assert not page.locator('#previewCard').is_visible();assert page.locator('#field-year').input_value();page.locator('#reportForm [data-nvs-nav=ai]').click();assert op['name'] in page.locator('#nvsAiIdentity').inner_text();page.keyboard.press('Escape');checks.append(id+' correct fields/input/preview/edit/shared assistant; save/sign/send disabled')
+ # A13: exact four-by-four structure, merged links and old URL compatibility.
+ page.goto(app+'NVS_BaoCao_A1.html?group=A13');page.wait_for_selector('[data-section=team]')
+ for width in [375,768,1366]:
+  page.set_viewport_size({'width':width,'height':950})
+  for section in ['team','cluster']:
+   cards=page.locator('#catalog [data-section='+section+'] [data-operation]');assert cards.count()==4
+   boxes=cards.evaluate_all('(els)=>els.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,overflow:e.scrollWidth>e.clientWidth}})')
+   assert abs(boxes[0]['y']-boxes[1]['y'])<1 and abs(boxes[2]['y']-boxes[3]['y'])<1 and boxes[2]['y']>boxes[0]['y']
+   assert max(x['w'] for x in boxes)-min(x['w'] for x in boxes)<1 and max(x['h'] for x in boxes)-min(x['h'] for x in boxes)<1
+   assert not any(x['overflow'] for x in boxes)
+  page.screenshot(path=str(OUT/f'a13-catalog-{width}.png'),full_page=True)
+ page.goto(app+'NVS_BaoCao_A1.html?group=A14');page.wait_for_selector('[data-section=hsg]')
+ for width in [375,768,1366]:
+  page.set_viewport_size({'width':width,'height':950})
+  for section in ['hsg','support','exam']:
+   cards=page.locator('#catalog [data-section='+section+'] [data-operation]');assert cards.count()==4
+   boxes=cards.evaluate_all('(els)=>els.map(e=>{const r=e.getBoundingClientRect();return {y:r.y,w:r.width,h:r.height}})');assert abs(boxes[0]['y']-boxes[1]['y'])<1;assert abs(boxes[2]['y']-boxes[3]['y'])<1;assert boxes[2]['y']>boxes[0]['y'];assert max(x['h'] for x in boxes)-min(x['h'] for x in boxes)<1
+  page.screenshot(path=str(OUT/f'a14-catalog-{width}.png'),full_page=True)
+ page.goto(app+'NghiepVu.html');page.locator('details.group').first.locator('summary .chev').click();page.locator('[aria-controls=nvs-a13]').click();page.locator('[aria-controls=nvs-a14]').click()
+ for width in [375,768,1366]:
+  page.set_viewport_size({'width':width,'height':950})
+  for section in range(2):
+   tiles=page.locator('#nvs-a13 .nvs-a-branch').nth(section).locator('a');assert tiles.count()==4
+   boxes=tiles.evaluate_all('(els)=>els.map(e=>{const r=e.getBoundingClientRect();return {y:r.y,w:r.width,h:r.height}})');assert abs(boxes[0]['y']-boxes[1]['y'])<1;assert abs(boxes[2]['y']-boxes[3]['y'])<1;assert max(x['h'] for x in boxes)-min(x['h'] for x in boxes)<1
+  for branch in range(3):
+   cards=page.locator('#nvs-a14 .nvs-a-branch').nth(branch).locator('a');assert cards.count()==4
+   boxes=cards.evaluate_all('(els)=>els.map(e=>{const r=e.getBoundingClientRect();return {y:r.y,h:r.height}})');assert abs(boxes[0]['y']-boxes[1]['y'])<1;assert abs(boxes[2]['y']-boxes[3]['y'])<1;assert max(x['h'] for x in boxes)-min(x['h'] for x in boxes)<1
+  dtht=page.locator('#nvs-a14 .nvs-a-branch').last;assert dtht.locator('a').count()==1
+  assert dtht.locator('a').evaluate('(e)=>Math.abs(e.getBoundingClientRect().width-e.parentElement.getBoundingClientRect().width)<1')
+  page.screenshot(path=str(OUT/f'a13-a14-menu-{width}.png'),full_page=True)
+ page.goto(app+'NVS_BaoCao_A1.html?group=A14');page.wait_for_selector('[data-section=dtht]');dtht=page.locator('[data-section=dtht] .a1-catalog-grid');assert dtht.locator('a').count()==1;assert dtht.locator('a').evaluate('(e)=>Math.abs(e.getBoundingClientRect().width-e.parentElement.getBoundingClientRect().width)<1')
+ goto('cluster-report');page.wait_for_selector('#field-materialsDrive');fill('cluster-report');page.fill('#field-materialsDrive','https://example.org/file');page.locator('#preview').click();assert 'hợp lệ' in page.locator('#notice').inner_text();page.fill('#field-materialsDrive','https://drive.google.com/file/d/QA_MATERIAL/view');page.fill('#field-evidenceDrive','https://docs.google.com/document/d/QA_EVIDENCE/edit');page.locator('#preview').click();assert page.locator('#previewPaper a[href*=QA_MATERIAL]').count()==1;assert page.locator('#previewPaper a[href*=QA_EVIDENCE]').count()==1;assert 'Kiến nghị' in page.locator('#previewPaper').inner_text();page.locator('#edit').click();assert 'QA_MATERIAL' in page.locator('#field-materialsDrive').input_value()
+ page.goto(app+'NVS_BaoCao_A1.html?group=A13&item=cluster-materials');page.wait_for_selector('#field-materialsDrive');assert page.locator('#heading').inner_text()=='Báo cáo, minh chứng và kiến nghị'
+ checks.append('A13 both groups 2x2 equal cards at 375/768/1366; merged materials/evidence links validate and survive preview/edit; old materials URL opens merged report; DTHT single full-width tile')
  # Source Word not received/approved and diary URL absent: no invented download or deployment.
  goto('hsg-plan');page.wait_for_selector('[data-template-download]');assert page.locator('[data-template-download]').is_disabled();assert 'HVA-A14-HSG-01' not in page.locator('.a1-template').inner_text();assert 'code=HVA-A14-HSG-01' in page.locator('.a1-template a').get_attribute('href');checks.append('HSG lookup uses stable code without publishing draft metadata; Word download NOT TESTED')
  # URL validation and permission honesty.

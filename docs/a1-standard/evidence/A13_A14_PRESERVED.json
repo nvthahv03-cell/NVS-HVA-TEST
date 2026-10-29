@@ -1,0 +1,50 @@
+{
+  "baseline": "13552da",
+  "files": {
+    "BC_ChuNhiem.html": {
+      "unchanged": true,
+      "sha256": "b7948dee3c5b12eaeca57c63f9e0ccbe0a8174ff4f9f048d5a99e36961e9c875"
+    },
+    "BC_DayThemHocThem.html": {
+      "unchanged": true,
+      "sha256": "5514b2ac55c4fe2a81c328d82b12e75cc635d94557670470cd3d4177ee514606"
+    },
+    "CuocHop.html": {
+      "unchanged": true,
+      "sha256": "a276c0814a3bb453ac5e08ac2aa7f2b55c400f525c109b270f1ccc2073d3f26d"
+    },
+    "DieuHanh.html": {
+      "unchanged": true,
+      "sha256": "66ed3e8d4e539030e735dfdc34cde2185cff40829dced918ed2de623c9810730"
+    },
+    "HVA_Assistant_Shared.js": {
+      "unchanged": true,
+      "sha256": "47b7155108f6f452999da2d50a68cf6fcb3ce43d8aac3c40a4abd7001ebb0e85"
+    },
+    "HVA_Personnel.js": {
+      "unchanged": true,
+      "sha256": "80ebc8228ca94b38ae5e308128448dab583eba2d7ea24bb7ddf9bd39e6f0cf94"
+    },
+    "NVS_BC.css": {
+      "unchanged": true,
+      "sha256": "5be1d794102bdfcca7c6a12912ebf80766e342c22aa7894691a988155bab13e8"
+    },
+    "NVS_BC.js": {
+      "unchanged": true,
+      "sha256": "953f9a67a60bee1b3b7c4f4e324feded70bb9c02c9c9550c396ded04e4bb4395"
+    },
+    "NVS_BC.schemas.json": {
+      "unchanged": true,
+      "sha256": "f149811bf6c4103c1ac08fdfc37d6a042ff261e8bc182b3d9382b911ebcfddfa"
+    },
+    "NVS_TacNghiep.html": {
+      "unchanged": true,
+      "sha256": "e4c95e1db6aa59be9f49f273faf8a0a97211ef3006a2639e26ef5e7e1f5a5633"
+    },
+    "index.html": {
+      "unchanged": true,
+      "sha256": "84395ac329c19264d586e85017d54763da27f9b4e667b7afbcdaac0b6983ccaf"
+    }
+  },
+  "legacy_live_regression": "NOT TESTED"
+}

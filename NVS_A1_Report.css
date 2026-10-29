@@ -1299,3 +1299,21 @@ body {
 #a1Workspace [data-section="homeroom"] .a1-operation-card {
   overflow-wrap: anywhere;
 }
+
+/* A.1.3: four functions per section; A.1.4 DTHT remains a single full row. */
+#a1Workspace [data-section="reports"] .a1-catalog-grid,
+#a1Workspace [data-section="hsg"] .a1-catalog-grid,
+#a1Workspace [data-section="support"] .a1-catalog-grid,
+#a1Workspace [data-section="exam"] .a1-catalog-grid,
+#a1Workspace [data-section="team"] .a1-catalog-grid,
+#a1Workspace [data-section="cluster"] .a1-catalog-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+}
+#a1Workspace [data-section="team"] .a1-operation-card,
+#a1Workspace [data-section="cluster"] .a1-operation-card {
+  overflow-wrap: anywhere;
+}
+#a1Workspace [data-section="dtht"] .a1-operation-card {
+  grid-column: 1 / -1;
+}

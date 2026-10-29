@@ -5,7 +5,9 @@
     "teamMinutes": null,
     "clusterPlan": null,
     "supportPlan": null,
-    "examPlan": null
+    "examPlan": null,
+    "teamMaterials": null,
+    "clusterResults": null
   },
   "hsgDiary": null,
   "reportRequirements": [],
