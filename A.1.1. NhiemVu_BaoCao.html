@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="referrer" content="no-referrer">
   <title>A.1.1 – Thực hiện nhiệm vụ, báo cáo khác | THPT Hòa Vang</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
     :root{font-family:Inter,"Segoe UI",Arial,sans-serif;color:#173950;background:#f4f8fc;color-scheme:light}
     *{box-sizing:border-box}body{margin:0;min-width:280px}button,input,textarea{font:inherit}button,a{touch-action:manipulation}
@@ -14,6 +13,7 @@
     .hva-pro-header{color:#fff;background:linear-gradient(110deg,#073d7e,#0867b6 63%,#079ac9);border-radius:0 0 18px 18px;box-shadow:0 8px 22px #124e8125}
     .hva-pro-header-inner{max-width:1220px;margin:auto;display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:20px;padding:18px 22px;min-height:100px}
     .hva-pro-back{display:grid;place-items:center;width:54px;height:54px;border:1px solid #84c4ed;border-radius:14px;background:#ffffff14;color:white;text-decoration:none;font-size:27px}
+    .hva-pro-back .back-arrow{display:block;line-height:1;font-family:Arial,sans-serif;font-size:29px;font-weight:400} .hva-pro-back::before,.hva-pro-back::after,.hva-pro-back .back-arrow::before,.hva-pro-back .back-arrow::after{content:none!important;display:none!important}
     .hva-pro-brand{text-align:center;min-width:0}.hva-pro-kicker{font-size:12px;font-weight:750;letter-spacing:.14em;color:#d4ebfe}
     .hva-pro-school{font-size:clamp(22px,2.9vw,29px);font-weight:850;line-height:1.25}.hva-pro-slogan{font-size:13px;color:#e1f4fd;margin-top:3px}
     .hva-pro-online{border:1px solid #8fe1f1;border-radius:999px;padding:10px 15px;font-size:12px;font-weight:800;white-space:nowrap}
@@ -32,7 +32,7 @@
     .status[data-error="true"]{color:#8f2222;background:#fff2f0;border-color:#ecc0b6}.warning{background:#fff8e8;border:1px solid #ead69d;color:#79551b;border-radius:12px;padding:11px 14px;font-size:13px;line-height:1.6}
     .identity-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:17px 0}.identity-cell{background:#f5fafe;border:1px solid #dbe9f2;border-radius:11px;padding:13px;min-width:0}
     .identity-cell small{display:block;color:#5a7890;font-size:11px;font-weight:750;margin-bottom:7px}.identity-cell strong{font-size:13px;overflow-wrap:anywhere}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 20px}.field.full{grid-column:1/-1}label{font-size:13px;color:#2d536d;font-weight:750;display:block;margin-bottom:7px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 22px;align-items:start}.field{min-width:0}.field.full{grid-column:1/-1}label{font-size:13px;color:#2d536d;font-weight:750;display:block;margin-bottom:7px}
     label em{color:#c34141;font-style:normal}.field input,.field textarea{width:100%;border:1.5px solid #bcd4e6;border-radius:10px;padding:12px 14px;color:#173c5a;background:#fff;min-height:45px;font-size:14px}
     .field textarea{min-height:105px;resize:vertical;line-height:1.6}.field input:focus,.field textarea:focus{outline:none;border-color:#0772c5;box-shadow:0 0 0 3px #0871c420}
     fieldset{border:0;padding:0;margin:0;min-width:0}.actions{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}.actions .btn{min-width:132px}
@@ -55,7 +55,7 @@
 </head>
 <body>
 <header class="hva-pro-header"><div class="hva-pro-header-inner">
-  <a class="hva-pro-back" href="./NghiepVu.html" title="Về Nghiệp vụ số" aria-label="Về danh mục Nghiệp vụ số"><i class="bi bi-arrow-left" aria-hidden="true">←</i></a>
+  <a class="hva-pro-back" href="./NghiepVu.html" title="Về Nghiệp vụ số" aria-label="Về danh mục Nghiệp vụ số"><span class="back-arrow" aria-hidden="true">←</span></a>
   <div class="hva-pro-brand"><div class="hva-pro-kicker">SỞ GIÁO DỤC VÀ ĐÀO TẠO ĐÀ NẴNG</div><div class="hva-pro-school">TRƯỜNG THPT HÒA VANG</div><div class="hva-pro-slogan">NGHIỆP VỤ SỐ THÔNG MINH</div></div>
   <div class="hva-pro-online">A.1.1 · BÁO CÁO CHUYÊN MÔN</div>
 </div></header>
@@ -145,6 +145,26 @@
     if(!value.trim())return true;
     try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password&&['drive.google.com','docs.google.com'].includes(u.hostname)&&/^\/(file\/d\/|drive\/folders\/|document\/d\/|spreadsheets\/d\/|presentation\/d\/)[A-Za-z0-9_-]+(?:\/|$)/.test(u.pathname)}catch(_){return false;}
   }
+  // Bố cục theo từng nghiệp vụ: ghép thời gian cùng hàng, thông tin cùng nhóm.
+  const fieldOrder = {
+    task:['year','task','assignedBy','from','to','content','results','difficulties','recommendations'],
+    deployment:['year','deployment','basis','from','to','location','task','results','followup','recommendations'],
+    training:['year','activity','from','to','organizer','location','content','knowledge','application','proposals'],
+    other:['year','subject','requestedBy','dueDate','content','results','recommendations']
+  };
+  const wideFields = {
+    task:new Set(['assignedBy']),
+    deployment:new Set(['basis','location']),
+    training:new Set(),
+    other:new Set(['requestedBy','dueDate'])
+  };
+  function orderedFields(id){
+    const original=defs[id].fields;
+    const byId=new Map(original.map(f=>[f[0],f]));
+    const ordered=fieldOrder[id].map(key=>byId.get(key));
+    if(ordered.some(f=>!f)||ordered.length!==original.length)throw Error('Cấu hình thứ tự trường không phù hợp.');
+    return ordered;
+  }
   function field([id,label,type,required]){
     const wrap=el('div',undefined,'field'+(type==='textarea'?' full':''));
     const text=el('label',label);text.htmlFor='field-'+id;if(required)text.append(el('em',' *'));
@@ -166,7 +186,7 @@
     current=id;dirty=false;
     document.querySelectorAll('.choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.id===id)));
     const def=defs[id];$('editorHeading').textContent=def.name;
-    $('fields').replaceChildren(...def.fields.map(field));$('driveLink').value='';
+    $('fields').replaceChildren(...orderedFields(id).map(spec=>{const node=field(spec);if(wideFields[id].has(spec[0]))node.classList.add('full');return node;}));$('driveLink').value='';
     $('editor').hidden=false;$('previewSection').hidden=true;
     $('developmentNote').textContent=def.draft?'Khung Báo cáo khác chỉ để chuẩn bị và xem trước; chưa có mẫu theo yêu cầu được phê duyệt. Không được coi là báo cáo chính thức.':'Có thể lập nội dung, hỏi Trợ lý và xem trước văn bản. Chưa kết nối tiếp nhận: KHÔNG gửi báo cáo từ trang này. Không nhập dữ liệu học sinh nhạy cảm.';
     try{history.replaceState(null,'',location.pathname+'?item='+encodeURIComponent(id));}catch(_){}
