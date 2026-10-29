@@ -103,7 +103,8 @@
         (!filters.module ||
           (filters.module === "OTHER"
             ? !/^A\.[1-6](?:\.|$)/.test(record.module)
-            : (record.module === filters.module || record.module.startsWith(filters.module + ".")))) &&
+            : record.module === filters.module ||
+              record.module.startsWith(filters.module + "."))) &&
         (!filters.fileType ||
           normalize(record.fileType) === normalize(filters.fileType)) &&
         (!filters.documentType ||

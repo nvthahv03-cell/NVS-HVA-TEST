@@ -4,7 +4,7 @@ Nguồn nền: TEST main `37248a6bc154762dde10a5425df7387661865722`. Nhánh `fea
 
 ## Mở và thao tác
 
-https://nvthahv03-cell.github.io/NVS-HVA-TEST/NVS_BaoCao_A1.html?group=A11
+https://nvthahv03-cell.github.io/NVS-HVA-TEST/NVS_BaoCao_A1.html?view=a1-20261029&group=A11
 
 1. Đăng nhập theo cơ chế NVS hiện hành. Chọn A.1.1–A.1.4, rồi chọn nghiệp vụ con.
 2. Báo cáo: nhập đúng các nội dung riêng → xem bản báo cáo A4 → quay lại chỉnh sửa. Bố cục header, nhận diện người báo cáo, card, các bước và bản xem trước kế thừa chuẩn BC_ChuNhiem; không sao chép nghiệp vụ Chủ nhiệm.
@@ -46,6 +46,6 @@ Kiểm thử cũ tests/a1-pages/browser.py dựa trên cấu trúc A.1 trước 
 
 ## Tệp và hoàn nguyên
 
-Tệp ứng dụng sửa: NVS_BaoCao_A1.html, NVS_A1.js, NVS_A1.schemas.json; NghiepVu.html chỉ thay vùng A.1, phần A.2/B/C và JS chung giữ nguyên. Tệp ứng dụng mới: NVS_A1_Report.css (riêng A.1, không sửa CSS đang được A.2/B/C dùng), NVS_A1.sources.json, NVS_Forms.js, NVS_BieuMau.html/js. Không sửa NVS_A1.assistant.js hoặc HVA_Assistant_Shared.
+Tệp ứng dụng sửa: NVS_BaoCao_A1.html, NVS_A1.js, NVS_A1.schemas.json; NghiepVu.html chỉ thay vùng A.1, phần A.2/B/C và JS chung giữ nguyên. Tài nguyên A.1 có mã nội dung trong URL để tránh tải nhầm JavaScript/CSS cũ từ cache; không có nhãn phiên bản trên giao diện. Tệp ứng dụng mới: NVS_A1_Report.css (riêng A.1, không sửa CSS đang được A.2/B/C dùng), NVS_A1.sources.json, NVS_Forms.js, NVS_BieuMau.html/js. Không sửa NVS_A1.assistant.js hoặc HVA_Assistant_Shared.
 
 Hoàn nguyên: revert commit đợt A.1 trên TEST về 37248a6; không cần sửa Backend/Sheets/Drive. Chưa nghiệm thu. Sau khi chủ dự án nghiệm thu A.1 mới xem xét mở rộng kính lúp Index.

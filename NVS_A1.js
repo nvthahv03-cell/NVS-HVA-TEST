@@ -85,7 +85,7 @@
   function operationUrl(id) {
     const op = data.operations[id];
     return (
-      "./NVS_BaoCao_A1.html?group=" +
+      "./NVS_BaoCao_A1.html?view=a1-20261029&group=" +
       op.group +
       "&item=" +
       encodeURIComponent(id)
@@ -920,7 +920,7 @@
       for (const [code, g] of Object.entries(data.groups)) {
         const link = element("a", g.name);
         link.className = "btn secondary";
-        link.href = "./NVS_BaoCao_A1.html?group=" + code;
+        link.href = "./NVS_BaoCao_A1.html?view=a1-20261029&group=" + code;
         if (code === group) link.setAttribute("aria-current", "page");
         $("groupNav").append(link);
       }
@@ -944,7 +944,8 @@
         (op.kind === "link"
           ? "Chuẩn bị theo mẫu được duyệt và nộp bằng liên kết Google Drive."
           : "Lập nội dung theo đúng nghiệp vụ; kiểm tra trước khi xác nhận.");
-      $("backToGroup").href = "./NVS_BaoCao_A1.html?group=" + group;
+      $("backToGroup").href =
+        "./NVS_BaoCao_A1.html?view=a1-20261029&group=" + group;
       $("backToGroup").textContent = "← " + data.groups[group].name;
       $("catalog").hidden = true;
       $("operation").hidden = false;
