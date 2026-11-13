@@ -54,6 +54,16 @@
 .tab.active .tab-indicator{background:#9ef2ce;box-shadow:0 0 0 3px rgba(158,242,206,.19)}.tab:focus-visible{outline:3px solid #ffbf69;outline-offset:2px}
 @media(max-width:650px){.tabs{gap:4px;border-radius:14px;padding:4px}.tab,.tab.active{min-height:86px;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:10px 3px;border-radius:11px;text-align:center}.tab.active,.tab.active:hover{padding:10px 3px}.tab .symbol,.tab[data-tab="vang"] .symbol,.tab[data-tab="vipham"] .symbol{width:37px;height:37px;flex-basis:37px;border-radius:11px}.tab .symbol svg{width:22px;height:22px}.tab .tab-copy{gap:0}.tab strong{font-size:12px}.tab small{display:none}.tab-indicator{display:none}}
 @media(prefers-reduced-motion:reduce){.tab,.tab.active{transition:none}}
+
+/* NENEP R5 - kính lúp tích hợp trong ô tìm học sinh */
+.student-search-input{position:relative;flex:1;min-width:0;display:flex}
+.student-search-input .ctrl{padding-right:55px;min-height:50px;box-sizing:border-box}
+.student-search-button{position:absolute;right:4px;top:4px;bottom:4px;width:44px;border:0;border-radius:9px;background:#e7f2fa;color:#065b94;display:grid;place-items:center;cursor:pointer;transition:background .14s,color .14s}
+.student-search-button:hover,.student-search-button:focus-visible{background:#075d9c;color:#fff}
+.student-search-button:focus-visible{outline:3px solid #ffc36a;outline-offset:2px}
+.student-search-button svg{width:23px;height:23px;stroke:currentColor;stroke-width:2.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.hint-inline{font-size:11px;font-weight:500;color:#60819c}
+@media(max-width:650px){.student-search-input .ctrl{font-size:14px;padding-right:50px}.student-search-button{width:42px}}
 </style>
 </head>
 <body>
@@ -75,7 +85,7 @@
         <div class="fields">
           <div class="field" id="gradeField"><label for="grade">Khối</label><div class="micfield"><select class="ctrl" id="grade" required><option value="">Chọn khối</option><option value="10">Khối 10</option><option value="11">Khối 11</option><option value="12">Khối 12</option></select><button class="mic" type="button" data-mic="grade" aria-label="Nói khối để tìm" aria-pressed="false" title="Bấm và nói: Khối mười"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8"></path></svg></button></div><small>Chọn hoặc bấm mic nói “Khối 10”, “Khối 11”, “Khối 12”.</small></div>
           <div class="field" id="classField"><label for="schoolClass">Lớp</label><div class="micfield"><select class="ctrl" id="schoolClass" required disabled><option value="">Chọn lớp</option></select><button class="mic" type="button" data-mic="schoolClass" aria-label="Nói lớp để tìm" aria-pressed="false" title="Bấm và nói: Lớp mười hai ba"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8"></path></svg></button></div><small>Có thể nói “Lớp 10/1”, “Lớp 12/3” hoặc “Lớp 3” sau khi chọn khối.</small></div>
-          <div class="field full"><label for="studentSearch">Tìm học sinh bằng chữ hoặc giọng nói</label><div class="micfield"><input class="ctrl" id="studentSearch" type="search" placeholder="Nói hoặc gõ họ tên học sinh..." autocomplete="off" disabled><button class="mic" type="button" data-mic="studentSearch" aria-label="Nói tên học sinh để tìm" aria-pressed="false" title="Bấm và đọc tên học sinh"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8"></path></svg></button></div><label for="student">Chọn đúng học sinh trong kết quả</label><select class="ctrl" id="student" required disabled><option value="">Chọn học sinh trong lớp</option></select><small id="studentSearchInfo">Chỉ đọc danh sách học sinh từ Google Sheets qua Backend và tài khoản hợp lệ; chưa kết nối thì không hiển thị tên học sinh.</small></div>
+          <div class="field full"><label for="studentSearch">Tìm học sinh <span class="hint-inline">(gõ tên hoặc dùng micro)</span></label><div class="micfield"><div class="student-search-input"><input class="ctrl" id="studentSearch" type="search" placeholder="Nói hoặc gõ họ tên học sinh..." autocomplete="off" disabled><button type="button" id="studentSearchButton" class="student-search-button" aria-label="Tìm học sinh theo tên" title="Tìm học sinh theo họ tên"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.2"></circle><path d="m15.4 15.4 5.1 5.1"></path></svg></button></div><button class="mic" type="button" data-mic="studentSearch" aria-label="Nói tên học sinh để tìm" aria-pressed="false" title="Bấm và đọc tên học sinh"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8"></path></svg></button></div><label for="student">Chọn đúng học sinh trong kết quả</label><select class="ctrl" id="student" required disabled><option value="">Chọn học sinh trong lớp</option></select><small id="studentSearchInfo">Chỉ đọc danh sách học sinh từ Google Sheets qua Backend và tài khoản hợp lệ; chưa kết nối thì không hiển thị tên học sinh.</small></div>
         </div>
         <div class="subhead"><span class="step">02</span>Thời gian ghi nhận</div>
         <div class="fields">
@@ -145,7 +155,7 @@ function noAccent(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u03
 function studentCandidates(){return app.roster;}
 function filterStudents(phrase){const el=$('student'), query=noAccent(phrase), all=studentCandidates(), matches=query?all.filter(x=>noAccent(x.name).includes(query)):all;el.innerHTML='<option value="">'+(all.length?'Chọn đúng học sinh':'Chọn lớp trước')+'</option>';
   for(const m of matches)el.add(new Option(m.caption,m.id));el.disabled=!all.length;
-  const msg=$('studentSearchInfo');msg.textContent=!all.length?'Chưa có dữ liệu học sinh từ Backend có xác thực.':!query?'Chọn đúng học sinh trong lớp.':!matches.length?'Chưa có tên phù hợp. Hãy thử nhập lại.':'Tìm thấy '+matches.length+' kết quả. Hãy chọn đúng học sinh.';
+  const msg=$('studentSearchInfo');msg.textContent=!all.length?'CHƯA CÓ DỮ LIỆU: Backend hoặc danh sách học sinh chưa được tải. Đây không phải kết quả “không tìm thấy tên”.':!query?'Gõ tên hoặc nhấn kính lúp để tìm học sinh trong lớp.':!matches.length?'Đã tải danh sách nhưng không có tên khớp. Thử gõ lại hoặc đọc tên.':'Tìm thấy '+matches.length+' kết quả. Hãy chọn đúng học sinh.';
   renderPreview();return matches.length;
 }
 async function populateClasses(){
@@ -166,6 +176,28 @@ $('grade').addEventListener('change',()=>{populateClasses();renderPreview()});
 $('schoolClass').addEventListener('change',populateStudents);
 $('studentSearch').addEventListener('input',()=>filterStudents($('studentSearch').value));
 $('student').addEventListener('change',renderPreview);
+
+function openStudentResults(){
+  const el=$('student');
+  if(el.disabled)return;
+  try{if(typeof el.showPicker==='function'){el.showPicker();return;}}catch(_){}
+  el.focus();
+}
+
+async function searchStudentOnClick(){
+  const term=$('studentSearch').value.trim(),cls=$('schoolClass').value;
+  if(!CONNECTED){status('Chưa kết nối Backend đọc Google Sheet học sinh. Có link Sheet nhưng chưa có dịch vụ xác thực. Không thể tìm học sinh thật trên bản này.',true);$('studentSearchInfo').textContent='CHƯA KẾT NỐI: cần triển khai Backend Nề nếp STAGING và đăng nhập EDOS.';return;}
+  if(!session()){status('Chưa có phiên đăng nhập EDOS hợp lệ. Vui lòng đăng nhập để tìm học sinh.',true);return;}
+  if(!cls){status('Hãy chọn khối và lớp trước khi tìm học sinh.',true);return;}
+  if(!app.roster.length){await populateStudents();if(!app.roster.length){status('Chưa tải được danh sách học sinh của lớp. Kiểm tra cấu hình Sheet và quyền truy cập.',true);return;}}
+  const count=filterStudents(term);
+  if(!count){status('Không có học sinh khớp tên “'+term+'” trong lớp '+cls+'. Hãy kiểm tra cách viết hoặc tìm bằng micro.',true);return;}
+  status('Tìm thấy '+count+' học sinh. Vui lòng chọn đúng người trong danh sách kết quả.');
+  openStudentResults();
+}
+$('studentSearchButton').addEventListener('click',searchStudentOnClick);
+$('studentSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchStudentOnClick();}});
+
 function parseGrade(s){const v=noAccent(s), d=v.match(/\b(10|11|12)\b/);if(d)return d[1];if(/\bmuoi hai\b/.test(v))return'12';if(/\bmuoi mot\b/.test(v))return'11';if(/\bmuoi\b/.test(v))return'10';return'';}
 function parseSmall(s){const v=noAccent(s);const m=v.match(/\b(1[0-2]|[1-9])\b/);if(m)return Number(m[1]);const pairs=[['muoi hai',12],['muoi mot',11],['muoi',10],['chin',9],['tam',8],['bay',7],['sau',6],['nam',5],['bon',4],['tu',4],['ba',3],['hai',2],['mot',1]];for(const [w,n] of pairs){if(new RegExp('(?:^|\\s)'+w+'(?:\\s|$)').test(v))return n;}return 0;}
 function parseClass(s){let v=noAccent(s).replace(/^.*?\blop\s*/,'').trim();let grade=parseGrade(v);if(grade){v=v.replace(/^(10|11|12)\b/,'').replace(/^muoi(?:\s+(?:mot|hai))?\b/,'');}
