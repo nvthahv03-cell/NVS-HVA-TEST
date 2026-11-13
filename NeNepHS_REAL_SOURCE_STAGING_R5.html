@@ -98,7 +98,7 @@
         <div class="fields">
           <div class="field"><label for="eventDate">Ngày xảy ra</label><input class="ctrl" id="eventDate" type="date" required></div>
           <div class="field"><label for="eventTime">Giờ xảy ra</label><input class="ctrl" id="eventTime" type="time" required></div><div class="field full"><label for="eventSession">Buổi xảy ra</label><select class="ctrl" id="eventSession" required><option value="">— Chọn buổi —</option><option value="Sáng">Buổi sáng</option><option value="Chiều">Buổi chiều</option></select></div>
-          <div class="field full"><small>Giờ tạo bản ghi sẽ được lấy từ máy chủ ở bản chính thức. Ngày/giờ xảy ra có thể sửa nếu nhập bổ sung và phải được người ghi nhận xác nhận.</small></div>
+          <div class="field full"><small>Giờ tạo bản ghi lấy từ máy chủ khi gửi. Kiểm tra lại ngày/giờ sự việc nếu ghi bổ sung.</small><div id="timeSessionWarning" class="helper warning hidden" role="alert" style="margin-top:7px"></div></div>
         </div>
         <div class="subhead"><span class="step">03</span>Nội dung ghi nhận</div>
         <div id="panel-tre" class="fields taskpanel">
@@ -140,8 +140,8 @@
       <div class="cardhead"><div><h2>Kiểm tra trước khi lưu</h2><p>Phiếu xem trước theo nội dung đang nhập</p></div></div>
       <div class="statbox"><div><b id="count">0</b><span>Bản ghi chờ nghiệm thu</span></div><span class="pill">CHƯA GỬI</span></div>
       <div class="preview" id="preview" aria-live="polite"><div class="previewtitle">PHIẾU GHI NHẬN · BẢN NHÁP</div><h3 id="previewType">Học sinh đi trễ</h3><dl class="kv" id="previewFields"></dl><span class="pending">Đối chiếu TKB: <b>Chưa kết nối / chờ kiểm định</b>. Thao tác này không tạo hồ sơ thật.</span></div>
-      <div class="recent"><div class="recenttop"><h3>Danh sách ghi nhận</h3><button class="btn link" id="clearAllBtn" type="button" style="font-size:11px; padding:4px">Xóa danh sách</button></div><div class="recentlist" id="recentList"><div class="empty">Chưa có bản ghi mẫu. Thầy có thể chọn học sinh, điền nội dung và thử nút bên trái.</div></div></div>
-      <div class="helper warning">🔒 Bản STAGING chưa kết nối Backend; dữ liệu thật chỉ đọc qua API có phân quyền và không lưu trên trang và <b>không qua TTPhatHanh</b>.</div>
+      <div class="recent"><div class="recenttop"><h3>Danh sách ghi nhận</h3><button class="btn link" id="clearAllBtn" type="button" style="font-size:11px; padding:4px">Xóa danh sách</button></div><div class="recentlist" id="recentList"><div class="empty">Chưa có lượt gửi thành công trong phiên này. Khi gửi, hãy đối chiếu kết quả trong tab Nề nếp tương ứng.</div></div></div>
+      <div class="helper warning">🔒 Đã tích hợp tuyến đọc và ghi qua Backend có xác thực. Dữ liệu chỉ ghi khi bấm Gửi và máy chủ chấp nhận; <b>không qua TTPhatHanh</b>.</div>
     </aside>
   </div>
   <div class="bottom">HVA–EDOS · Bản phác thảo chức năng NeNepHS.html · Chờ thầy góp ý và nghiệm thu giao diện trước khi tích hợp.</div>
@@ -300,11 +300,22 @@ document.querySelectorAll('.tab').forEach(el=>el.addEventListener('click',()=>sw
 $('lateHasReason').addEventListener('change',e=>{$('lateReasonWrap').classList.toggle('hidden',!e.target.checked);renderPreview();});
 document.querySelectorAll('input[name="absenceScope"]').forEach(r=>r.addEventListener('change',()=>{const isP=document.querySelector('input[name="absenceScope"]:checked').value==='Theo tiết';$('absenceSessionWrap').classList.toggle('hidden',isP);$('absencePeriodsWrap').classList.toggle('hidden',!isP);renderPreview();}));
 function data(){const kind=app.kind, base={kind,grade:$('grade').value,cls:$('schoolClass').value,studentId:$('student').value,studentName:$('student').value?selected('student').split(' · ')[0]:'',date:$('eventDate').value,time:$('eventTime').value,eventSession:$('eventSession').value}; if(kind==='tre')return{...base,minutes:$('lateMinutes').value.trim(),reason:$('lateHasReason').checked?$('lateReason').value.trim():'',hasReason:$('lateHasReason').checked};if(kind==='vang')return{...base,scope:document.querySelector('input[name="absenceScope"]:checked').value,session:$('absenceSession').value,periods:[...document.querySelectorAll('#periodChecks input:checked')].map(e=>e.value),permission:document.querySelector('input[name="absenceStatus"]:checked').value,detail:$('absenceText').value.trim(),reason:$('absenceReason').value.trim()};return{...base,type:$('violationType').value,detail:$('violationText').value.trim(),reason:$('violationExplain').value.trim()};}
-function details(d){const rows=[['Nghiệp vụ',names[d.kind]],['Học sinh',d.studentName||'Chưa chọn'],['Khối / lớp',d.cls||'Chưa chọn'],['Ngày xảy ra',d.date?d.date.split('-').reverse().join('/'):'Chưa nhập'],['Giờ',d.time||'Chưa nhập'],['Buổi',d.eventSession||'Chưa chọn']];if(d.kind==='tre'){rows.push(['Số phút trễ',d.minutes?d.minutes+' phút':'Chưa nhập'],['Lý do',d.reason|| (d.hasReason?'Chưa nhập':'Không ghi nhận')]);}else if(d.kind==='vang'){rows.push(['Phạm vi',d.scope==='Theo tiết'?'Tiết '+(d.periods.join(', ')||'Chưa chọn'):d.session],['Trạng thái',d.permission],['Nội dung',d.detail||'—'],['Lý do',d.reason||'—']);}else{rows.push(['Loại sự việc',d.type||'Chưa chọn'],['Mô tả',d.detail||'Chưa nhập'],['Trình bày của HS',d.reason||'—']);}return rows;}
-function renderPreview(){const d=data();$('previewType').textContent=names[d.kind];$('previewFields').innerHTML=details(d).map(([k,v])=>'<dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd>').join('');}
+function details(d){const rows=[['Nghiệp vụ',names[d.kind]],['Học sinh',d.studentName||'Chưa chọn'],['Khối / lớp',d.cls||'Chưa chọn'],['Ngày xảy ra',d.date?d.date.split('-').reverse().join('/'):'Chưa nhập'],['Giờ',d.time||'Chưa nhập'],['Buổi',d.eventSession||'Chưa chọn']];if(d.kind==='tre'){rows.push(['Số phút trễ',d.minutes?String(d.minutes).trim().replace(/\s*phút\s*$/i,'')+' phút':'Chưa nhập'],['Lý do',d.reason|| (d.hasReason?'Chưa nhập':'Không ghi nhận')]);}else if(d.kind==='vang'){rows.push(['Phạm vi',d.scope==='Theo tiết'?'Tiết '+(d.periods.join(', ')||'Chưa chọn'):d.session],['Trạng thái',d.permission],['Nội dung',d.detail||'—'],['Lý do',d.reason||'—']);}else{rows.push(['Loại sự việc',d.type||'Chưa chọn'],['Mô tả',d.detail||'Chưa nhập'],['Trình bày của HS',d.reason||'—']);}return rows;}
+function sessionMismatch(d){
+ if(!/^\d{2}:\d{2}$/.test(d.time)||!d.eventSession)return false;
+ const hour=Number(d.time.slice(0,2));
+ return (hour>=12&&d.eventSession==='Sáng')||(hour<12&&d.eventSession==='Chiều');
+}
+function updateSessionWarning(d){
+ const el=$('timeSessionWarning');
+ const mismatch=sessionMismatch(d);
+ el.classList.toggle('hidden',!mismatch);
+ el.textContent=mismatch?'Lưu ý: Giờ '+d.time+' không khớp Buổi '+d.eventSession+'. Nếu là ghi bổ sung, kiểm tra lại và xác nhận trước khi gửi.':'';
+}
+function renderPreview(){const d=data();$('previewType').textContent=names[d.kind];$('previewFields').innerHTML=details(d).map(([k,v])=>'<dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd>').join('');updateSessionWarning(d);}
 function status(txt,error=false){const p=$('feedback');p.textContent=txt;p.className='inlineStatus'+(error?' error':'');}
 function validate(d){if(!d.grade||!d.cls||!d.studentId)return'Chưa chọn đủ Khối, Lớp, Học sinh từ Backend có xác thực.';if(!d.date||!d.time||!d.eventSession)return'Vui lòng chọn ngày, giờ, buổi xảy ra.';if(d.kind==='tre'){const n=Number(d.minutes.replace(/\s*phút\s*/gi,'').trim());if(!Number.isInteger(n)||n<=0||n>240)return'Số phút trễ phải là số nguyên từ 1 đến 240.';}if(d.kind==='vang'&&d.scope==='Theo tiết'&&d.periods.length===0)return'Vui lòng chọn ít nhất một tiết vắng.';if(d.kind==='vipham'&&(!d.type||!d.detail))return'Vui lòng chọn loại sự việc và ghi nội dung.';return'';}
-function renderRecent(){$('count').textContent=app.records.length;const list=$('recentList');if(!app.records.length){list.innerHTML='<div class="empty">Chưa có bản ghi mẫu. Thầy có thể chọn học sinh, điền nội dung và thử nút bên trái.</div>';return;}list.innerHTML=app.records.slice().reverse().map(r=>'<div class="entry"><div><strong>'+esc(r.d.studentName)+' · '+esc(r.d.cls)+'</strong><small>'+esc(names[r.d.kind])+' · '+esc(r.d.date)+' '+esc(r.d.time)+'<br>Bản nháp, chưa gửi</small></div><button type="button" data-remove="'+r.id+'">Xóa</button></div>').join('');list.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{app.records=app.records.filter(r=>String(r.id)!==b.dataset.remove);renderRecent();status('Đã xóa bản ghi mẫu trong phiên này.');}));}
+function renderRecent(){$('count').textContent=app.records.length;const list=$('recentList');if(!app.records.length){list.innerHTML='<div class="empty">Chưa có lượt gửi thành công trong phiên này. Khi gửi, hãy đối chiếu kết quả trong tab Nề nếp tương ứng.</div>';return;}list.innerHTML=app.records.slice().reverse().map(r=>'<div class="entry"><div><strong>'+esc(r.d.studentName)+' · '+esc(r.d.cls)+'</strong><small>'+esc(names[r.d.kind])+' · '+esc(r.d.date)+' '+esc(r.d.time)+'<br>Bản nháp, chưa gửi</small></div><button type="button" data-remove="'+r.id+'">Xóa</button></div>').join('');list.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{app.records=app.records.filter(r=>String(r.id)!==b.dataset.remove);renderRecent();status('Đã xóa bản ghi mẫu trong phiên này.');}));}
 
 function requestId(){return (typeof crypto!=='undefined'&&crypto.randomUUID)?crypto.randomUUID().replace(/-/g,''):'NN'+Date.now().toString(36)+Math.random().toString(36).slice(2,15);}
 const sendBtn=$('submitRecordBtn');
@@ -344,8 +355,9 @@ $('form').addEventListener('submit',async e=>{
  e.preventDefault();const d=data(),error=validate(d);
  if(error){status(error,true);return;}
  if(!CONNECTED||!session()||!app.healthChecked){status('Chưa xác thực Backend sẵn sàng. Bấm Kiểm tra kết nối trước khi ghi.',true);updateSendState();return;}
+ if(sessionMismatch(d)&&!window.confirm('Giờ '+d.time+' đang chọn Buổi '+d.eventSession+'. Đây có phải sự việc ghi bổ sung và thầy đã xác minh đúng buổi?')){status('Chưa gửi: cần kiểm tra giờ và buổi xảy ra.',true);return;}
  const payload={studentKey:d.studentId,className:d.cls,date:d.date,time:d.time,eventSession:d.eventSession,
-  minutes:d.minutes||'',reason:d.reason||'',detail:d.detail||'',scope:d.scope||'',session:d.session||'',
+  minutes:d.kind==='tre'?String(d.minutes||'').trim().replace(/\s*phút\s*$/i,''):'',reason:d.reason||'',detail:d.detail||'',scope:d.scope||'',session:d.session||'',
   periods:d.periods||[],permission:d.permission||'Chưa xác minh',violationType:d.type||''};
  const fingerprint=JSON.stringify({type:d.kind,payload});
  if(!app.pendingSubmission||app.pendingSubmission.fingerprint!==fingerprint)app.pendingSubmission={fingerprint,key:requestId()};
