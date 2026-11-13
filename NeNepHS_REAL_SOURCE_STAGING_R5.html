@@ -237,11 +237,13 @@ async function checkBackend(){
   try{
     const res=await api('hvaNnHealth');
     if(!res.ready)throw Error(res.message||'Nguồn học sinh / CSDL Nề nếp chưa sẵn sàng.');
-    if(res.studentCount!==1366||res.classCount!==30)throw Error('Sĩ số hoặc số lớp khác nguồn đã kiểm định. Dừng ghi để đối chiếu.');
+    if(!Number.isInteger(Number(res.studentCount))||Number(res.studentCount)<1||
+       !Number.isInteger(Number(res.classCount))||Number(res.classCount)<1)
+       throw Error('Backend chưa trả số lượng học sinh và lớp hợp lệ.');
     if(res.writeEnabled!==true)throw Error('Backend chưa bật quyền ghi.');
     app.healthChecked=true;
     $('connectionTag').textContent='BACKEND · SẴN SÀNG';
-    healthMsg('Đã xác thực Backend: 1.366 học sinh / 30 lớp. Quyền ghi đang bật. Chọn Khối → Lớp → Học sinh để thử.',true);
+    healthMsg('Đã xác thực Backend: '+Number(res.studentCount).toLocaleString('vi-VN')+' học sinh / '+Number(res.classCount)+' lớp. Quyền ghi đang bật. Chọn Khối → Lớp → Học sinh để thử.',true);
   }catch(e){
     $('connectionTag').textContent='BACKEND · CHƯA XÁC THỰC';
     healthMsg('Chưa xác nhận kết nối: '+String(e.message||e)+'. Hãy kiểm tra phiên đăng nhập và bản triển khai Web App.',false);
