@@ -17,12 +17,28 @@ button:disabled{background:#a4b3bd;cursor:not-allowed}.soft{background:#e8f3fb;c
 .pill{background:#e6f4f8;color:#126d89;padding:4px 9px;border-radius:20px;font-size:12px}
 @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.form{grid-template-columns:repeat(2,1fr)}.form .wide{grid-column:span 2}.head h1{font-size:21px}}
 @media print{.head,.controls,.back,button{display:none!important}.wrap{max-width:none;margin:0}.surface{box-shadow:none;border:0;padding:5px}table{font-size:10px;white-space:normal}th{position:static}}
+
+.authpanel{margin-top:14px;border:1px solid #c9e0f2;background:#f7fbff;border-radius:12px;padding:16px}
+.authpanel strong{font-size:15px}.authgrid{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}
+.authgrid button{min-height:43px}.authgrid label{font-size:13px}
+#authStatus{color:#0d527b}
+@media(max-width:800px){.authgrid{grid-template-columns:1fr}.authgrid button{width:100%}}
+@media print{.authpanel{display:none}}
 </style></head><body>
 <header class="head"><div class="row between"><div><small>TRƯỜNG THPT HÒA VANG · HVA–EDOS</small><h1>QUẢN LÝ NỀ NẾP HỌC SINH</h1><p>Tra cứu học sinh · Kiểm tra hồ sơ · Thống kê và lập báo cáo</p></div><a class="back" href="./DieuHanh.html">Về Điều hành – Quản trị</a></div></header>
 <main class="wrap">
 <section class="surface"><div class="row between"><h2>Trạng thái dữ liệu</h2><span class="pill">STAGING · CHƯA NGHIỆM THU QUẢN TRỊ</span></div>
 <div class="warn">Dữ liệu học sinh chỉ lấy từ Backend có xác thực BGH. Không công bố danh sách lên mã trang. Báo cáo chính thức chỉ được phát hành sau khi kiểm tra hồ sơ và mốc thời gian của trường.</div>
-<p class="status" id="status" role="status" aria-live="polite">Chưa tải dữ liệu. Đăng nhập EDOS và bấm “Tải dữ liệu quản trị”.</p></section>
+<p class="status" id="status" role="status" aria-live="polite">Chưa tải dữ liệu. Đăng nhập EDOS và bấm “Tải dữ liệu quản trị”.</p>
+<div id="authPanel" class="authpanel">
+<div><strong>Xác thực tài khoản Quản trị</strong><p class="status">Sử dụng tài khoản EDOS được phân quyền BGH hoặc đầu mối Thi đua. Đăng nhập trực tiếp với Backend Nề nếp, không chia sẻ mật khẩu hoặc mã phiên.</p></div>
+<div class="authgrid">
+<label>Tên đăng nhập EDOS<input id="username" autocomplete="username" placeholder="Tên đăng nhập" /></label>
+<label>Mật khẩu HVA (4 số)<input id="password" type="password" autocomplete="current-password" inputmode="numeric" maxlength="4" placeholder="Mật khẩu" /></label>
+<button id="login" type="button">Xác thực Quản trị</button>
+</div>
+<p class="status" id="authStatus" role="status">Chưa xác thực trực tiếp với Backend Nề nếp.</p>
+</div></section>
 <section class="surface controls"><h2>Tra cứu và phạm vi thống kê</h2>
 <div class="form">
 <div><label for="period">Kỳ thống kê</label><select id="period"><option value="day">Theo ngày</option><option value="week">Theo tuần</option><option value="month" selected>Theo tháng</option><option value="custom">Khoảng ngày / kỳ học</option></select></div>
@@ -45,31 +61,95 @@ button:disabled{background:#a4b3bd;cursor:not-allowed}.soft{background:#e8f3fb;c
 <div class="row controls" style="margin-top:16px"><button class="soft" id="csv" disabled>Xuất Excel (CSV)</button><button class="soft" id="print" disabled>In / lưu PDF báo cáo</button></div></section>
 <section class="surface"><h2>Tra cứu lịch sử ghi nhận</h2><div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Học sinh</th><th>Khối/lớp</th><th>Nghiệp vụ</th><th>Nội dung</th><th>Xác minh</th><th>Người ghi</th></tr></thead><tbody id="rows"><tr><td colspan="7">Chưa có dữ liệu được xác thực.</td></tr></tbody></table></div></section>
 </main><script>
+
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
 const API='https://script.google.com/macros/s/AKfycbzZBemNxnkqhIT2iz0CdtdFJqhlOu8LgZMzmnNjMxSGZRrz-ULuvEZb7MbKoufelWNY/exec';
-let list=[],loaded=false;
-function token(){for(const mode of ['sessionStorage','localStorage'])try{const st=window[mode],t=st.getItem(mode==='sessionStorage'?'hvaNenepToken':'hvaSessionToken')||st.getItem('hvaSessionToken')||'',expires=Number(st.getItem(mode==='sessionStorage'?'hvaNenepExpiresAt':'hvaSessionExpiresAt')||0);if(t&&expires>Date.now())return t;}catch(_){}return '';}
-function startOfWeek(date){const d=new Date(date+'T00:00:00'),n=(d.getDay()+6)%7;d.setDate(d.getDate()-n);return d.toISOString().slice(0,10);}
-const today=new Date(),iso=d=>d.toLocaleDateString('en-CA');
-function setPeriod(){const p=$('period').value,d=new Date(),todayIso=iso(d);if(p==='custom')return;if(p==='day'){$('from').value=$('to').value=todayIso;}else if(p==='week'){$('from').value=startOfWeek(todayIso);$('to').value=todayIso;}else{$('from').value=todayIso.slice(0,7)+'-01';$('to').value=todayIso;}}
+let list=[],loaded=false,complete=false,selectedToken='',reportPeriod={from:'',to:''};
+function validToken(){try{const t=sessionStorage.getItem('hvaNenepAdminToken')||sessionStorage.getItem('hvaNenepToken')||'';
+const exp=Number(sessionStorage.getItem(sessionStorage.getItem('hvaNenepAdminToken')?'hvaNenepAdminExpiry':'hvaNenepExpiresAt')||0);
+if(t&&exp>Date.now())return t;}catch(_){}
+for(const key of ['localStorage','sessionStorage'])try{const st=window[key],t=st.getItem('hvaSessionToken'),exp=Number(st.getItem('hvaSessionExpiresAt')||0);if(t&&exp>Date.now())return t;}catch(_){}
+return '';}
+async function post(payload){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(payload)});
+const body=await r.text();let obj;try{obj=JSON.parse(body);}catch(_){throw Error('Web App không trả JSON. Kiểm tra quyền và phiên bản triển khai.')}
+if(!r.ok)throw Error('Lỗi kết nối HTTP '+r.status);return obj;}
+function message(t){$('status').textContent=t;}
+function authMessage(t){$('authStatus').textContent=t;}
+function reset(){list=[];loaded=false;complete=false;for(const k of ['late','absent','violations','unique'])$(k).textContent='—';
+$('scope').textContent='Chưa có dữ liệu';$('csv').disabled=true;$('print').disabled=true;
+$('rows').innerHTML='<tr><td colspan="7">Chưa có dữ liệu được xác thực.</td></tr>';}
+async function login(){const user=$('username').value.trim(),password=$('password').value.trim();
+if(!user||!/^\d{4}$/.test(password)){authMessage('Nhập tên đăng nhập và mật khẩu 4 chữ số.');return;}
+const btn=$('login');btn.disabled=true;authMessage('Đang xác thực với Backend Nề nếp...');
+try{const v=await post({action:'login',tenDangNhap:user,matKhau:'HVA@'+password});
+if(v.ok!==true||!v.sessionToken||Number(v.hetHanLuc)<=Date.now())throw Error(v.thongBao||v.message||'Không nhận được phiên đăng nhập hợp lệ.');
+sessionStorage.setItem('hvaNenepAdminToken',String(v.sessionToken));
+sessionStorage.setItem('hvaNenepAdminExpiry',String(v.hetHanLuc));
+$('password').value='';selectedToken=String(v.sessionToken);
+authMessage('Đăng nhập thành công. Backend sẽ kiểm tra quyền BGH/TĐ khi tải hồ sơ.');
+await load();
+}catch(e){authMessage('Không xác thực được: '+String(e.message||e));$('password').value='';reset();}
+finally{btn.disabled=false;}}
+$('login').addEventListener('click',login);
+$('password').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();login();}});
+const dateISO=d=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');
+function startOfWeek(date){const d=new Date(date+'T12:00:00'),n=(d.getDay()+6)%7;d.setDate(d.getDate()-n);return dateISO(d);}
+function setPeriod(){const p=$('period').value,now=new Date(),today=dateISO(now);if(p==='custom')return;
+if(p==='day'){$('from').value=$('to').value=today;}
+else if(p==='week'){$('from').value=startOfWeek(today);$('to').value=today;}
+else{$('from').value=today.slice(0,7)+'-01';$('to').value=today;}}
 setPeriod();$('period').addEventListener('change',setPeriod);
-function message(s){$('status').textContent=s;}
-function clean(o){const row={date:String(o.NgayXayRa||o.date||o.ngay||''),name:String(o.HoTen||o.studentName||o.name||''),studentKey:String(o.MaHSNoiBo||o.studentKey||''),cls:String(o.Lop||o.className||o.cls||''),kind:String(o.Loai||o.kind||o.type||''),detail:String(o.MoTa||o.detail||o.LyDo||o.reason||''),status:String(o.TrangThaiPhepD||o.status||''),recorder:String(o.HoTenNguoiGhi||o.recordedBy||'')};return row;}
-const norm=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/gi,'d').toLowerCase().trim();
-function selected(){const query=norm($('search').value),grade=$('grade').value,cls=norm($('className').value),kind=$('kind').value,status=$('statusFilter').value;return list.filter(r=>(!query||norm(r.name+' '+r.studentKey).includes(query))&&(!grade||r.cls.startsWith(grade+'/'))&&(!cls||norm(r.cls)===cls)&&(!kind||r.kind===kind)&&(!status||(status==='confirmed'?/đã xác minh|da xac minh|confirmed|đã duyệt/i.test(r.status):!/đã xác minh|da xac minh|confirmed|đã duyệt/i.test(r.status))));}
-function render(){if(!loaded)return;const data=selected(),counter=k=>data.filter(x=>x.kind===k).length;const students=new Set(data.map(x=>x.studentKey||x.name+'|'+x.cls));$('late').textContent=counter('tre');$('absent').textContent=counter('vang');$('violations').textContent=counter('vipham');$('unique').textContent=students.size;$('scope').textContent=data.length+' hồ sơ trong dữ liệu trả về';$('summaryNote').textContent='Số liệu chỉ tính trên hồ sơ Backend đã trả về; chưa chứng minh đã lấy đủ tất cả trang hoặc đã xác minh. Không dùng làm báo cáo chính thức khi chưa đối chiếu.';const tbody=$('rows');tbody.replaceChildren();if(!data.length){let tr=document.createElement('tr');let td=document.createElement('td');td.colSpan=7;td.textContent='Không có kết quả phù hợp trong dữ liệu đã tải.';tr.append(td);tbody.append(tr)}else for(const r of data.slice(0,500)){const tr=document.createElement('tr');for(const val of [r.date,r.name,r.cls,r.kind==='tre'?'Trễ':r.kind==='vang'?'Vắng':'Vi phạm',r.detail||'—',r.status||'Chưa rõ',r.recorder||'—']){const td=document.createElement('td');td.textContent=val;tr.append(td);}tbody.append(tr)}}
+const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/gi,'d').toLowerCase().trim();
+const isConfirmed=v=>norm(v)==='da xac minh';
+function parseRecord(o){
+ return {id:String(o.recordId||o.RecordId||''),date:String(o.date||o.NgayXayRa||''),name:String(o.studentName||o.HoTen||''),
+ studentKey:String(o.studentKey||o.MaHSNoiBo||''),cls:String(o.className||o.Lop||''),kind:String(o.type||o.Loai||''),
+ time:String(o.time||o.GioXayRa||''),detail:String(o.detail||o.MoTa||o.violationType||o.LyDo||o.reason||''),
+ minutes:String(o.minutes||''),permission:String(o.permission||''),status:String(o.status||o.TrangThaiXacMinh||''),
+ recorder:String(o.reporter||o.HoTenNguoiGhi||''),eventSession:String(o.eventSession||'')};}
+function subset(){const q=norm($('search').value),grade=$('grade').value,cls=norm($('className').value),kind=$('kind').value,status=$('statusFilter').value;
+return list.filter(r=>(!q||norm(r.name+' '+r.studentKey).includes(q))&&(!grade||r.cls.startsWith(grade+'/'))&&(!cls||norm(r.cls)===cls)&&(!kind||r.kind===kind)&&(!status||(status==='confirmed'?isConfirmed(r.status):!isConfirmed(r.status))));}
+function describe(r){if(r.kind==='tre')return(r.minutes?r.minutes+' phút trễ':'Đi trễ')+(r.detail?' · '+r.detail:'');
+if(r.kind==='vang')return(r.permission||'Học sinh vắng')+(r.detail?' · '+r.detail:'');
+return r.detail||'Vi phạm nội quy';}
+function render(){if(!loaded)return;const data=subset(),count=kind=>data.filter(r=>r.kind===kind).length;
+const unique=new Set(data.map(r=>r.studentKey||norm(r.name)+'|'+r.cls));
+$('late').textContent=count('tre');$('absent').textContent=count('vang');$('violations').textContent=count('vipham');$('unique').textContent=unique.size;
+$('scope').textContent=data.length+' / '+list.length+' hồ sơ trong phạm vi tải';
+const confirmed=data.filter(r=>isConfirmed(r.status)).length;
+$('summaryNote').textContent='Trong phạm vi hiển thị: '+confirmed+' lượt đã xác minh, '+(data.length-confirmed)+' lượt chưa xác minh. '
+ +(complete?'Dữ liệu API chưa được đối soát độc lập; xuất chỉ để kiểm tra nội bộ.':'BACKEND GIỚI HẠN 300 DÒNG; chưa đủ dữ liệu để lập báo cáo.');
+const body=$('rows');body.replaceChildren();
+if(!data.length){const tr=body.insertRow(),td=tr.insertCell();td.colSpan=7;td.textContent='Không có bản ghi trong phạm vi lọc đã tải.';}
+else for(const r of data.slice(0,500)){const tr=body.insertRow();for(const val of [r.date,r.name,r.cls,r.kind==='tre'?'Trễ':r.kind==='vang'?'Vắng':'Vi phạm',describe(r),r.status||'Chờ xác minh',r.recorder||'—'])tr.insertCell().textContent=val;}
+$('csv').disabled=!complete;$('print').disabled=!complete;
+}
 for(const key of ['search','grade','className','kind','statusFilter'])$(key).addEventListener('input',render);
-$('load').addEventListener('click',async()=>{const t=token();if(!t){message('Chưa có phiên đăng nhập hợp lệ trong trình duyệt này. Vui lòng đăng nhập Nề nếp trước.');return;}
+async function load(){const t=validToken();if(!t){reset();message('Chưa có phiên hợp lệ. Đăng nhập ngay trong mục Xác thực tài khoản Quản trị ở trên.');return;}
 const from=$('from').value,to=$('to').value;if(!from||!to||from>to){message('Khoảng ngày không hợp lệ.');return;}
-const button=$('load');button.disabled=true;message('Đang đọc hồ sơ Nề nếp với quyền quản trị...');
-try{const response=await fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify({action:'hvaNnAdminList',sessionToken:t,fromDate:from,toDate:to,dateFrom:from,dateTo:to})});const raw=await response.text();let v;try{v=JSON.parse(raw)}catch(e){throw Error('Backend không trả JSON. Kiểm tra bản triển khai và quyền truy cập.')}
-if(!response.ok||v.success!==true)throw Error(v.message||'Backend từ chối quyền Quản trị.');
-const rows=v.records||v.rows||v.items;
-if(!Array.isArray(rows))throw Error('API trả về dữ liệu không đúng hợp đồng: thiếu records/rows/items. Không tính báo cáo.');
-list=rows.map(clean);loaded=true;render();message('Đã nhận '+list.length+' hồ sơ. Chỉ hiển thị phạm vi Backend trả về; cần kiểm tra phân trang trước khi lập báo cáo chính thức.');$('csv').disabled=false;$('print').disabled=false;
-}catch(e){list=[];loaded=false;$('csv').disabled=true;$('print').disabled=true;message('Không tải được dữ liệu Quản trị: '+String(e.message||e));}finally{button.disabled=false}});
-$('csv').addEventListener('click',()=>{if(!loaded)return;const rows=selected(),head=['Ngay','HoTen','Lop','Loai','NoiDung','TrangThai','NguoiGhi'],body=rows.map(r=>[r.date,r.name,r.cls,r.kind,r.detail,r.status,r.recorder]);const textCSV=[head,...body].map(cols=>cols.map(v=>'"'+String(v??'').replace(/^[=+\-@]/,"'").replace(/"/g,'""')+'"').join(',')).join('\r\n');const blob=new Blob(['\uFEFF'+textCSV],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='NenepHS_du_lieu_da_tai_'+$('from').value+'_'+$('to').value+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000)});
-$('print').addEventListener('click',()=>{if(loaded)window.print()});
+const btn=$('load');btn.disabled=true;reset();message('Đang tải hồ sơ từ Backend và kiểm tra quyền...');
+try{const v=await post({action:'hvaNnAdminList',sessionToken:t,from,to});
+if(v.success!==true)throw Error(v.message||'Backend từ chối quyền Quản trị.');
+if(!Array.isArray(v.records))throw Error('Backend không trả trường records hợp lệ. Chưa thể thống kê.');
+list=v.records.map(parseRecord);loaded=true;
+const total=Number(v.total);complete=v.truncated===false&&Number.isFinite(total)&&total===list.length;
+reportPeriod={from,to};render();
+message('Đã tải '+list.length+' hồ sơ / '+(Number.isFinite(total)?total:'?')+' hồ sơ theo Backend. '+(complete?'Dữ liệu trả về đủ số lượng; chỉ xuất nội bộ khi chưa nghiệm thu báo cáo.':'Dữ liệu bị cắt hoặc chưa xác định đầy đủ. Đã khóa xuất báo cáo.'));
+authMessage('Đã xác thực, Backend chấp nhận quyền xem dữ liệu Quản trị.');
+}catch(e){reset();message('Không tải được: '+String(e.message||e));}
+finally{btn.disabled=false;}}
+$('load').addEventListener('click',load);
+$('csv').addEventListener('click',()=>{if(!loaded||!complete)return;
+const rows=subset();const head=['Ngay','HocSinh','Lop','NghiepVu','NoiDung','XacMinh','NguoiGhi','GiaiDoan'];
+const cell=v=>'"'+String(v??'').replace(/^[=+\-@\t\r]/,"'").replace(/"/g,'""')+'"';
+const csv=[head,...rows.map(r=>[r.date,r.name,r.cls,r.kind,describe(r),r.status,r.recorder,reportPeriod.from+' - '+reportPeriod.to])]
+ .map(columns=>columns.map(cell).join(',')).join('\r\n');
+const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);
+a.download='NenepHS_DOI_CHIEU_NOI_BO_'+reportPeriod.from+'_'+reportPeriod.to+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+});
+$('print').addEventListener('click',()=>{if(loaded&&complete)window.print()});
+if(validToken())authMessage('Đã tìm thấy phiên đăng nhập trên trình duyệt. Bấm Tải dữ liệu quản trị; Backend sẽ kiểm tra quyền BGH/TĐ.');
 })();
+
 </script></body></html>
