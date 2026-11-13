@@ -237,6 +237,7 @@ async function loginNenep(){
     let o;try{o=JSON.parse(raw);}catch(_){throw Error('Web App không trả JSON. Kiểm tra quyền triển khai, URL hoặc CORS.');}
     if(!r.ok||o.ok!==true||!o.sessionToken)throw Error(o.message||o.thongBao||'Đăng nhập không thành công.');
     setNenepSession(o.sessionToken,o.hetHanLuc);
+    app.classCache.clear();app.inFlightStudents.clear();++app.rosterRequestSeq;app.roster=[];
     $('nenepPassword').value='';
     notice.textContent='Đã xác thực phiên Nề nếp. Đang đối chiếu nguồn học sinh...';
     await checkBackend();
@@ -252,7 +253,8 @@ async function api(action,extra={}){
  if(!r.ok)throw Error('Backend HTTP '+r.status);
  const d=await r.json();if(d.success!==true)throw Error(d.message||'Không đọc được dữ liệu Backend.');return d;
 }
-const app={kind:'tre', records:[], listening:null, recognizer:null, roster:[], pendingSubmission:null, healthChecked:false};
+const app={kind:'tre', records:[], listening:null, recognizer:null, roster:[], pendingSubmission:null, healthChecked:false,
+  classCache:new Map(), inFlightStudents:new Map(), rosterRequestSeq:0, lastTimings:[]};
 $('nenepLoginBtn').addEventListener('click',loginNenep);
 $('nenepPassword').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();loginNenep();}});
 document.getElementById('connectionTag').textContent=CONNECTED?'STAGING · CHỜ ĐĂNG NHẬP':'CHỜ BACKEND · KHÔNG HS MẪU';
@@ -270,40 +272,63 @@ function filterStudents(phrase){const el=$('student'), query=noAccent(phrase), a
   const msg=$('studentSearchInfo');msg.textContent=!all.length?'Đã nhập tên, nhưng chưa tải được danh sách từ Backend. Tên vừa gõ vẫn được giữ nguyên.':!query?'Gõ tên hoặc nhấn kính lúp để lọc trong lớp.':!matches.length?'Danh sách đã tải nhưng không thấy tên khớp. Hãy thử tên không dấu hoặc tìm lại.':'Tìm thấy '+matches.length+' kết quả. Hãy chọn đúng học sinh.';
   renderPreview();return matches.length;
 }
+function safeStudents(rows){
+ return Array.isArray(rows)?rows.filter(x=>x&&typeof x.key==='string'&&typeof x.name==='string'
+   &&x.key.length<300&&x.name.length<180).map(x=>({
+   id:x.key,name:x.name,caption:x.name+(x.birthday?' · '+String(x.birthday):'')
+ })): [];
+}
+function showRosterForClass(cls,rows,isCache=false){
+ if(cls!==$('schoolClass').value)return;
+ app.roster=rows;filterStudents($('studentSearch').value);
+ status((isCache?'Đã mở lại':'Đã tải')+' '+rows.length+' học sinh lớp '+cls+
+   (isCache?' từ bộ nhớ tạm trong phiên.':' từ Backend có xác thực.'));
+}
 async function populateClasses(){
- const g=$('grade').value,el=$('schoolClass'), oldValue=el.value;
- el.innerHTML='<option value="">Chọn lớp</option>';app.roster=[];
+ const g=$('grade').value,el=$('schoolClass');
+ ++app.rosterRequestSeq;
+ el.innerHTML='<option value="">Chọn lớp</option>';
+ app.roster=[];
  $('studentSearch').value='';filterStudents('');
- if(!g){el.disabled=true;status('Vui lòng chọn Khối trước.');return;}
- // Cấu trúc lớp được kiểm chứng cho năm học 2026–2027: 9 + 9 + 12 = 30 lớp.
+ if(!g){el.disabled=true;status('Vui lòng chọn khối.');return;}
+ // Đã kiểm chứng 30 lớp năm học 2026–2027. Không gọi Backend lại để lấy khối/lớp.
  const count=g==='12'?12:9;
- for(let n=1;n<=count;n++){const cls=g+'/'+n;el.add(new Option('Lớp '+cls,cls));}
+ for(let i=1;i<=count;i++){const cls=g+'/'+i;el.add(new Option('Lớp '+cls,cls));}
  el.disabled=false;
- if(oldValue&&[...el.options].some(o=>o.value===oldValue))el.value=oldValue;
- status('Đã hiện '+count+' lớp của Khối '+g+'. Danh sách học sinh sẽ chỉ đọc từ Backend có xác thực.');
- if(!CONNECTED||!session())return;
- try{
-  const res=await api('hvaNnClasses',{grade:g});
-  if($('grade').value!==g)return;
-  const remote=(res.classes||[]).map(v=>String(v)).filter(v=>new RegExp('^'+g+'\\/(?:[1-9]|1[0-2])$').test(v));
-  if(remote.length){
-    const selectedClass=el.value;el.innerHTML='<option value="">Chọn lớp</option>';
-    remote.forEach(cls=>el.add(new Option('Lớp '+cls,cls)));
-    if(selectedClass&&remote.includes(selectedClass))el.value=selectedClass;
-    el.disabled=false;
-    status('Đã đối chiếu '+remote.length+' lớp với Backend.');
-  }
- }catch(error){
-  // Không khóa dropdown khi mạng/phiên lỗi; chưa cho chọn học sinh đến khi API thành công.
-  status('Danh sách lớp hiển thị theo cấu trúc đã kiểm tra. Backend chưa xác thực: '+String(error.message||error)+'. Chỉ đọc được học sinh khi kết nối thành công.',true);
- }
+ status('Đã mở '+count+' lớp của khối '+g+'. Chọn lớp để tải học sinh thật.');
 }
 async function populateStudents(){
- const cls=$('schoolClass').value;app.roster=[];filterStudents($('studentSearch').value);if(!cls){status('Chọn lớp để tìm học sinh.',true);return;}
- try{const r=await api('hvaNnStudents',{className:cls});if(cls!==$('schoolClass').value)return;
- app.roster=(r.students||[]).map(x=>({id:x.key,name:x.name,caption:x.name+(x.birthday?' · '+x.birthday:'')}));
- filterStudents($('studentSearch').value);status('Đã tải '+app.roster.length+' học sinh từ Backend có xác thực.');}
- catch(e){status(e.message,true);}
+ const cls=$('schoolClass').value;
+ const seq=++app.rosterRequestSeq;
+ app.roster=[];filterStudents($('studentSearch').value);
+ if(!cls){status('Chọn lớp trước khi tìm học sinh.');return false;}
+ if(!session()){status('Cần xác thực tài khoản Nề nếp để đọc học sinh.',true);return false;}
+ const now=Date.now(),cache=app.classCache.get(cls);
+ if(cache&&cache.until>now&&cache.token===session()){
+   showRosterForClass(cls,cache.rows,true);return true;
+ }
+ status('Đang lấy danh sách học sinh lớp '+cls+' từ Backend...');
+ try{
+   let promise=app.inFlightStudents.get(cls);
+   if(!promise){
+     const started=performance.now();
+     promise=api('hvaNnStudents',{className:cls}).then(res=>{
+       const rows=safeStudents(res.students);
+       if(!rows.length)throw new Error('Backend chưa trả học sinh hợp lệ cho lớp '+cls);
+       app.classCache.set(cls,{rows,until:Date.now()+5*60*1000,token:session()});
+       app.lastTimings.push({op:'hvaNnStudents',ms:Math.round(performance.now()-started)});
+       return rows;
+     }).finally(()=>app.inFlightStudents.delete(cls));
+     app.inFlightStudents.set(cls,promise);
+   }
+   const rows=await promise;
+   if(seq!==app.rosterRequestSeq||cls!==$('schoolClass').value)return false;
+   showRosterForClass(cls,rows,false);return true;
+ }catch(e){
+   if(seq===app.rosterRequestSeq&&cls===$('schoolClass').value)
+     status('Không tải được học sinh lớp '+cls+': '+String(e.message||e),true);
+   return false;
+ }
 }
 $('grade').addEventListener('change',()=>{populateClasses();renderPreview()});
 $('schoolClass').addEventListener('change',populateStudents);
@@ -322,7 +347,7 @@ async function searchStudentOnClick(){
   if(!CONNECTED){status('Chưa kết nối Backend đọc Google Sheet học sinh. Có link Sheet nhưng chưa có dịch vụ xác thực. Không thể tìm học sinh thật trên bản này.',true);$('studentSearchInfo').textContent='CHƯA KẾT NỐI: cần triển khai Backend Nề nếp STAGING và đăng nhập EDOS.';return;}
   if(!session()){status('Chưa có phiên đăng nhập EDOS hợp lệ. Vui lòng đăng nhập để tìm học sinh.',true);return;}
   if(!cls){status('Hãy chọn khối và lớp trước khi tìm học sinh.',true);return;}
-  if(!app.roster.length){await populateStudents();if(!app.roster.length){status('Chưa tải được danh sách học sinh của lớp. Kiểm tra cấu hình Sheet và quyền truy cập.',true);return;}}
+  if(!app.roster.length){const ok=await populateStudents();if(!ok||!app.roster.length){status('Chưa tải được danh sách học sinh của lớp. Kiểm tra phiên đăng nhập và quyền truy cập.',true);return;}}
   const count=filterStudents(term);
   if(!count){status('Không có học sinh khớp tên “'+term+'” trong lớp '+cls+'. Hãy kiểm tra cách viết hoặc tìm bằng micro.',true);return;}
   status('Tìm thấy '+count+' học sinh. Vui lòng chọn đúng người trong danh sách kết quả.');
