@@ -114,8 +114,9 @@
           <div class="field full"><div class="helper warning">Tên giáo viên, môn học và tiết học <b>chưa tự điền</b> trong bản này vì TKB chưa được kiểm định. Không suy đoán từ lời nói.</div></div>
         </div>
         <div class="helper" id="micHint" role="status" aria-live="polite">🎤 Khối, Lớp, Học sinh và mọi ô nội dung đều có micro màu xanh. Bấm micro ở đúng ô cần tìm hoặc nhập. Chrome có thể yêu cầu cấp quyền micro; nếu không hỗ trợ, vẫn nhập bằng bàn phím bình thường.</div>
-        <div class="actions"><button class="btn primary" id="submitRecordBtn" type="submit" disabled>🔒 Chưa kết nối Backend</button><button class="btn secondary" type="button" id="previewBtn">◉ Xem trước phiếu</button><button class="btn link" type="button" id="clearBtn">Làm mới nội dung</button></div>
-        <div class="inlineStatus" id="feedback" role="status" aria-live="polite">Chưa kết nối Backend: không có danh sách học sinh thật; không ghi hồ sơ.</div>
+        <div class="helper" id="backendHealth" role="status" aria-live="polite">Đang chờ kiểm tra kết nối Backend và phiên đăng nhập.</div>
+        <div class="actions"><button class="btn secondary" id="checkBackendBtn" type="button">↻ Kiểm tra kết nối</button><button class="btn primary" id="submitRecordBtn" type="submit" disabled>🔒 Chưa kết nối Backend</button><button class="btn secondary" type="button" id="previewBtn">◉ Xem trước phiếu</button><button class="btn link" type="button" id="clearBtn">Làm mới nội dung</button></div>
+        <div class="inlineStatus" id="feedback" role="status" aria-live="polite">Trang đang chờ kết nối Web App của trường. Cần đăng nhập cùng miền và kiểm tra kết nối trước khi ghi.</div>
       </form>
     </section>
     <aside class="card summary">
@@ -132,7 +133,7 @@
 (()=>{
 'use strict';
 const $=id=>document.getElementById(id);
-const API_URL='https://script.google.com/macros/s/AKfycbzTRkdqyYYI8LQo9MkiTjEIXkAC7BWK1MroUXPuvKMl9Yu_o9gXFS8QCcyQmq78-ikvvg/exec';
+const API_URL='https://script.google.com/macros/s/AKfycbzZBemNxnkqhIT2iz0CdtdFJqhlOu8LgZMzmnNjMxSGZRrz-ULuvEZb7MbKoufelWNY/exec';
 const CONNECTED=/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(API_URL);
 const session=()=>{for(const key of ['localStorage','sessionStorage'])try{const t=window[key].getItem('hvaSessionToken');if(t)return t;}catch(_){}return '';};
 async function api(action,extra={}){
@@ -142,7 +143,7 @@ async function api(action,extra={}){
  if(!r.ok)throw Error('Backend HTTP '+r.status);
  const d=await r.json();if(d.success!==true)throw Error(d.message||'Không đọc được dữ liệu Backend.');return d;
 }
-const app={kind:'tre', records:[], listening:null, recognizer:null, roster:[], pendingSubmission:null};
+const app={kind:'tre', records:[], listening:null, recognizer:null, roster:[], pendingSubmission:null, healthChecked:false};
 document.getElementById('connectionTag').textContent=CONNECTED?'STAGING · CHỜ ĐĂNG NHẬP':'CHỜ BACKEND · KHÔNG HS MẪU';
 const names={tre:'Học sinh đi trễ',vang:'Học sinh vắng',vipham:'Sự việc về nội quy'};
 // Không nhúng danh sách học sinh thật hoặc học sinh mẫu vào HTML.
@@ -221,12 +222,38 @@ function renderRecent(){$('count').textContent=app.records.length;const list=$('
 
 function requestId(){return (typeof crypto!=='undefined'&&crypto.randomUUID)?crypto.randomUUID().replace(/-/g,''):'NN'+Date.now().toString(36)+Math.random().toString(36).slice(2,15);}
 const sendBtn=$('submitRecordBtn');
-function updateSendState(){sendBtn.disabled=!(CONNECTED&&session());sendBtn.textContent=sendBtn.disabled?'🔒 Chưa kết nối Backend / chưa đăng nhập':'✓ Gửi ghi nhận vào Sheet Nề nếp';}
+function updateSendState(){
+  sendBtn.disabled=!(CONNECTED&&session()&&app.healthChecked);
+  sendBtn.textContent=sendBtn.disabled?'🔒 Chưa xác nhận kết nối để ghi':'✓ Gửi ghi nhận vào Sheet Nề nếp';
+}
+function healthMsg(t,success){
+  $('backendHealth').textContent=t;
+  $('backendHealth').style.color=success?'#08775d':'#865526';
+}
+async function checkBackend(){
+  const btn=$('checkBackendBtn');app.healthChecked=false;updateSendState();
+  if(!session()){healthMsg('Chưa có phiên đăng nhập trên NVS-HVA-TEST. Hãy đăng nhập tại trang chủ NVS-HVA-TEST trong cùng trình duyệt, sau đó thử lại.',false);return;}
+  btn.disabled=true;btn.textContent='Đang kiểm tra...';
+  try{
+    const res=await api('hvaNnHealth');
+    if(!res.ready)throw Error(res.message||'Nguồn học sinh / CSDL Nề nếp chưa sẵn sàng.');
+    if(res.studentCount!==1366||res.classCount!==30)throw Error('Sĩ số hoặc số lớp khác nguồn đã kiểm định. Dừng ghi để đối chiếu.');
+    if(res.writeEnabled!==true)throw Error('Backend chưa bật quyền ghi.');
+    app.healthChecked=true;
+    $('connectionTag').textContent='BACKEND · SẴN SÀNG';
+    healthMsg('Đã xác thực Backend: 1.366 học sinh / 30 lớp. Quyền ghi đang bật. Chọn Khối → Lớp → Học sinh để thử.',true);
+  }catch(e){
+    $('connectionTag').textContent='BACKEND · CHƯA XÁC THỰC';
+    healthMsg('Chưa xác nhận kết nối: '+String(e.message||e)+'. Hãy kiểm tra phiên đăng nhập và bản triển khai Web App.',false);
+  }finally{btn.disabled=false;btn.textContent='↻ Kiểm tra kết nối';updateSendState();}
+}
+$('checkBackendBtn').addEventListener('click',checkBackend);
 updateSendState();
+if(session())checkBackend();else healthMsg('Cần đăng nhập NVS-HVA-TEST trước khi tải học sinh; không chia sẻ mã phiên qua chat.',false);
 $('form').addEventListener('submit',async e=>{
  e.preventDefault();const d=data(),error=validate(d);
  if(error){status(error,true);return;}
- if(!CONNECTED||!session()){status('Cần kết nối Backend Nề nếp và đăng nhập EDOS trước khi ghi.',true);updateSendState();return;}
+ if(!CONNECTED||!session()||!app.healthChecked){status('Chưa xác thực Backend sẵn sàng. Bấm Kiểm tra kết nối trước khi ghi.',true);updateSendState();return;}
  const payload={studentKey:d.studentId,className:d.cls,date:d.date,time:d.time,eventSession:d.eventSession,
   minutes:d.minutes||'',reason:d.reason||'',detail:d.detail||'',scope:d.scope||'',session:d.session||'',
   periods:d.periods||[],permission:d.permission||'Chưa xác minh',violationType:d.type||''};
