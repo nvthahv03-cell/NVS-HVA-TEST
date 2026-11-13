@@ -38,6 +38,22 @@
 .tab .num{top:8px;right:10px}
 .panelrow{margin-top:12px}
 @media(max-width:650px){.hero{padding:14px 14px 22px}.herotext{margin-top:11px}.herotext h1{font-size:27px}.herotext p{font-size:11px;line-height:1.5}.shell{margin:10px auto 0;padding:0 10px 45px}.tabs{gap:7px}.tab,.tab.active{min-height:88px;padding:10px 5px;gap:5px;border-radius:11px}.tab.active{padding:9px 4px}.tab .symbol{width:33px;height:33px;font-size:18px;border-radius:9px}.tab strong{font-size:12px}.tab small{font-size:9px}.panelrow{margin-top:10px}}
+
+/* NENEP R4 - Thanh chuyển ba nghiệp vụ thiết kế đồng nhất */
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;border:1px solid #d9e7f1;border-radius:18px;background:#eaf1f7;padding:6px;box-shadow:0 5px 22px rgba(15,57,101,.06)}
+.tab,.tab.active{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;min-width:0;min-height:74px;gap:13px;border:1px solid transparent;border-radius:13px;box-shadow:none;padding:12px 16px;text-align:left;transition:background .18s ease,color .18s ease,transform .18s ease,box-shadow .18s ease}
+.tab{background:transparent;color:#143d62}.tab:hover{background:#fff;transform:none;box-shadow:0 3px 10px rgba(9,54,94,.08)}
+.tab.active,.tab.active:hover{background:linear-gradient(125deg,#07528b 0%,#087d9d 100%);color:#fff;box-shadow:0 7px 17px rgba(6,102,148,.20);padding:12px 16px;transform:none}
+.tab .symbol,.tab[data-tab="vang"] .symbol,.tab[data-tab="vipham"] .symbol{width:47px;height:47px;flex:0 0 47px;border-radius:14px;display:grid;place-items:center;background:#fff;color:#08649b;box-shadow:0 1px 5px rgba(10,59,95,.06)}
+.tab[data-tab="vang"] .symbol{color:#6264a7}.tab[data-tab="vipham"] .symbol{color:#ad6229}
+.tab.active .symbol,.tab.active[data-tab="vang"] .symbol,.tab.active[data-tab="vipham"] .symbol{color:#075a88;background:rgba(255,255,255,.96)}
+.tab .symbol svg{width:27px;height:27px;flex-shrink:0}.tab .tab-copy{min-width:0;display:grid;gap:3px}
+.tab strong{font-size:16px;font-weight:850;letter-spacing:.025em;line-height:1.2;margin:0;color:inherit}
+.tab small{font-size:11px;font-weight:550;color:#607e97;line-height:1.35;margin:0}.tab.active small{color:rgba(255,255,255,.88)}
+.tab .num{display:none}.tab-indicator{width:7px;height:7px;border-radius:50%;margin-left:auto;flex:0 0 7px;background:transparent}
+.tab.active .tab-indicator{background:#9ef2ce;box-shadow:0 0 0 3px rgba(158,242,206,.19)}.tab:focus-visible{outline:3px solid #ffbf69;outline-offset:2px}
+@media(max-width:650px){.tabs{gap:4px;border-radius:14px;padding:4px}.tab,.tab.active{min-height:86px;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:10px 3px;border-radius:11px;text-align:center}.tab.active,.tab.active:hover{padding:10px 3px}.tab .symbol,.tab[data-tab="vang"] .symbol,.tab[data-tab="vipham"] .symbol{width:37px;height:37px;flex-basis:37px;border-radius:11px}.tab .symbol svg{width:22px;height:22px}.tab .tab-copy{gap:0}.tab strong{font-size:12px}.tab small{display:none}.tab-indicator{display:none}}
+@media(prefers-reduced-motion:reduce){.tab,.tab.active{transition:none}}
 </style>
 </head>
 <body>
@@ -47,10 +63,10 @@
 </header>
 <main class="shell">
   <nav class="tabs" aria-label="Ba nghiệp vụ nền nếp học sinh">
-    <button type="button" class="tab active" data-tab="tre" aria-pressed="true"><span class="num">01</span><span class="symbol" aria-hidden="true">⏱</span><span><strong>TRỄ</strong><small>Số phút trễ · lý do</small></span></button>
-    <button type="button" class="tab" data-tab="vang" aria-pressed="false"><span class="num">02</span><span class="symbol" aria-hidden="true">▦</span><span><strong>VẮNG</strong><small>Buổi/tiết · có/không phép</small></span></button>
-    <button type="button" class="tab" data-tab="vipham" aria-pressed="false"><span class="num">03</span><span class="symbol" aria-hidden="true">⚑</span><span><strong>VI PHẠM</strong><small>Nội quy trường, lớp</small></span></button>
-  </nav>
+  <button type="button" class="tab active" data-tab="tre" aria-pressed="true"><span class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 1.5M9 2h6M12 2v3"/></svg></span><span class="tab-copy"><strong>TRỄ</strong><small>Ghi nhận đi trễ</small></span><span class="tab-indicator" aria-hidden="true"></span></button>
+  <button type="button" class="tab " data-tab="vang" aria-pressed="false"><span class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M7.5 3v4M16.5 3v4M3.5 10h17M9 14l6 5M15 14l-6 5"/></svg></span><span class="tab-copy"><strong>VẮNG</strong><small>Vắng buổi, vắng tiết</small></span><span class="tab-indicator" aria-hidden="true"></span></button>
+  <button type="button" class="tab " data-tab="vipham" aria-pressed="false"><span class="symbol" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 20 5v6c0 5-3.4 8.4-8 11-4.6-2.6-8-6-8-11V5l8-3Z"/><path d="M12 7v6M12 17h.01"/></svg></span><span class="tab-copy"><strong>VI PHẠM</strong><small>Nội quy trường, lớp</small></span><span class="tab-indicator" aria-hidden="true"></span></button>
+</nav>
   <div class="panelrow">
     <section class="card">
       <div class="cardhead"><div><h2 id="formTitle">Ghi nhận học sinh đi trễ</h2><p>Điền hoặc nói vào từng ô · Kiểm tra trước khi lưu</p></div><span class="pill">CHẾ ĐỘ MẪU</span></div>
