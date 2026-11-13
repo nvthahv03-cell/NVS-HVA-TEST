@@ -160,11 +160,32 @@ function filterStudents(phrase){const el=$('student'), query=noAccent(phrase), a
   renderPreview();return matches.length;
 }
 async function populateClasses(){
- const g=$('grade').value,el=$('schoolClass');el.innerHTML='<option value="">Chọn lớp</option>';el.disabled=true;app.roster=[];
- $('studentSearch').value='';$('studentSearch').disabled=true;filterStudents('');if(!g)return;
- try{const r=await api('hvaNnClasses',{grade:g});if(g!==$('grade').value)return;
- (r.classes||[]).forEach(x=>el.add(new Option('Lớp '+x,x)));el.disabled=false;
- status('Đã tải '+(r.classes||[]).length+' lớp qua Backend.');}catch(e){status(e.message,true);}
+ const g=$('grade').value,el=$('schoolClass'), oldValue=el.value;
+ el.innerHTML='<option value="">Chọn lớp</option>';app.roster=[];
+ $('studentSearch').value='';$('studentSearch').disabled=true;filterStudents('');
+ if(!g){el.disabled=true;status('Vui lòng chọn Khối trước.');return;}
+ // Cấu trúc lớp được kiểm chứng cho năm học 2026–2027: 9 + 9 + 12 = 30 lớp.
+ const count=g==='12'?12:9;
+ for(let n=1;n<=count;n++){const cls=g+'/'+n;el.add(new Option('Lớp '+cls,cls));}
+ el.disabled=false;
+ if(oldValue&&[...el.options].some(o=>o.value===oldValue))el.value=oldValue;
+ status('Đã hiện '+count+' lớp của Khối '+g+'. Danh sách học sinh sẽ chỉ đọc từ Backend có xác thực.');
+ if(!CONNECTED||!session())return;
+ try{
+  const res=await api('hvaNnClasses',{grade:g});
+  if($('grade').value!==g)return;
+  const remote=(res.classes||[]).map(v=>String(v)).filter(v=>new RegExp('^'+g+'\\/(?:[1-9]|1[0-2])$').test(v));
+  if(remote.length){
+    const selectedClass=el.value;el.innerHTML='<option value="">Chọn lớp</option>';
+    remote.forEach(cls=>el.add(new Option('Lớp '+cls,cls)));
+    if(selectedClass&&remote.includes(selectedClass))el.value=selectedClass;
+    el.disabled=false;
+    status('Đã đối chiếu '+remote.length+' lớp với Backend.');
+  }
+ }catch(error){
+  // Không khóa dropdown khi mạng/phiên lỗi; chưa cho chọn học sinh đến khi API thành công.
+  status('Danh sách lớp hiển thị theo cấu trúc đã kiểm tra. Backend chưa xác thực: '+String(error.message||error)+'. Chỉ đọc được học sinh khi kết nối thành công.',true);
+ }
 }
 async function populateStudents(){
  const cls=$('schoolClass').value;app.roster=[];$('studentSearch').value='';$('studentSearch').disabled=true;filterStudents('');if(!cls)return;
@@ -280,6 +301,7 @@ function stopListening(){if(app.recognizer){try{app.recognizer.abort();}catch(_)
 const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
 function micMsg(message){$('micHint').textContent=message;}
 document.querySelectorAll('[data-mic]').forEach(btn=>btn.addEventListener('click',()=>{const target=$(btn.dataset.mic);if(!SpeechRecognition){micMsg('Trình duyệt chưa hỗ trợ nhận dạng giọng nói. Thầy vẫn nhập bằng bàn phím bình thường; có thể thử Chrome với quyền micro.');return;}if(app.listening===btn){stopListening();micMsg('Đã dừng nghe.');return;}stopListening();let rec;try{rec=new SpeechRecognition();rec.lang='vi-VN';rec.interimResults=false;rec.continuous=false;rec.maxAlternatives=1;}catch(_){micMsg('Không khởi tạo được micro. Vui lòng nhập bằng bàn phím.');return;}app.recognizer=rec;app.listening=btn;btn.classList.add('listening');btn.setAttribute('aria-pressed','true');micMsg('🎙 Đang nghe ô “'+(target.getAttribute('placeholder')||target.id)+'”… Hãy nói rõ, sau đó kiểm tra nội dung nhận được.');rec.onresult=e=>{let t=(e.results?.[0]?.[0]?.transcript||'').trim();if(!t)return;if(['grade','schoolClass','studentSearch'].includes(target.id)){handleVoicePicker(target.id,t);}else{if(target.id==='lateMinutes'){const normalized=t.replace(/^(năm)\b/i,'5').replace(/^(bảy)\b/i,'7');const m=normalized.match(/\d+/);target.value=m?m[0]:t;}else{target.value=(target.value.trim()?target.value.trim()+' ':'')+t;}target.dispatchEvent(new Event('input',{bubbles:true}));micMsg('Đã điền nội dung vừa nói. Hãy đọc lại và sửa nếu cần trước khi thêm bản ghi mẫu.');}};rec.onerror=e=>{micMsg('Micro chưa ghi được ('+e.error+'). Có thể dùng cách viết trực tiếp hoặc kiểm tra quyền micro.');stopListening();};rec.onend=()=>{if(app.recognizer===rec)stopListening();};try{rec.start();}catch(_){micMsg('Không thể mở micro trên môi trường này. Vui lòng nhập bằng bàn phím hoặc mở trang trên Chrome.');stopListening();}}));
+if($('grade').value)populateClasses();
 renderPreview();renderRecent();
 })();
 </script>
