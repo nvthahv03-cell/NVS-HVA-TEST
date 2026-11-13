@@ -85,7 +85,7 @@
         <div class="fields">
           <div class="field" id="gradeField"><label for="grade">Khối</label><div class="micfield"><select class="ctrl" id="grade" required><option value="">Chọn khối</option><option value="10">Khối 10</option><option value="11">Khối 11</option><option value="12">Khối 12</option></select><button class="mic" type="button" data-mic="grade" aria-label="Nói khối để tìm" aria-pressed="false" title="Bấm và nói: Khối mười"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8"></path></svg></button></div><small>Chọn hoặc bấm mic nói “Khối 10”, “Khối 11”, “Khối 12”.</small></div>
           <div class="field" id="classField"><label for="schoolClass">Lớp</label><div class="micfield"><select class="ctrl" id="schoolClass" required disabled><option value="">Chọn lớp</option></select><button class="mic" type="button" data-mic="schoolClass" aria-label="Nói lớp để tìm" aria-pressed="false" title="Bấm và nói: Lớp mười hai ba"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8"></path></svg></button></div><small>Có thể nói “Lớp 10/1”, “Lớp 12/3” hoặc “Lớp 3” sau khi chọn khối.</small></div>
-          <div class="field full"><label for="studentSearch">Tìm học sinh <span class="hint-inline">(gõ tên hoặc dùng micro)</span></label><div class="micfield"><div class="student-search-input"><input class="ctrl" id="studentSearch" type="search" placeholder="Nói hoặc gõ họ tên học sinh..." autocomplete="off" disabled><button type="button" id="studentSearchButton" class="student-search-button" aria-label="Tìm học sinh theo tên" title="Tìm học sinh theo họ tên"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.2"></circle><path d="m15.4 15.4 5.1 5.1"></path></svg></button></div><button class="mic" type="button" data-mic="studentSearch" aria-label="Nói tên học sinh để tìm" aria-pressed="false" title="Bấm và đọc tên học sinh"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8"></path></svg></button></div><label for="student">Chọn đúng học sinh trong kết quả</label><select class="ctrl" id="student" required disabled><option value="">Chọn học sinh trong lớp</option></select><small id="studentSearchInfo">Chỉ đọc danh sách học sinh từ Google Sheets qua Backend và tài khoản hợp lệ; chưa kết nối thì không hiển thị tên học sinh.</small></div>
+          <div class="field full"><label for="studentSearch">Tìm học sinh <span class="hint-inline">(gõ tên hoặc dùng micro)</span></label><div class="micfield"><div class="student-search-input"><input class="ctrl" id="studentSearch" type="search" placeholder="Gõ hoặc đọc họ tên học sinh..." autocomplete="off" spellcheck="false"><button type="button" id="studentSearchButton" class="student-search-button" aria-label="Tìm học sinh theo tên" title="Tìm học sinh theo họ tên"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.2"></circle><path d="m15.4 15.4 5.1 5.1"></path></svg></button></div><button class="mic" type="button" data-mic="studentSearch" aria-label="Nói tên học sinh để tìm" aria-pressed="false" title="Bấm và đọc tên học sinh"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8"></path></svg></button></div><label for="student">Chọn đúng học sinh trong kết quả</label><select class="ctrl" id="student" required disabled><option value="">Chọn học sinh trong lớp</option></select><small id="studentSearchInfo">Chỉ đọc danh sách học sinh từ Google Sheets qua Backend và tài khoản hợp lệ; chưa kết nối thì không hiển thị tên học sinh.</small></div>
         </div>
         <div class="subhead"><span class="step">02</span>Thời gian ghi nhận</div>
         <div class="fields">
@@ -156,13 +156,13 @@ function noAccent(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u03
 function studentCandidates(){return app.roster;}
 function filterStudents(phrase){const el=$('student'), query=noAccent(phrase), all=studentCandidates(), matches=query?all.filter(x=>noAccent(x.name).includes(query)):all;el.innerHTML='<option value="">'+(all.length?'Chọn đúng học sinh':'Chọn lớp trước')+'</option>';
   for(const m of matches)el.add(new Option(m.caption,m.id));el.disabled=!all.length;
-  const msg=$('studentSearchInfo');msg.textContent=!all.length?'CHƯA CÓ DỮ LIỆU: Backend hoặc danh sách học sinh chưa được tải. Đây không phải kết quả “không tìm thấy tên”.':!query?'Gõ tên hoặc nhấn kính lúp để tìm học sinh trong lớp.':!matches.length?'Đã tải danh sách nhưng không có tên khớp. Thử gõ lại hoặc đọc tên.':'Tìm thấy '+matches.length+' kết quả. Hãy chọn đúng học sinh.';
+  const msg=$('studentSearchInfo');msg.textContent=!all.length?'Đã nhập tên, nhưng chưa tải được danh sách từ Backend. Tên vừa gõ vẫn được giữ nguyên.':!query?'Gõ tên hoặc nhấn kính lúp để lọc trong lớp.':!matches.length?'Danh sách đã tải nhưng không thấy tên khớp. Hãy thử tên không dấu hoặc tìm lại.':'Tìm thấy '+matches.length+' kết quả. Hãy chọn đúng học sinh.';
   renderPreview();return matches.length;
 }
 async function populateClasses(){
  const g=$('grade').value,el=$('schoolClass'), oldValue=el.value;
  el.innerHTML='<option value="">Chọn lớp</option>';app.roster=[];
- $('studentSearch').value='';$('studentSearch').disabled=true;filterStudents('');
+ $('studentSearch').value='';filterStudents('');
  if(!g){el.disabled=true;status('Vui lòng chọn Khối trước.');return;}
  // Cấu trúc lớp được kiểm chứng cho năm học 2026–2027: 9 + 9 + 12 = 30 lớp.
  const count=g==='12'?12:9;
@@ -188,10 +188,10 @@ async function populateClasses(){
  }
 }
 async function populateStudents(){
- const cls=$('schoolClass').value;app.roster=[];$('studentSearch').value='';$('studentSearch').disabled=true;filterStudents('');if(!cls)return;
+ const cls=$('schoolClass').value;app.roster=[];filterStudents($('studentSearch').value);if(!cls){status('Chọn lớp để tìm học sinh.',true);return;}
  try{const r=await api('hvaNnStudents',{className:cls});if(cls!==$('schoolClass').value)return;
  app.roster=(r.students||[]).map(x=>({id:x.key,name:x.name,caption:x.name+(x.birthday?' · '+x.birthday:'')}));
- $('studentSearch').disabled=false;filterStudents('');status('Đã tải '+app.roster.length+' học sinh từ Backend có xác thực.');}
+ filterStudents($('studentSearch').value);status('Đã tải '+app.roster.length+' học sinh từ Backend có xác thực.');}
  catch(e){status(e.message,true);}
 }
 $('grade').addEventListener('change',()=>{populateClasses();renderPreview()});
@@ -228,7 +228,12 @@ function handleVoicePicker(id,spoken){
   if(id==='grade'){const g=parseGrade(spoken);if(!g){micMsg('Không nhận ra khối. Thầy đọc “Khối mười”, “Khối mười một” hoặc “Khối mười hai”.');return;} $('grade').value=g;populateClasses();renderPreview();micMsg('Đã chọn khối '+g+'. Tiếp tục chọn hoặc đọc tên lớp.');return;}
   if(id==='schoolClass'){const {grade,n}=parseClass(spoken);const g=grade||$('grade').value;if(!g){micMsg('Chưa xác định được khối. Hãy chọn khối trước hoặc nói đầy đủ “Lớp 12/3”.');return;} if(!Number.isInteger(n)||n<1||n>(g==='12'?12:9)){micMsg('Không tìm thấy lớp phù hợp. Hãy nói ví dụ “Lớp 10/3”.');return;}
     if($('grade').value!==g){$('grade').value=g;populateClasses();}$('schoolClass').value=g+'/'+n;populateStudents();renderPreview();micMsg('Đã chọn lớp '+g+'/'+n+'. Tiếp tục nói hoặc gõ tên học sinh.');return;}
-  if(id==='studentSearch'){if(!$('schoolClass').value){micMsg('Hãy chọn khối và lớp trước khi tìm học sinh.');return;}$('studentSearch').value=spoken;const count=filterStudents(spoken);micMsg(count?'Nghe được: “'+spoken+'”. Có '+count+' kết quả. Hãy chọn đúng học sinh trong danh sách.':'Nghe được: “'+spoken+'”, nhưng không tìm thấy học sinh trong lớp này. Hãy thử đọc hoặc gõ lại.');}
+  if(id==='studentSearch'){
+    $('studentSearch').value=spoken;
+    if(!$('schoolClass').value){micMsg('Đã nhận tên “'+spoken+'”. Hãy chọn khối và lớp để tìm trong danh sách thật.');return;}
+    const count=filterStudents(spoken);
+    micMsg(count?'Nghe được: “'+spoken+'”. Có '+count+' kết quả. Hãy chọn đúng học sinh.':'Đã nhận tên “'+spoken+'”. Chưa tải được danh sách học sinh thật của lớp. Tên đã được giữ trong ô tìm.');
+  }
 }
 function switchTab(kind){stopListening();app.kind=kind;document.querySelectorAll('.tab').forEach(el=>{const b=el.dataset.tab===kind;el.classList.toggle('active',b);el.setAttribute('aria-pressed',String(b));});document.querySelectorAll('.taskpanel').forEach(el=>el.classList.toggle('hidden',el.id!=='panel-'+kind));$('formTitle').textContent=kind==='tre'?'Ghi nhận học sinh đi trễ':kind==='vang'?'Ghi nhận học sinh vắng':'Ghi nhận sự việc về nội quy';renderPreview();status('Đã chọn '+names[kind].toLowerCase()+'. Mọi dữ liệu chỉ dùng xem thử.');}
 document.querySelectorAll('.tab').forEach(el=>el.addEventListener('click',()=>switchTab(el.dataset.tab)));
