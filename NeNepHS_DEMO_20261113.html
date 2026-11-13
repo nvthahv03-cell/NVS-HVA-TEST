@@ -19,12 +19,31 @@
 .summary{position:sticky;top:14px}.statbox{background:linear-gradient(135deg,#eef8fd,#f5fbfc);border:1px solid #dbeaf0;padding:15px;border-radius:13px;display:flex;justify-content:space-between;align-items:center;gap:15px}.statbox b{font-size:27px;color:#0b639a}.statbox span{display:block;color:#57788d;font-size:12px;font-weight:650}.preview{margin-top:14px;border:1px dashed #cddce6;border-radius:13px;padding:16px}.previewtitle{font-size:12px;color:#0c6e8e;letter-spacing:.12em;font-weight:850}.preview h3{font-size:16px;margin:6px 0 13px}.kv{display:grid;grid-template-columns:108px 1fr;gap:7px 9px;font-size:12px;line-height:1.5;margin:0}.kv dt{color:#7690a4}.kv dd{margin:0;font-weight:650;overflow-wrap:anywhere}.pending{display:block;border-radius:10px;padding:11px;background:#fff8eb;color:#93641e;font-size:12px;line-height:1.6;margin-top:15px}.recent{margin-top:18px}.recenttop{display:flex;align-items:center;justify-content:space-between;gap:10px}.recenttop h3{font-size:14px;margin:0}.recentlist{display:grid;gap:9px;margin-top:12px}.entry{border:1px solid #e2eaf1;border-radius:11px;padding:11px 12px;background:#fbfdff;display:flex;justify-content:space-between;gap:10px}.entry strong{font-size:12px}.entry small{display:block;font-size:11px;color:#738c9e;margin-top:4px;line-height:1.5}.entry button{border:0;background:transparent;color:#b75250;font-size:11px;font-weight:750;white-space:nowrap}.empty{font-size:12px;color:#8197a9;background:#f7fafc;border-radius:10px;padding:15px;line-height:1.6;text-align:center}.bottom{margin-top:18px;font-size:12px;line-height:1.65;color:#597b91;text-align:center}
 @keyframes pulse{0%{box-shadow:0 0 0 0 #e6505f66}75%{box-shadow:0 0 0 10px #e6505f00}100%{box-shadow:0 0 0 0 #e6505f00}}
 @media(max-width:950px){.panelrow{grid-template-columns:1fr}.summary{position:static}.card{padding:20px}}@media(max-width:650px){#gradeField,#classField{grid-column:1/-1}.hero{padding:17px 16px 85px}.hero .brand strong{font-size:12px}.hero .flag{font-size:9px;padding:7px 9px}.flag:not(.gold){display:none}.herotext{margin-top:24px}.herotext p{font-size:12px}.shell{margin-top:-64px;padding:0 12px 35px}.tabs{gap:7px}.tab{flex-direction:column;align-items:center;gap:7px;min-height:117px;border-radius:13px;padding:13px 5px;text-align:center}.tab.active{padding:12px 4px}.tab .symbol{width:42px;height:42px;border-radius:12px;font-size:23px}.tab strong{font-size:13px}.tab small{font-size:10px;line-height:1.35}.tab .num{display:none}.card{padding:16px;border-radius:15px}.fields{gap:11px}.field .ctrl{font-size:13px}.cardhead h2{font-size:18px}.cardhead .pill{font-size:9px}.kv{grid-template-columns:84px 1fr}.actions .btn{flex:1}.btn.link{flex:0 0 100%}.radiochips label{padding:8px 9px;font-size:11px}}
+
+/* EDOS NeNepHS - compact header + balanced 3 actions, mobile-first */
+.hero{padding:17px max(20px,calc((100vw - 1180px)/2)) 28px;min-height:0;overflow:hidden}
+.hero::after{width:270px;height:270px;border-width:42px;top:-155px;right:-55px}
+.herotext{margin-top:13px;display:grid;gap:4px}
+.herotext h1{margin:2px 0 3px;font-size:clamp(25px,2.45vw,33px);letter-spacing:-.03em;line-height:1.18}
+.herotext p{font-size:12.5px;line-height:1.55;max-width:850px}
+.eyebrow{font-size:10px;letter-spacing:.12em}
+.shell{margin:15px auto 0;padding-bottom:65px}
+.tabs{gap:10px}
+.tab,.tab.active{min-height:83px;border-radius:14px;padding:12px 13px;gap:12px;box-shadow:0 3px 14px rgba(18,61,104,.06)}
+.tab{border:1px solid #d4e2ee}
+.tab.active{background:#e8f8fc;border:2px solid #078bba;padding:11px 12px}
+.tab .symbol{width:44px;height:44px;border-radius:11px;font-size:21px}
+.tab strong{font-size:15px}
+.tab small{font-size:11px}
+.tab .num{top:8px;right:10px}
+.panelrow{margin-top:12px}
+@media(max-width:650px){.hero{padding:14px 14px 22px}.herotext{margin-top:11px}.herotext h1{font-size:27px}.herotext p{font-size:11px;line-height:1.5}.shell{margin:10px auto 0;padding:0 10px 45px}.tabs{gap:7px}.tab,.tab.active{min-height:88px;padding:10px 5px;gap:5px;border-radius:11px}.tab.active{padding:9px 4px}.tab .symbol{width:33px;height:33px;font-size:18px;border-radius:9px}.tab strong{font-size:12px}.tab small{font-size:9px}.panelrow{margin-top:10px}}
 </style>
 </head>
 <body>
 <header class="hero">
-  <div class="headtop"><div class="brand"><div class="mark">HV</div><div><small>TRƯỜNG THPT HÒA VANG</small><strong>HVA–EDOS · Nghiệp vụ số</strong></div></div><div class="topflags"><span class="flag">NĂM HỌC 2026–2027</span><span class="flag gold">BẢN XEM THỬ · KHÔNG GỬI DỮ LIỆU</span></div></div>
-  <div class="herotext"><div class="eyebrow">HỆ THỐNG QUẢN LÝ NỀ NẾP</div><h1>NỀ NẾP HỌC SINH</h1><p>Ghi nhận nhanh tại trường và lớp học · Chọn học sinh từ danh sách chung · Hỗ trợ nhập bằng bàn phím hoặc micro · Chờ BGH xác minh trước khi chuyển Thi đua.</p></div>
+  <div class="headtop"><div class="brand"><div class="mark">HV</div><div><small>TRƯỜNG THPT HÒA VANG</small><strong>HVA–EDOS · Nghiệp vụ số</strong></div></div><div class="topflags"><span class="flag">NĂM HỌC 2026–2027</span><span class="flag gold">DEMO · HỌC SINH MẪU · KHÔNG GỬI</span></div></div>
+  <div class="herotext"><div class="eyebrow">HỆ THỐNG QUẢN LÝ NỀ NẾP</div><h1>NỀ NẾP HỌC SINH</h1><p>Ba thao tác trực quan: Trễ · Vắng · Vi phạm. Có thể viết hoặc đọc qua micro; dữ liệu chỉ được ghi sau khi BGH xác minh.</p></div>
 </header>
 <main class="shell">
   <nav class="tabs" aria-label="Ba nghiệp vụ nền nếp học sinh">
