@@ -83,7 +83,7 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
 </head>
 <body>
 <header class="hero"><div class="orb" aria-hidden="true"></div><div class="container hero-inner"><div class="topline"><div class="identity"><span class="emblem" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7M9 9h.01M15 9h.01"/></svg></span><div class="brand">TRƯỜNG THPT HÒA VANG<br>CỔNG NGHIỆP VỤ SỐ</div></div><a class="back" href="./index.html" aria-label="Quay về trang chính Cổng Nghiệp vụ số">← Trang chính</a></div><div class="hero-copy"><div class="eyebrow">Không gian quản trị · Điều hành</div><h1>BAN GIÁM HIỆU – ĐIỀU HÀNH</h1><p>Điều hành chuyên môn · Quản trị nghiệp vụ · Bảo đảm chất lượng</p></div></div></header>
-<main class="container main"><div class="panel"><div class="panel-top"><div><h2 class="panel-title">Điều hành và quản trị</h2><p class="panel-sub">2 phân hệ · 14 chức năng: Điều hành (10), Quản trị – Kiểm tra – Chất lượng (4). Các chức năng chưa kết nối được thông báo rõ.</p></div><span id="count" class="count">2 phân hệ</span></div><div class="toolbar"><label class="search-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input class="search" id="search" type="search" placeholder="Tìm nghiệp vụ điều hành, quản trị, kiểm tra..." autocomplete="off" aria-label="Tìm chức năng điều hành"></label></div><div id="sections"></div><div id="empty" class="empty">Không tìm thấy chức năng phù hợp.</div></div></main>
+<main class="container main"><div class="panel"><div class="panel-top"><div><h2 class="panel-title">Điều hành và quản trị</h2><p class="panel-sub">2 phân hệ · 15 chức năng: Điều hành (10), Quản trị – Kiểm tra – Chất lượng (5). Các chức năng chưa kết nối được thông báo rõ.</p></div><span id="count" class="count">2 phân hệ</span></div><div class="toolbar"><label class="search-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input class="search" id="search" type="search" placeholder="Tìm nghiệp vụ điều hành, quản trị, kiểm tra..." autocomplete="off" aria-label="Tìm chức năng điều hành"></label></div><div id="sections"></div><div id="empty" class="empty">Không tìm thấy chức năng phù hợp.</div></div></main>
 <footer>© 2026 Trường THPT Hòa Vang. Bảo lưu mọi quyền.</footer>
 <div id="modal" class="overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc" aria-hidden="true"><div class="dialog"><div class="dialog-symbol" aria-hidden="true">✦</div><h2 id="modalTitle"></h2><p id="modalDesc"></p><div class="dialog-actions"><button type="button" id="modalClose">Đóng</button></div></div></div>
 <script>
@@ -108,7 +108,8 @@ const groups=[
  ['Quản trị nghiệp vụ điều hành','Quản lý và theo dõi toàn bộ chức năng điều hành, phân công và điều phối','coordinate','blue'],
  ['Quản trị nghiệp vụ số','Quản lý nghiệp vụ A – B – C, hồ sơ, tiến độ, thống kê và phân quyền','folder','cyan'],
  ['Kiểm tra nội bộ','Kế hoạch, phân công, biên bản, kết luận và theo dõi khắc phục','survey','violet'],
- ['Bảo đảm chất lượng','Tiêu chí, minh chứng, tự đánh giá, cải tiến và theo dõi chất lượng','chart','teal']]}];
+ ['Bảo đảm chất lượng','Tiêu chí, minh chứng, tự đánh giá, cải tiến và theo dõi chất lượng','chart','teal'],
+ ['Quản lý Nề nếp học sinh','Tra cứu học sinh, xác minh, thống kê và báo cáo định kỳ','chart','teal']]}];
 const NVS_VISIBLE_ITEMS=new Set(groups.flatMap(g=>(g.subgroups?g.subgroups.flatMap(s=>s.items):g.items).map(i=>i[0])));
 /* Đường dẫn tương đối: đặt 7 HTML cùng thư mục DieuHanh.html. */
 const MODULE_LINKS={
@@ -119,6 +120,7 @@ const MODULE_LINKS={
  'Phân công dạy thay':'./NVS_DayThay.html',
  'Bình chọn':'./NVS_BinhChon.html',
  'Khảo sát':'./NVS_KhaoSat.html',
+ 'Quản lý Nề nếp học sinh':'./NVS_NeNepQuanTri_STAGING.html',
   'Trung tâm Quản trị NVS':'./NVS_QuanTri.html'
 };
 const NVS_SUBMENU_ROUTES={
