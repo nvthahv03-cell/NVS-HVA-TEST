@@ -273,10 +273,20 @@ function filterStudents(phrase){const el=$('student'), query=noAccent(phrase), a
   renderPreview();return matches.length;
 }
 function safeStudents(rows){
- return Array.isArray(rows)?rows.filter(x=>x&&typeof x.key==='string'&&typeof x.name==='string'
-   &&x.key.length<300&&x.name.length<180).map(x=>({
-   id:x.key,name:x.name,caption:x.name+(x.birthday?' · '+String(x.birthday):'')
- })): [];
+ if(!Array.isArray(rows))return [];
+ const valid=rows.filter(x=>x&&typeof x.key==='string'&&typeof x.name==='string'
+   &&x.key.length<300&&x.name.length<180);
+ const counts=new Map();
+ valid.forEach(x=>{const k=noAccent(x.name);counts.set(k,(counts.get(k)||0)+1);});
+ return valid.map(x=>{
+   const duplicated=counts.get(noAccent(x.name))>1;
+   // Chỉ nhận bốn số cuối đã được máy chủ cho phép trả về; tuyệt đối không suy ra từ token.
+   const suffix=x.idLast4&&/^\d{4}$/.test(String(x.idLast4))?String(x.idLast4):'';
+   const born=x.birthday?String(x.birthday):'';
+   return{id:x.key,name:x.name,birthday:born,duplicated,
+     caption:x.name+(born?' · Sinh '+born:'')+(duplicated&&suffix?' · Mã ••••'+suffix:'')+
+       (duplicated&&!born&&!suffix?' · TRÙNG TÊN: cần đối chiếu hồ sơ':'')};
+ });
 }
 function showRosterForClass(cls,rows,isCache=false){
  if(cls!==$('schoolClass').value)return;
@@ -350,6 +360,7 @@ async function searchStudentOnClick(){
   if(!app.roster.length){const ok=await populateStudents();if(!ok||!app.roster.length){status('Chưa tải được danh sách học sinh của lớp. Kiểm tra phiên đăng nhập và quyền truy cập.',true);return;}}
   const count=filterStudents(term);
   if(!count){status('Không có học sinh khớp tên “'+term+'” trong lớp '+cls+'. Hãy kiểm tra cách viết hoặc tìm bằng micro.',true);return;}
+  if(app.roster.filter(x=>noAccent(x.name)===noAccent(term)).length>1)status('CÓ HỌC SINH TRÙNG TÊN: hãy đối chiếu ngày sinh, chọn đúng người; nếu chưa phân biệt được, kiểm tra hồ sơ gốc trước khi ghi.',true);
   status('Tìm thấy '+count+' học sinh. Vui lòng chọn đúng người trong danh sách kết quả.');
   openStudentResults();
 }
@@ -390,7 +401,7 @@ function updateSessionWarning(d){
 }
 function renderPreview(){const d=data();$('previewType').textContent=names[d.kind];$('previewFields').innerHTML=details(d).map(([k,v])=>'<dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd>').join('');updateSessionWarning(d);}
 function status(txt,error=false){const p=$('feedback');p.textContent=txt;p.className='inlineStatus'+(error?' error':'');}
-function validate(d){if(!d.grade||!d.cls||!d.studentId)return'Chưa chọn đủ Khối, Lớp, Học sinh từ Backend có xác thực.';if(!d.date||!d.time||!d.eventSession)return'Vui lòng chọn ngày, giờ, buổi xảy ra.';if(d.kind==='tre'){const n=Number(d.minutes.replace(/\s*phút\s*/gi,'').trim());if(!Number.isInteger(n)||n<=0||n>240)return'Số phút trễ phải là số nguyên từ 1 đến 240.';}if(d.kind==='vang'&&d.scope==='Theo tiết'&&d.periods.length===0)return'Vui lòng chọn ít nhất một tiết vắng.';if(d.kind==='vipham'&&(!d.type||!d.detail))return'Vui lòng chọn loại sự việc và ghi nội dung.';return'';}
+function validate(d){if(!d.grade||!d.cls||!d.studentId)return'Chưa chọn đủ Khối, Lớp, Học sinh từ Backend có xác thực.';const rec=app.roster.find(x=>x.id===d.studentId);if(!rec)return'Học sinh chưa được xác nhận từ danh sách Backend của lớp.';if(rec.duplicated&&!rec.birthday)return'Học sinh trùng họ tên nhưng chưa có ngày sinh để phân biệt. Yêu cầu đối chiếu hồ sơ gốc trước khi ghi.';if(!d.date||!d.time||!d.eventSession)return'Vui lòng chọn ngày, giờ, buổi xảy ra.';if(d.kind==='tre'){const n=Number(d.minutes.replace(/\s*phút\s*/gi,'').trim());if(!Number.isInteger(n)||n<=0||n>240)return'Số phút trễ phải là số nguyên từ 1 đến 240.';}if(d.kind==='vang'&&d.scope==='Theo tiết'&&d.periods.length===0)return'Vui lòng chọn ít nhất một tiết vắng.';if(d.kind==='vipham'&&(!d.type||!d.detail))return'Vui lòng chọn loại sự việc và ghi nội dung.';return'';}
 function renderRecent(){$('count').textContent=app.records.length;const list=$('recentList');if(!app.records.length){list.innerHTML='<div class="empty">Chưa có lượt gửi thành công trong phiên này. Khi gửi, hãy đối chiếu kết quả trong tab Nề nếp tương ứng.</div>';return;}list.innerHTML=app.records.slice().reverse().map(r=>'<div class="entry"><div><strong>'+esc(r.d.studentName)+' · '+esc(r.d.cls)+'</strong><small>'+esc(names[r.d.kind])+' · '+esc(r.d.date)+' '+esc(r.d.time)+'<br>Bản nháp, chưa gửi</small></div><button type="button" data-remove="'+r.id+'">Xóa</button></div>').join('');list.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{app.records=app.records.filter(r=>String(r.id)!==b.dataset.remove);renderRecent();status('Đã xóa bản ghi mẫu trong phiên này.');}));}
 
 function requestId(){return (typeof crypto!=='undefined'&&crypto.randomUUID)?crypto.randomUUID().replace(/-/g,''):'NN'+Date.now().toString(36)+Math.random().toString(36).slice(2,15);}
